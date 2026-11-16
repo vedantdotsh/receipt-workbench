@@ -5,8 +5,6 @@ Test set: 444 files from 8 base invoices x 4 layouts (32 clean, 412 with one pla
 - Clean-file field coverage: 571 of 716 fields confirmed at their label, 109 found on the page without a label, 36 not located.
 - 412 of 412 files with a planted difference still pass schema and rule validation.
 
-Regenerating with embedded fonts and an sRGB output intent leaves every per-file score unchanged.
-
 | Planted difference | Files | Detected | Other field | Inconclusive | Missed | Naive baseline |
 |---|---|---|---|---|---|---|
 | bic (pdf changed) | 32 | 32 | 0 | 0 | 0 | 0 |
@@ -42,12 +40,11 @@ synthetic and share an author with the checker.
 | Mustangproject | 2.26.0 | 32 (overall verdict) | 0 | 0 | 412 | 0 |
 | veraPDF (PDF/A-3b) | 1.30.4 | 32 | 0 | 0 | 412 | 0 |
 
-**Clean files.** Both validators now accept all 32 clean and all 412 changed files.
+**Clean files.** Both validators accept all 32 clean and all 412 changed files.
 Mustangproject reports valid overall, XML and nested PDF verdicts throughout. The generated
 PDFs embed ReportLab's Bitstream Vera regular/bold fonts (Bitstream Vera licence) and declare
 the bundled `sRGB-v2-magic.icc` from [Compact ICC Profiles](https://github.com/saucecontrol/Compact-ICC-Profiles)
-(CC0-1.0); all drawing colours are RGB. This removes the previous unembedded-font and
-missing-output-intent failures. XMP metadata and the attachment relationship remain accepted.
+(CC0-1.0); all drawing colours are RGB.
 Mustangproject runs veraPDF internally, so the two PDF verdicts are not independent. Neither
 tool flags the planted page/data differences.
 

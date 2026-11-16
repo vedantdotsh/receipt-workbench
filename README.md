@@ -119,8 +119,7 @@ unseen layout.
 **Other validators.** Mustangproject 2.26.0 accepts all 32 clean files and all 412 changed
 files, including its nested PDF check: it flags none of the planted differences. It was never
 meant to compare page and data, so this is the expected boundary of that kind of tool, not a defect
-in it. veraPDF 1.30.4 also accepts all 444 files as PDF/A-3b after embedding the fonts and
-adding an sRGB output intent. Neither validator flags page/data differences. Details are
+in it. veraPDF 1.30.4 accepts all 444 files as PDF/A-3b and likewise flags none of them. Details are
 in [benchmark/RESULTS.md](benchmark/RESULTS.md).
 
 **Public sample invoices.** On the 97 comparable PDFs in the "correct" folders of the

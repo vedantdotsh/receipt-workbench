@@ -1,0 +1,36 @@
+[project]
+name = "receipt-workbench"
+version = "0.1.0"
+description = "Checks that the readable page of a hybrid e-invoice matches its embedded data"
+readme = "README.md"
+authors = [
+    { name = "Vedant Patil" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "factur-x>=7.9",
+    "fastapi>=0.163.1",
+    "lxml>=6.1.3",
+    "pdfplumber>=0.11.10",
+    "pillow>=13.0.0",
+    "pypdf>=7.1.0",
+    "pypdfium2>=5.15.2",
+    "python-multipart>=0.0.33",
+    "reportlab>=5.1.0",
+    "saxonche>=13.1.1",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[project.scripts]
+receipt-workbench = "receipt_workbench.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.2.0",
+    "ruff>=0.17.5",
+]

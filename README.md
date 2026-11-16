@@ -7,7 +7,7 @@ Receipt Workbench is a Python web app and CLI that runs those validation layers
 and compares the PDF text layer with the embedded data. It reports differences,
 uncertainty and field coverage, with page positions and XML paths for review.
 
-Live demo: <DEMO_URL>
+Live demo: <https://receipt-workbench.madebyved.com>
 
 ## What it checks
 
@@ -177,4 +177,9 @@ Use test invoices for a public demo.
 
 Python dependencies carry their own licences. Generated PDFs embed ReportLab's
 Bitstream Vera fonts under the Bitstream Vera licence; the fonts come from the
-dependency. No licence for the project's own code has been selected yet.
+dependency.
+
+## Licence
+
+The project's own code is licensed under [Apache-2.0](LICENSE). The bundled
+artefacts above keep their own licences.

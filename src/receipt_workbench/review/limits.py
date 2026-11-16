@@ -233,6 +233,9 @@ def security_headers(page: Path) -> dict[str, str]:
     return {
         "X-Content-Type-Options": "nosniff",
         "Referrer-Policy": "no-referrer",
+        "X-Frame-Options": "DENY",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+        "Strict-Transport-Security": "max-age=31536000",
         "Content-Security-Policy": (f"default-src 'none'; script-src 'self' {hashes}; script-src-attr 'none'; "
                                     "style-src 'self' 'unsafe-inline'; img-src 'self'; connect-src 'self'; "
                                     "base-uri 'none'; frame-ancestors 'none'; form-action 'self'"),

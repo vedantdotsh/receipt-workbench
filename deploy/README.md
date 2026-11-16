@@ -28,6 +28,30 @@ Open the domain over HTTPS. Caddy obtains and renews the certificate and
 redirects HTTP to HTTPS. Its named volumes retain certificates across updates;
 do not delete them with `down -v` during routine maintenance.
 
+## Without open ports: Cloudflare Tunnel
+
+`compose.tunnel.yaml` replaces Caddy with `cloudflared`. The server publishes
+no port and its address stays out of DNS; Cloudflare terminates HTTPS and the
+tunnel dials out. Use it when the domain is on Cloudflare or the server also
+runs private services.
+
+On a trusted machine, not the server, create the tunnel and its DNS record:
+
+```sh
+cloudflared tunnel login
+cloudflared tunnel create receipt-workbench
+cloudflared tunnel route dns receipt-workbench demo.example.com
+cloudflared tunnel token receipt-workbench
+```
+
+Put only that token in `deploy/.env` on the server as `TUNNEL_TOKEN`, keep the
+file at mode 600, and use `-f deploy/compose.tunnel.yaml` in every command
+here. The account certificate from `tunnel login` never needs to reach the server.
+Cloudflare appends the visitor address to `X-Forwarded-For`, which is the entry
+the app reads. The app sends its own security headers in public mode.
+
+## Maintenance
+
 Update, inspect, and stop from the same repository root:
 
 ```sh

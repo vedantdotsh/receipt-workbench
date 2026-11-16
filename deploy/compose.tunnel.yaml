@@ -1,0 +1,35 @@
+name: receipt-workbench
+
+services:
+  app:
+    extends:
+      file: app.yaml
+      service: app
+
+  tunnel:
+    image: cloudflare/cloudflared:2026.11.0
+    command: tunnel --no-autoupdate run --url http://app:8321
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:?Set TUNNEL_TOKEN in deploy/.env}
+    depends_on:
+      app:
+        condition: service_healthy
+    mem_limit: 256m
+    memswap_limit: 256m
+    cpus: 0.5
+    pids_limit: 128
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped
+    networks: [edge, backend]
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+networks:
+  edge:
+  backend:
+    internal: true

@@ -20,9 +20,9 @@ import re
 from dataclasses import asdict, dataclass, field
 from decimal import ROUND_HALF_UP, Decimal
 
-from .cii import Invoice, V
-from .normalize import fmt_decimal, fold, squash
-from .pdftext import PdfText, Row, Token
+from ..common.normalize import fmt_decimal, fold, squash
+from ..invoice_data.cii import Invoice, V
+from ..page_text.pdftext import PdfText, Row, Token
 
 CRITICAL = {"invoice_number", "issue_date", "grand_total", "due_payable", "tax_total", "iban"}
 
@@ -153,7 +153,6 @@ class Comparer:
         self.line_rows: set[int] = set()  # ids of rows used by line items
         self.sign_flex = inv.is_credit_note
 
-    # ---------- helpers
     def _next_row(self, row: Row) -> Row | None:
         i = self.rows.index(row)
         if i + 1 < len(self.rows):
@@ -252,7 +251,6 @@ class Comparer:
                     known.add(v.value)
         return known
 
-    # ---------- field groups
     def lines(self) -> None:
         inv = self.inv
         if not inv.lines:

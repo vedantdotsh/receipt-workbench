@@ -111,14 +111,22 @@ It does show the check finds differences nobody planted for it.
 
 ```
 src/receipt_workbench/
-  ingest.py     hash, classify, extract the embedded XML, refuse DOCTYPE and ambiguous attachments
-  cii.py        XML -> values with business term (BT) and XPath, Decimal amounts
-  pdftext.py    words with positions -> rows -> typed tokens (numbers, dates, IBANs, VAT IDs)
-  compare.py    the field, line and VAT comparison, coverage and verdict
-  validate.py   XSD and Schematron runs with engine and artefact versions
-  check.py      one file in, one evidence record out
-  synth.py      seeded test set generator      bench.py   scorer
-  server.py     local review screen            static/    the screen
+  __init__.py             package version
+  cli.py                  command-line entry point
+  common/normalize.py     shared parsing and formatting helpers
+  intake/ingest.py        hash, classify, extract the embedded XML, refuse DOCTYPE and ambiguous attachments
+  invoice_data/cii.py     XML -> values with business term (BT) and XPath, Decimal amounts
+  page_text/pdftext.py    words with positions -> rows -> typed tokens (numbers, dates, IBANs, VAT IDs)
+  comparison/compare.py   the field, line and VAT comparison, coverage and verdict
+  validation/validate.py  XSD and Schematron runs with engine and artefact versions
+  pipeline/check.py       one file in, one evidence record out
+  testset/synth.py         seeded test set generator
+  testset/bench.py         scorer
+  review/server.py        local review screen
+  review/static/          the screen and vendored scripts
+tests/
+  conftest.py             shared synthetic invoice helpers and fixtures
+  test_<feature>.py       one test file per feature folder
 ```
 
 All sample parties, bank accounts and tax numbers in the generated invoices are invented.

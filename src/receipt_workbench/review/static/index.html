@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Receipt Workbench</title>
+<style>
+/* One table for the batch. A row opens in three steps: summary, details (page + fields), clarification.
+   Colour is used for status only. */
+:root {
+  --bg: #faf8f4; --sf: #fffefb; --sunk: #f3f0e9; --line: #e6e0d4; --fg: #2d2a26; --mu: #6f695f;
+  --pr: #2d2a26; --pr-fg: #ffffff;
+  --red: #b5422f; --red-bg: #fbe9e5; --amber: #946c0c; --green: #2f7d55; --blue: #2b6fd0;
+  --sans: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", Consolas, "SF Mono", monospace;
+}
+@media (prefers-color-scheme: dark) { :root {
+  --bg: #1d1c1a; --sf: #252422; --sunk: #2d2b28; --line: #3a3732; --fg: #e6e3dd; --mu: #a39d92;
+  --pr: #e6e3dd; --pr-fg: #1d1c1a;
+  --red: #e98876; --red-bg: #47271f; --amber: #d6ad55; --green: #6fbf93; --blue: #8fb6f2; color-scheme: dark } }
+* { box-sizing: border-box }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 14px/1.5 var(--sans); font-variant-numeric: tabular-nums }
+button, textarea { font: inherit; color: inherit }
+button { cursor: pointer }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px }
+[hidden] { display: none !important }
+.mu { color: var(--mu) }
+.btn { border: 1px solid var(--line); background: var(--sf); border-radius: 8px; padding: 7px 13px; white-space: nowrap; text-decoration: none; color: inherit; display: inline-block }
+.btn:hover { background: var(--sunk) }
+.btn.p { background: var(--pr); color: var(--pr-fg); border-color: var(--pr) } .btn.p:hover { opacity: .9 }
+.link { border: 0; background: none; padding: 7px 2px; color: var(--mu); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line) }
+.link:hover { color: var(--fg) }
+.seg { display: inline-flex; gap: 2px }
+.seg button { border: 0; background: none; padding: 4px 6px; color: var(--mu); border-radius: 6px }
+.seg button[aria-pressed="true"] { color: var(--fg); font-weight: 600 }
+
+header { display: flex; align-items: center; gap: 14px; padding: 14px 24px; border-bottom: 1px solid var(--line); flex-wrap: wrap }
+header h1 { font-size: 14.5px; margin: 0; font-weight: 600; flex: 1 }
+main { max-width: 1080px; margin: 0 auto; padding: 28px 24px 60px }
+.top { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: 16px }
+.top h2 { font-size: 22px; line-height: 1.25; margin: 0; font-weight: 600; letter-spacing: -.015em; flex: 1; min-width: 240px }
+#empty { max-width: 600px; margin: 40px auto; text-align: center }
+#empty h2 { font-size: 22px; margin: 0 0 10px; line-height: 1.25; letter-spacing: -.015em; text-wrap: balance }
+#empty p { color: var(--mu); margin: 0 0 20px }
+body.over main { outline: 2px dashed var(--mu); outline-offset: -8px; border-radius: 14px }
+
+.dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; background: var(--green) }
+.dot.r { background: var(--red) } .dot.a { background: var(--amber) } .dot.n { background: var(--line) }
+
+table.batch { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--sf); border: 1px solid var(--line); border-radius: 10px; overflow: clip }
+.batch th { text-align: left; font-weight: 400; font-size: 12.5px; color: var(--mu); padding: 9px 12px }
+.batch th:nth-child(4), .batch td.amt { text-align: right; white-space: nowrap }
+.batch tr.item td { padding: 10px 12px; border-top: 1px solid var(--line) }
+.batch tr.item { cursor: pointer } .batch tr.item:hover { background: var(--sunk) }
+.batch tr.item[aria-expanded="true"] { background: none }
+.batch tr.item.fine td { color: var(--mu) }
+.batch td.d { width: 32px; padding-right: 0 !important }
+.batch td.from { color: var(--mu) } .batch td.no { font-weight: 500; white-space: nowrap }
+.batch .done { color: var(--mu) }
+.batch tr.open > td { padding: 2px 16px 18px 44px }
+
+.sum h3 { font-size: 17px; margin: 0; font-weight: 600; letter-spacing: -.01em; line-height: 1.3 }
+.sum > p { margin: 3px 0 0; color: var(--mu); max-width: 68ch }
+.vals { border: 1px solid var(--line); border-radius: 10px; margin-top: 12px; max-width: 560px; background: var(--bg) }
+.vals div { display: flex; justify-content: space-between; gap: 16px; padding: 8px 13px; color: var(--mu); font-size: 13px }
+.vals div + div { border-top: 1px solid var(--line) }
+.vals .vh { color: var(--fg); font-weight: 500 }
+.vals code { font: 12.5px var(--mono); color: var(--fg); text-align: right; overflow-wrap: anywhere } .vals .pg code { color: var(--red) }
+.facts { margin-top: 10px; font-size: 13px; color: var(--mu) }
+.acts { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 14px }
+.clar { margin-top: 14px; max-width: 640px }
+.clar label { display: block; font-size: 13px; color: var(--mu); margin-bottom: 6px }
+.clar textarea { width: 100%; min-height: 250px; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); line-height: 1.5; resize: vertical }
+.event { font-size: 12.5px; color: var(--mu); margin-top: 8px }
+
+.details { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 22px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--line) }
+#pagepane { position: sticky; top: 12px; align-self: start; max-height: calc(100vh - 24px); overflow: auto }
+#pagebar { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; color: var(--mu); font-size: 12.5px; flex-wrap: wrap }
+#pagewrap { position: relative; background: #fff; border: 1px solid var(--line); line-height: 0 }
+#pagewrap img { width: 100%; display: block }
+#pagewrap svg { position: absolute; inset: 0; width: 100%; height: 100% }
+.nopage { border: 1px solid var(--line); border-radius: 8px; padding: 16px; color: var(--mu) }
+.explain { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 4px; font-size: 13.5px }
+.explain code { font: 11.5px var(--mono); color: var(--mu); display: block; margin-top: 6px; overflow-wrap: anywhere }
+h4 { font-size: 12.5px; font-weight: 400; color: var(--mu); margin: 16px 0 6px }
+table.ft { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13px }
+.ft td, .ft th { padding: 6px 8px 6px 0; text-align: left; vertical-align: top; border-top: 1px solid var(--line); overflow-wrap: anywhere }
+.ft th { font-size: 12px; color: var(--mu); font-weight: 400; border-top: 0 } .ft th:nth-child(1) { width: 28% } .ft th:nth-child(4) { width: 25% }
+.ft tr.f { cursor: pointer } .ft tr.f:hover { background: var(--sunk) }
+.ft tr.f[aria-selected="true"] { background: var(--sunk); box-shadow: inset 2px 0 0 var(--fg) } .ft tr.f[aria-selected="true"] td:first-child { padding-left: 8px }
+.ft td.val { font-family: var(--mono); font-size: 12px } .ft td.val .pdf { color: var(--red); display: block }
+.ft .st { white-space: nowrap } .ft .st .dot { margin-right: 6px }
+.bt { color: var(--mu); font-size: 11.5px }
+.rule { border-top: 1px solid var(--line); padding: 7px 0; font-size: 13px } .rule b { font: 12.5px var(--mono) }
+.note { font-size: 12px; color: var(--mu); margin-top: 28px; max-width: 80ch }
+@media (max-width: 900px) { .details { grid-template-columns: 1fr } #pagepane { position: static; max-height: none } .batch tr.open > td { padding-left: 16px } }
+@media (max-width: 640px) { .batch .from, .batch th:nth-child(3) { display: none } main { padding: 20px 14px 40px } header { padding: 12px 14px } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Receipt Workbench</h1>
+  <div class="seg" role="group" aria-label="Language">
+    <button id="lang-en" aria-pressed="true">EN</button><button id="lang-de" aria-pressed="false">DE</button>
+  </div>
+  <button class="link" id="samples" data-t="loadSamples"></button>
+  <button class="btn p" id="pick" data-t="upload"></button>
+  <input type="file" id="file" multiple accept=".pdf,.xml,application/pdf,text/xml" hidden>
+</header>
+<main>
+  <section id="empty">
+    <h2 data-t="emptyTitle"></h2>
+    <p data-t="emptyBody"></p>
+    <button class="btn p" id="samples2" data-t="loadSamples"></button>
+    <p class="mu" style="margin-top:18px" data-t="drop"></p>
+  </section>
+  <section id="batch" hidden>
+    <div class="top"><h2 id="headline"></h2><span class="mu" data-t="drop"></span><button class="link" id="clear" data-t="clear"></button></div>
+    <div id="list"></div>
+  </section>
+  <p class="note" data-t="disclaimer"></p>
+</main>
+<script>
+const T = {
+en: {
+  loadSamples: "Load sample invoices", upload: "Check files", clear: "Clear",
+  emptyTitle: "Does the invoice page say the same as its embedded data?",
+  emptyBody: "A hybrid e-invoice (ZUGFeRD, Factur-X) is a PDF with a second, machine-readable copy inside. People approve the page; software books the data. Drop a whole batch here. Every file is checked, and the ones that need a person come first.",
+  drop: "Drop PDF or XML files anywhere on this page. They stay on this computer.",
+  disclaimer: "Technical consistency check of the PDF text layer against the embedded XML. It is not tax advice, not a fraud check and not a payment approval. Use test data only.",
+  headline: (n, k) => `${n} ${n === 1 ? "invoice" : "invoices"} checked. ${k ? (k === 1 ? "1 needs a look." : k + " need a look.") : "Nothing left to look at."}`,
+  th: { invoice: "Invoice", from: "From", amount: "Amount", result: "Result" },
+  oneDiffers: (n) => `${n} differs`, manyDiffer: (k) => `${k} fields differ`,
+  sumOne: (n) => `${n}: the page does not show what the data says.`, sumMany: (k) => `${k} fields on the page differ from the embedded data.`,
+  sumAdvice: "The embedded data is the copy that gets booked. Check with the sender which value is right before booking or paying.",
+  sumInvalid: "The embedded data fails validation.", moreInDetails: (k) => `${k} more in the details`,
+  pageShows: "Page shows", dataSays: "Data says", notOnPage: "not on the page",
+  showDetails: "Show page and all fields", hideDetails: "Hide details",
+  verdict: { difference_found: "Difference found", no_difference_in_checked_fields: "No difference in the checked fields", inconclusive: "Inconclusive", not_compared: "Page and data not compared" },
+  verdictText: {
+    difference_found: "At least one field on the page shows a different value than the embedded data.",
+    no_difference_in_checked_fields: "Every field that could be located agrees. Fields that were not located are listed in the details.",
+    inconclusive: "Key fields could not be located on the page, so the tool cannot say whether page and data agree.",
+    not_compared: "" },
+  reason: { xml_only: "This is an XML-only invoice. There is no separate page to compare it with.", no_text_layer: "The PDF has no text layer (it may be a scan). Nothing was compared.", pdf_text_unreadable: "The PDF text could not be read." },
+  status: { match: "Matches", present: "On page, unlabelled", mismatch: "Differs", ambiguous: "Unclear", not_found: "Not located", not_checked: "Not checked" },
+  outcome: { passed: "passed", failed: "failed", not_run: "not run", error: "validator error" },
+  checks: { schema: "Schema", rules: "Business rules" },
+  coverageText: (c) => `${c.match} of ${c.applicable} fields confirmed at their label, ${c.present} on the page, ${c.not_found + c.ambiguous} not located`,
+  groups: { header: "Header", parties: "Parties", payment: "Payment", totals: "Totals", vat: "VAT breakdown", lines: "Invoice lines" },
+  cols: { field: "Field", data: "Embedded data", page: "Page shows", status: "Result" },
+  fields: { invoice_number: "Invoice number", issue_date: "Invoice date", due_date: "Due date", delivery_date: "Delivery date", order_reference: "Order reference", buyer_reference: "Buyer reference", payment_reference: "Payment reference", currency: "Currency", seller_name: "Seller", buyer_name: "Buyer", seller_vat_id: "Seller VAT ID", buyer_vat_id: "Buyer VAT ID", seller_tax_number: "Seller tax number", iban: "IBAN", bic: "BIC", line_total: "Sum of lines", tax_basis_total: "Net total", tax_total: "VAT total", grand_total: "Gross total", due_payable: "Amount due", prepaid: "Prepaid", allowance_total: "Allowances", charge_total: "Charges", vat: "VAT", line: "Line", unlisted_row: "Row on page" },
+  notes: { value_on_page_without_label: "The value appears on the page, but not next to a label this tool recognises for the field.", no_label_and_value_not_on_page: "Neither the value nor a recognised label for it was found on the page.", label_shows_other_value: "A label for this field shows another value, but the data's value also appears elsewhere on the page.", line_not_on_page: "This line exists in the data, but neither its description nor its amount is on the page.", line_not_located: "The line could not be located on the page.", line_located_amount_not_confirmed: "The line was located, but its amount was not confirmed.", line_located_no_values_confirmed: "A row with this description was found, but none of its numbers were confirmed.", visible_row_not_in_data: "This row looks like an invoice line but matches no line in the data.", no_iban_on_page: "No IBAN is printed on the page.", no_bic_on_page: "No BIC is printed on the page.", no_vat_id_on_page: "No VAT ID is printed on the page.", vat_id_not_on_page: "This VAT ID is not printed on the page.", name_not_on_page: "The name was not found on the page as written in the data.", reference_not_on_page: "The reference is not printed on the page.", currency_not_on_page: "No currency code or symbol was found on the page.", vat_row_not_located: "The VAT row could not be located on the page.", printed_gross: "The page prints the amount including VAT." },
+  explainMismatch: (f, n) => `The page shows ${f.pdf_values.join(", ") || "a different value"} for ${n}. The embedded data says ${f.xml_value}.`,
+  explainMatch: (f, n) => `${n}: the value in the data was found at its place on the page.`,
+  select: "Click a field to see where it is on the page.", page: "Page", noPdf: "There is no PDF page for this file.",
+  rulesTitle: "Validation results", record: "Record", noRuleIssues: "No rule violations reported.", engine: "Engine",
+  reviewed: "Mark reviewed", clarify: "Needs clarification", exportEv: "Download evidence",
+  clarLabel: "Message to the sender. Edit it, copy it into an email, then save. The text is kept in the evidence record.",
+  saveClar: "Save as needs clarification", copy: "Copy message", copied: "Copied", cancel: "Cancel",
+  decisions: { reviewed: "Reviewed", needs_clarification: "Needs clarification" },
+  unsupported: "Not checked", failed: "Processing failed",
+  legend: "Red: differs. Green: matches. Blue: the label used.", profile: "Profile", lineCells: { net_amount: "amount", quantity: "quantity", net_price: "unit price" },
+  profileNoLines: "This profile carries no invoice lines, so lines cannot be compared.", xmlPath: "Location in data",
+  msgDiff: (n, p, x) => `${n}: the page shows ${p}, the embedded data says ${x}`,
+  msgMissing: (n, x) => `${n}: the embedded data says ${x}, we could not find this on the page`,
+  msg: (no, date, lines) => `Hello,\n\nwe received invoice ${no}${date ? " dated " + date : ""}. The PDF page and the embedded e-invoice data (ZUGFeRD / Factur-X) do not agree, or we could not confirm that they do:\n\n${lines}\n\nPlease tell us which values are correct, or send a corrected invoice. We will hold the invoice until then.\n\nThank you`,
+},
+de: {
+  loadSamples: "Beispielrechnungen laden", upload: "Dateien prüfen", clear: "Leeren",
+  emptyTitle: "Steht auf der Rechnungsseite dasselbe wie in den eingebetteten Daten?",
+  emptyBody: "Eine hybride E-Rechnung (ZUGFeRD, Factur-X) ist ein PDF mit einer zweiten, maschinenlesbaren Kopie. Menschen geben die Seite frei, Software verbucht die Daten. Legen Sie einen ganzen Stapel hier ab. Jede Datei wird geprüft, und die, die einen Menschen brauchen, stehen oben.",
+  drop: "PDF- oder XML-Dateien irgendwo auf dieser Seite ablegen. Sie bleiben auf diesem Rechner.",
+  disclaimer: "Technische Konsistenzprüfung der PDF-Textebene gegen das eingebettete XML. Keine Steuerberatung, keine Betrugsprüfung, keine Zahlungsfreigabe. Nur Testdaten verwenden.",
+  headline: (n, k) => `${n} ${n === 1 ? "Rechnung" : "Rechnungen"} geprüft. ${k ? (k === 1 ? "1 ist anzusehen." : k + " sind anzusehen.") : "Nichts mehr offen."}`,
+  th: { invoice: "Rechnung", from: "Von", amount: "Betrag", result: "Ergebnis" },
+  oneDiffers: (n) => `${n} weicht ab`, manyDiffer: (k) => `${k} Felder weichen ab`,
+  sumOne: (n) => `${n}: Die Seite zeigt nicht, was in den Daten steht.`, sumMany: (k) => `${k} Felder auf der Seite weichen von den eingebetteten Daten ab.`,
+  sumAdvice: "Die eingebetteten Daten sind maßgeblich und werden verbucht. Klären Sie vor dem Buchen oder Zahlen mit dem Absender, welcher Wert stimmt.",
+  sumInvalid: "Die eingebetteten Daten bestehen die Validierung nicht.", moreInDetails: (k) => `${k} weitere in den Details`,
+  pageShows: "Seite zeigt", dataSays: "Daten sagen", notOnPage: "nicht auf der Seite",
+  showDetails: "Seite und alle Felder zeigen", hideDetails: "Details ausblenden",
+  verdict: { difference_found: "Abweichung gefunden", no_difference_in_checked_fields: "Keine Abweichung in den geprüften Feldern", inconclusive: "Nicht eindeutig", not_compared: "Seite und Daten nicht verglichen" },
+  verdictText: {
+    difference_found: "Mindestens ein Feld zeigt auf der Seite einen anderen Wert als in den eingebetteten Daten.",
+    no_difference_in_checked_fields: "Alle gefundenen Felder stimmen überein. Nicht gefundene Felder stehen in den Details.",
+    inconclusive: "Wichtige Felder wurden auf der Seite nicht gefunden. Ob Seite und Daten übereinstimmen, ist offen.",
+    not_compared: "" },
+  reason: { xml_only: "Dies ist eine reine XML-Rechnung. Es gibt keine eigene Seite zum Vergleichen.", no_text_layer: "Das PDF hat keine Textebene (eventuell ein Scan). Es wurde nichts verglichen.", pdf_text_unreadable: "Der PDF-Text konnte nicht gelesen werden." },
+  status: { match: "Stimmt überein", present: "Auf Seite, ohne Beschriftung", mismatch: "Weicht ab", ambiguous: "Unklar", not_found: "Nicht gefunden", not_checked: "Nicht geprüft" },
+  outcome: { passed: "bestanden", failed: "Fehler", not_run: "nicht ausgeführt", error: "Validator-Fehler" },
+  checks: { schema: "Schema", rules: "Geschäftsregeln" },
+  coverageText: (c) => `${c.match} von ${c.applicable} Feldern an der Beschriftung bestätigt, ${c.present} auf der Seite, ${c.not_found + c.ambiguous} nicht gefunden`,
+  groups: { header: "Kopfdaten", parties: "Beteiligte", payment: "Zahlung", totals: "Summen", vat: "Umsatzsteuer", lines: "Positionen" },
+  cols: { field: "Feld", data: "Eingebettete Daten", page: "Seite zeigt", status: "Ergebnis" },
+  fields: { invoice_number: "Rechnungsnummer", issue_date: "Rechnungsdatum", due_date: "Fälligkeit", delivery_date: "Lieferdatum", order_reference: "Bestellnummer", buyer_reference: "Käuferreferenz", payment_reference: "Verwendungszweck", currency: "Währung", seller_name: "Verkäufer", buyer_name: "Käufer", seller_vat_id: "USt-IdNr. Verkäufer", buyer_vat_id: "USt-IdNr. Käufer", seller_tax_number: "Steuernummer Verkäufer", iban: "IBAN", bic: "BIC", line_total: "Summe Positionen", tax_basis_total: "Nettosumme", tax_total: "Umsatzsteuer gesamt", grand_total: "Bruttosumme", due_payable: "Zahlbetrag", prepaid: "Anzahlung", allowance_total: "Abschläge", charge_total: "Zuschläge", vat: "USt", line: "Position", unlisted_row: "Zeile auf Seite" },
+  notes: { value_on_page_without_label: "Der Wert steht auf der Seite, aber nicht neben einer Beschriftung, die das Werkzeug für dieses Feld kennt.", no_label_and_value_not_on_page: "Weder der Wert noch eine bekannte Beschriftung wurde auf der Seite gefunden.", label_shows_other_value: "Eine Beschriftung für dieses Feld zeigt einen anderen Wert, der Wert aus den Daten steht aber an anderer Stelle.", line_not_on_page: "Diese Position steht in den Daten, aber weder Bezeichnung noch Betrag stehen auf der Seite.", line_not_located: "Die Position wurde auf der Seite nicht gefunden.", line_located_amount_not_confirmed: "Die Position wurde gefunden, der Betrag aber nicht bestätigt.", line_located_no_values_confirmed: "Eine Zeile mit dieser Bezeichnung wurde gefunden, aber keine Zahl bestätigt.", visible_row_not_in_data: "Diese Zeile sieht wie eine Position aus, passt aber zu keiner Position in den Daten.", no_iban_on_page: "Auf der Seite steht keine IBAN.", no_bic_on_page: "Auf der Seite steht kein BIC.", no_vat_id_on_page: "Auf der Seite steht keine USt-IdNr.", vat_id_not_on_page: "Diese USt-IdNr. steht nicht auf der Seite.", name_not_on_page: "Der Name steht nicht so auf der Seite wie in den Daten.", reference_not_on_page: "Die Referenz steht nicht auf der Seite.", currency_not_on_page: "Kein Währungscode oder -symbol auf der Seite gefunden.", vat_row_not_located: "Die Steuerzeile wurde auf der Seite nicht gefunden.", printed_gross: "Die Seite zeigt den Betrag inklusive Umsatzsteuer." },
+  explainMismatch: (f, n) => `Die Seite zeigt ${f.pdf_values.join(", ") || "einen anderen Wert"} für ${n}. In den eingebetteten Daten steht ${f.xml_value}.`,
+  explainMatch: (f, n) => `${n}: Der Wert aus den Daten wurde an seiner Stelle auf der Seite gefunden.`,
+  select: "Feld anklicken, um die Stelle auf der Seite zu sehen.", page: "Seite", noPdf: "Zu dieser Datei gibt es keine PDF-Seite.",
+  rulesTitle: "Validierungsergebnisse", record: "Akte", noRuleIssues: "Keine Regelverstöße gemeldet.", engine: "Prüfwerkzeug",
+  reviewed: "Als geprüft markieren", clarify: "Klärung nötig", exportEv: "Prüfnachweis herunterladen",
+  clarLabel: "Nachricht an den Absender. Bearbeiten, in eine E-Mail kopieren, dann speichern. Der Text bleibt im Prüfnachweis.",
+  saveClar: "Als „Klärung nötig“ speichern", copy: "Nachricht kopieren", copied: "Kopiert", cancel: "Abbrechen",
+  decisions: { reviewed: "Geprüft", needs_clarification: "Klärung nötig" },
+  unsupported: "Nicht geprüft", failed: "Verarbeitung fehlgeschlagen",
+  legend: "Rot: weicht ab. Grün: stimmt. Blau: verwendete Beschriftung.", profile: "Profil", lineCells: { net_amount: "Betrag", quantity: "Menge", net_price: "Einzelpreis" },
+  profileNoLines: "Dieses Profil enthält keine Positionen, daher ist kein Positionsvergleich möglich.", xmlPath: "Stelle in den Daten",
+  msgDiff: (n, p, x) => `${n}: Die Seite zeigt ${p}, in den eingebetteten Daten steht ${x}`,
+  msgMissing: (n, x) => `${n}: In den eingebetteten Daten steht ${x}, auf der Seite haben wir das nicht gefunden`,
+  msg: (no, date, lines) => `Guten Tag,\n\nwir haben die Rechnung ${no}${date ? " vom " + date : ""} erhalten. Die PDF-Seite und die eingebetteten E-Rechnungsdaten (ZUGFeRD / Factur-X) stimmen nicht überein, oder wir konnten die Übereinstimmung nicht bestätigen:\n\n${lines}\n\nBitte teilen Sie uns mit, welche Werte richtig sind, oder senden Sie eine korrigierte Rechnung. Bis dahin halten wir die Rechnung zurück.\n\nVielen Dank`,
+} };
+
+let lang = "en", items = [], openId = null, detail = null, selected = null, page = 1, showDetails = false, clarifying = false, draft = "";
+try { lang = localStorage.getItem("rw-lang") || "en" } catch (e) {}
+const $ = (s) => document.querySelector(s), t = () => T[lang];
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const STATUS_DOT = { match: "", present: "n", mismatch: "r", ambiguous: "a", not_found: "a", not_checked: "n" };
+const BAD = ["failed", "error"];
+
+function fieldName(f) {
+  const L = t().fields;
+  if (f.key.startsWith("line_")) return `${L.line} ${f.line}`;
+  if (f.key.startsWith("vat_")) return `${L.vat} ${f.cells && f.cells.rate ? Number(f.cells.rate) + " %" : ""}`.trim();
+  if (f.key.startsWith("unlisted_row")) return L.unlisted_row;
+  return L[f.key] || f.key;
+}
+// The dot is the only status colour in the list: red = a difference or invalid data, amber = could not decide.
+function dotClass(it) {
+  if (it.status !== "checked") return "a";
+  if (it.verdict === "difference_found" || BAD.includes(it.validation.schema) || BAD.includes(it.validation.rules)) return "r";
+  if (it.needs_review) return "a";
+  return it.verdict === "not_compared" ? "n" : "";
+}
+function reason(it) {
+  const L = t();
+  if (it.status !== "checked") return it.status === "unsupported" ? L.unsupported : L.failed;
+  const m = it.mismatches || [];
+  if (m.length === 1) return L.oneDiffers(fieldName(m[0]));
+  if (m.length > 1) return L.manyDiffer(m.length);
+  for (const k of ["schema", "rules"]) if (BAD.includes(it.validation[k])) return `${L.checks[k]}: ${L.outcome[it.validation[k]]}`;
+  return L.verdict[it.verdict] || "";
+}
+const open_ = (it) => it.needs_review && !it.decision;
+const sorted = () => [...items].sort((a, b) => "ra n".indexOf(dotClass(a) || " ") - "ra n".indexOf(dotClass(b) || " "));
+
+// The headline counts down as invoices are decided. Torph (MIT, vendored, no network) morphs the changed
+// characters so the count is seen to change. Without it, or with reduced motion, the text is simply replaced.
+let morph = null, headText = "";
+function setHeadline(s) {
+  if (s === headText) return;
+  headText = s; $("#headline").setAttribute("aria-label", s);
+  if (morph) morph.update(s); else $("#headline").textContent = s;
+}
+import("/static/vendor/torph.mjs").then((m) => {
+  const el = $("#headline"); el.textContent = "";
+  morph = new m.TextMorph({ element: el, duration: 450 }); if (headText) morph.update(headText);
+}).catch(() => {});
+function applyStatic() {
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-t]").forEach((el) => { el.textContent = t()[el.dataset.t] });
+  $("#lang-en").setAttribute("aria-pressed", lang === "en"); $("#lang-de").setAttribute("aria-pressed", lang === "de");
+}
+function render() {
+  const L = t();
+  $("#empty").hidden = items.length > 0; $("#batch").hidden = items.length === 0;
+  if (!items.length) return;
+  setHeadline(L.headline(items.length, items.filter(open_).length));
+  let h = `<table class="batch"><thead><tr><th></th><th>${esc(L.th.invoice)}</th><th>${esc(L.th.from)}</th><th>${esc(L.th.amount)}</th><th>${esc(L.th.result)}</th></tr></thead><tbody>`;
+  for (const it of sorted()) {
+    const isOpen = it.id === openId && detail;
+    h += `<tr class="item${it.needs_review ? "" : " fine"}" data-id="${it.id}" tabindex="0" role="button" aria-expanded="${!!isOpen}">
+      <td class="d"><span class="dot ${dotClass(it)}"></span></td><td class="no">${esc(it.invoice_number || it.file)}</td>
+      <td class="from">${esc(it.seller || it.file)}</td><td class="amt">${it.amount_due ? esc(it.amount_due) + " " + esc(it.currency || "") : ""}</td>
+      <td>${esc(reason(it))}${it.decision ? ` <span class="done">· ${esc(L.decisions[it.decision])}</span>` : ""}</td></tr>`;
+    if (isOpen) h += `<tr class="open"><td colspan="5">${openHtml()}</td></tr>`;
+  }
+  $("#list").innerHTML = h + "</tbody></table>";
+  if (openId && detail && showDetails) renderPage();
+}
+
+// Step 1: what is wrong, in one sentence, with the two values.
+function openHtml() {
+  const r = detail.result, s = detail.summary, L = t();
+  let title, sub = "", vals = "", facts = [];
+  if (r.status !== "checked") { title = reason(s); sub = r.error?.message || "" }
+  else {
+    const c = r.comparison, mm = c.findings.filter((f) => f.status === "mismatch"), bad = r.validation.find((l) => BAD.includes(l.outcome));
+    if (mm.length) { title = mm.length === 1 ? L.sumOne(fieldName(mm[0])) : L.sumMany(mm.length); sub = L.sumAdvice }
+    else if (bad) { title = L.sumInvalid; sub = bad.results[0] ? bad.results[0].message.replace(/^\[[^\]]+\]-?\s*/, "") : (bad.detail || "") }
+    else { title = L.verdict[c.verdict]; sub = c.applicable ? L.verdictText[c.verdict] : (L.reason[c.reason] || "") }
+    for (const f of mm.slice(0, 3)) vals += `<div class="vals">${mm.length > 1 ? `<div class="vh">${esc(fieldName(f))}</div>` : ""}
+      <div class="pg"><span>${esc(L.pageShows)}</span><code>${esc(f.pdf_values.join(", ") || L.notOnPage)}</code></div>
+      <div><span>${esc(L.dataSays)}</span><code>${esc(f.xml_value ?? "")}</code></div></div>`;
+    if (mm.length > 3) facts.push(L.moreInDetails(mm.length - 3));
+    for (const l of r.validation) facts.push(`${L.checks[l.name] || l.name} ${L.outcome[l.outcome]}`);
+    if (c.applicable) facts.push(L.coverageText(c.coverage.all));
+  }
+  let h = `<div class="sum"><h3>${esc(title)}</h3>${sub ? `<p>${esc(sub)}</p>` : ""}${vals}${facts.length ? `<div class="facts">${esc(facts.join(" · "))}</div>` : ""}`;
+  // Step 3: clarification is a drafted message to the sender, saved with the decision.
+  if (clarifying) h += `<div class="clar"><label for="msg">${esc(L.clarLabel)}</label><textarea id="msg">${esc(draft)}</textarea>
+    <div class="acts"><button class="btn p" data-act="save">${esc(L.saveClar)}</button><button class="btn" data-act="copy">${esc(L.copy)}</button><button class="link" data-act="cancel">${esc(L.cancel)}</button></div></div>`;
+  else h += `<div class="acts"><button class="btn p" data-act="reviewed">${esc(L.reviewed)}</button><button class="btn" data-act="clarify">${esc(L.clarify)}</button>
+    ${r.status === "checked" ? `<button class="link" data-act="details" aria-expanded="${showDetails}">${esc(showDetails ? L.hideDetails : L.showDetails)}</button>` : ""}
+    <a class="link" href="/api/items/${openId}/evidence" download>${esc(L.exportEv)}</a></div>`;
+  h += `</div>`;
+  if (showDetails && r.status === "checked") h += `<div class="details"><div id="pagepane"></div><div id="fields">${fieldsHtml()}</div></div>`;
+  return h;
+}
+
+// Step 2: the page with the evidence marked, and every field.
+function explainHtml() {
+  const L = t(), f = detail.result.comparison.findings.find((x) => x.key === selected);
+  if (!f) return "";
+  const cellNote = f.cells && f.cells.net_amount && f.cells.net_amount.note;
+  const text = f.status === "mismatch" && f.note !== "line_not_on_page" ? L.explainMismatch(f, fieldName(f)) : f.status === "match" ? L.explainMatch(f, fieldName(f)) + (cellNote ? " " + L.notes[cellNote] : "") : (L.notes[f.note] || "");
+  return `<div class="explain"><strong>${esc(fieldName(f))}: ${esc(L.status[f.status])}</strong><div>${esc(text)}</div>${f.xml_path ? `<code>${esc(L.xmlPath)}: ${esc(f.xml_path)}</code>` : ""}</div>`;
+}
+function findingRow(f) {
+  let pageVals = f.pdf_values.map(esc).join(", "), data = esc(f.xml_value ?? "");
+  if (f.cells && f.key.startsWith("line_")) data += `<div class="bt">${Object.entries(f.cells).map(([k, c]) => `${t().lineCells[k]} ${esc(c.xml)}`).join(" · ")}</div>`;
+  if (f.key.startsWith("vat_") && f.cells) data = `${esc(f.cells.amount)}<div class="bt">${esc(f.cells.basis ?? "")} × ${esc(Number(f.cells.rate))} %</div>`;
+  return `<tr class="f" data-key="${esc(f.key)}" aria-selected="${f.key === selected}" tabindex="0">
+    <td>${esc(fieldName(f))}${f.bt ? ` <span class="bt">${esc(f.bt)}</span>` : ""}</td>
+    <td class="val">${data}</td><td class="val">${pageVals ? `<span class="pdf">${pageVals}</span>` : ""}</td>
+    <td class="st"><span class="dot ${STATUS_DOT[f.status]}"></span>${esc(t().status[f.status])}</td></tr>`;
+}
+function fieldsHtml() {
+  const r = detail.result, c = r.comparison, L = t();
+  let h = `<div id="explain">${explainHtml()}</div>`;
+  if (c.applicable) for (const g of ["header", "parties", "payment", "totals", "vat", "lines"]) {
+    const fs = c.findings.filter((x) => x.group === g).sort((a, b) => (a.status === "mismatch" ? 0 : 1) - (b.status === "mismatch" ? 0 : 1));
+    if (fs.length) h += `<h4>${esc(L.groups[g])}</h4><table class="ft"><tr><th>${esc(L.cols.field)}</th><th>${esc(L.cols.data)}</th><th>${esc(L.cols.page)}</th><th>${esc(L.cols.status)}</th></tr>${fs.map(findingRow).join("")}</table>`;
+  }
+  if (c.line_note) h += `<p class="bt">${esc(L.profileNoLines)}</p>`;
+  h += `<h4>${esc(L.rulesTitle)}</h4>`;
+  for (const l of r.validation) {
+    h += `<div class="bt">${esc(L.checks[l.name] || l.name)} ${esc(L.outcome[l.outcome])} · ${esc(L.engine)} ${esc(l.engine)}${l.artefact ? " · " + esc(l.artefact) : ""}${l.detail ? " · " + esc(l.detail) : ""}</div>`;
+    for (const res of l.results) h += `<div class="rule"><span class="dot ${res.severity === "error" ? "r" : "a"}"></span> <b>${esc(res.rule_id)}</b><div>${esc(res.message)}</div></div>`;
+  }
+  if (r.validation.every((l) => !l.results.length)) h += `<div class="bt">${esc(L.noRuleIssues)}</div>`;
+  const s = detail.summary;
+  h += `<h4>${esc(L.record)}</h4><div class="bt">${esc(s.file)}${s.profile ? ` · ${esc(L.profile)} ${esc(s.profile)}` : ""}${r.file.sha256 ? ` · SHA-256 ${esc(r.file.sha256.slice(0, 16))}…` : ""}</div>`;
+  for (const e of detail.events) h += `<div class="bt">${esc(e.at)} · ${esc(L.decisions[e.decision])}</div>`;
+  return h;
+}
+function renderPage() {
+  const pane = $("#pagepane"); if (!pane) return;
+  const r = detail.result, pages = r.pages || [];
+  if (!pages.length) { pane.innerHTML = `<div class="nopage">${esc(t().reason[r.comparison?.reason] || t().noPdf)}</div>`; return }
+  const p = pages[page - 1], f = (r.comparison?.findings || []).find((x) => x.key === selected);
+  const boxes = (f ? f.evidence : []).filter((e) => e.page === page).map((e) => {
+    const [x0, y0, x1, y1] = e.bbox, col = e.role === "label" ? "#2b6fd0" : (f.status === "mismatch" || e.role === "other") ? "#d9342a" : "#1d8a4a";
+    return `<rect x="${x0 - 2}" y="${y0 - 2}" width="${x1 - x0 + 4}" height="${y1 - y0 + 4}" fill="${col}" fill-opacity="${e.role === "label" ? .1 : .18}" stroke="${col}" stroke-width="1.2" rx="2"/>`;
+  }).join("");
+  const nav = pages.length > 1 ? pages.map((q) => `<button class="btn" style="padding:2px 8px" data-page="${q.number}" ${q.number === page ? 'aria-current="true"' : ""}>${q.number}</button>`).join("") : "";
+  pane.innerHTML = `<div id="pagebar"><span>${esc(t().page)} ${page} / ${pages.length}</span>${nav}<span>${esc(f ? t().legend : t().select)}</span></div>
+    <div id="pagewrap"><img src="/api/items/${openId}/page/${page}.png" alt="${esc(t().page)} ${page}"><svg viewBox="0 0 ${p.width} ${p.height}" preserveAspectRatio="none">${boxes}</svg></div>`;
+  const rect = pane.querySelector("rect"); if (rect) rect.scrollIntoView({ block: "nearest", behavior: "smooth" });
+}
+function clarifyText() {
+  const r = detail.result, L = t(), s = detail.summary, fs = r.comparison?.findings || [], lines = [];
+  for (const f of fs.filter((f) => f.status === "mismatch")) lines.push(f.pdf_values.length ? L.msgDiff(fieldName(f), f.pdf_values.join(", "), f.xml_value) : L.msgMissing(fieldName(f), f.xml_value));
+  if (!lines.length) for (const l of r.validation || []) for (const x of l.results.slice(0, 5)) lines.push(`${x.rule_id}: ${x.message}`);
+  if (!lines.length) for (const f of fs.filter((f) => ["not_found", "ambiguous"].includes(f.status)).slice(0, 8)) lines.push(L.msgMissing(fieldName(f), f.xml_value));
+  if (!lines.length) lines.push(r.error?.message || L.reason[r.comparison?.reason] || reason(s));
+  return L.msg(s.invoice_number || s.file, fs.find((f) => f.key === "issue_date")?.xml_value, lines.map((x) => "- " + x).join("\n"));
+}
+
+async function api(path, opts) { const r = await fetch(path, opts); if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.statusText); return r.json() }
+async function refresh(selectId) {
+  items = await api("/api/items");
+  const id = selectId || (items.find(open_) || {}).id;
+  if (id) await openItem(id); else { openId = detail = null; render() }
+}
+async function openItem(id) {
+  openId = id; selected = null; page = 1; showDetails = clarifying = false;
+  detail = await api(`/api/items/${id}`);
+  const first = (detail.result.comparison?.findings || []).find((f) => f.status === "mismatch");
+  if (first) { selected = first.key; if (first.evidence[0]) page = first.evidence[0].page }
+  render();
+}
+async function decide(decision, note) {
+  await api(`/api/items/${openId}/review`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ decision, note }) });
+  items = await api("/api/items");
+  const next = sorted().find(open_);   // move on to the next invoice that still needs a person
+  if (next) await openItem(next.id); else { openId = detail = null; render() }
+}
+async function upload(files) {
+  if (!files.length) return;
+  const fd = new FormData(); for (const f of files) fd.append("files", f);
+  await api("/api/check", { method: "POST", body: fd }); await refresh();
+}
+async function loadSamples() { await api("/api/samples", { method: "POST" }); await refresh() }
+function setLang(l) { lang = l; try { localStorage.setItem("rw-lang", l) } catch (e) {} applyStatic(); if (clarifying) draft = clarifyText(); render() }
+function pickField(tr) {
+  selected = tr.dataset.key;
+  const f = detail.result.comparison.findings.find((x) => x.key === selected);
+  if (f && f.evidence.length && !f.evidence.some((e) => e.page === page)) page = f.evidence[0].page;
+  document.querySelectorAll("tr.f").forEach((r) => r.setAttribute("aria-selected", r === tr));
+  $("#explain").innerHTML = explainHtml(); renderPage();
+}
+
+$("#lang-en").onclick = () => setLang("en"); $("#lang-de").onclick = () => setLang("de");
+$("#samples").onclick = $("#samples2").onclick = loadSamples;
+$("#pick").onclick = () => $("#file").click();
+$("#file").onchange = (e) => { upload([...e.target.files]); e.target.value = "" };
+$("#clear").onclick = async () => { await api("/api/items", { method: "DELETE" }); items = []; openId = detail = null; render() };
+$("#list").oninput = (e) => { if (e.target.id === "msg") draft = e.target.value };
+$("#list").onclick = async (e) => {
+  const act = e.target.closest("[data-act]")?.dataset.act;
+  if (act === "reviewed") return decide("reviewed", "");
+  if (act === "clarify") { clarifying = true; draft = clarifyText(); render(); return $("#msg").focus() }
+  if (act === "cancel") { clarifying = false; return render() }
+  if (act === "save") return decide("needs_clarification", draft);
+  if (act === "copy") { try { await navigator.clipboard.writeText(draft) } catch (err) { $("#msg").select(); document.execCommand("copy") } e.target.textContent = t().copied; return }
+  if (act === "details") { showDetails = !showDetails; return render() }
+  const pg = e.target.closest("[data-page]"); if (pg) { page = +pg.dataset.page; return renderPage() }
+  const tr = e.target.closest("tr.f"); if (tr) return pickField(tr);
+  const row = e.target.closest("tr.item");
+  if (row) { if (row.dataset.id === openId) { openId = detail = null; render() } else openItem(row.dataset.id) }
+};
+$("#list").onkeydown = (e) => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const tr = e.target.closest("tr.f, tr.item"); if (tr && tr === e.target) { e.preventDefault(); tr.click() }
+};
+["dragover", "dragenter"].forEach((n) => document.addEventListener(n, (e) => { e.preventDefault(); document.body.classList.add("over") }));
+["dragleave", "drop"].forEach((n) => document.addEventListener(n, (e) => { e.preventDefault(); document.body.classList.remove("over") }));
+document.addEventListener("drop", (e) => upload([...e.dataTransfer.files]));
+applyStatic(); refresh();
+</script>
+</body>
+</html>

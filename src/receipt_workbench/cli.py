@@ -8,7 +8,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 
-from .check import check_file
+from .pipeline.check import check_file
 
 
 def _iter_files(paths: list[str]):
@@ -78,17 +78,17 @@ def main(argv: list[str] | None = None) -> int:
 
     g = sub.add_parser("make-testset", help="generate the seeded mismatch test set")
     g.add_argument("--out", default="testset")
-    g.set_defaults(fn=lambda a: __import__("receipt_workbench.synth", fromlist=["x"]).cmd_make(a))
+    g.set_defaults(fn=lambda a: __import__("receipt_workbench.testset.synth", fromlist=["x"]).cmd_make(a))
 
     b = sub.add_parser("bench", help="score the checker on a generated test set")
     b.add_argument("--dir", default="testset")
     b.add_argument("--out", default=None)
-    b.set_defaults(fn=lambda a: __import__("receipt_workbench.bench", fromlist=["x"]).cmd_bench(a))
+    b.set_defaults(fn=lambda a: __import__("receipt_workbench.testset.bench", fromlist=["x"]).cmd_bench(a))
 
     s = sub.add_parser("serve", help="run the review UI locally")
     s.add_argument("--port", type=int, default=8321)
     s.add_argument("--host", default="127.0.0.1")
-    s.set_defaults(fn=lambda a: __import__("receipt_workbench.server", fromlist=["x"]).cmd_serve(a))
+    s.set_defaults(fn=lambda a: __import__("receipt_workbench.review.server", fromlist=["x"]).cmd_serve(a))
 
     args = ap.parse_args(argv)
     return args.fn(args) or 0

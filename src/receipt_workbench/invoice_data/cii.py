@@ -13,8 +13,8 @@ from decimal import Decimal, InvalidOperation
 
 from lxml import etree
 
-from .ingest import xml_flavor
-from .normalize import parse_xml_date
+from ..common.normalize import parse_xml_date
+from ..intake.ingest import xml_flavor
 
 PROFILES = [
     ("urn:factur-x.eu:1p0:minimum", "MINIMUM"),

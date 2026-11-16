@@ -1,6 +1,6 @@
 """Score the checker on the seeded test set.
 
-For a file with a planted difference there are three honest outcomes:
+For a file with a planted difference there are three outcomes:
   detected      a `mismatch` finding on one of the fields the label names
   abstained     no mismatch reported, but the verdict is `inconclusive` (the tool said it could not tell)
   missed        the tool said "no difference in checked fields"
@@ -16,8 +16,8 @@ import json
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from .check import check_file
-from .normalize import squash
+from ..common.normalize import squash
+from ..pipeline.check import check_file
 
 
 def _baseline_flags(result: dict, raw_text: str, number_values: set) -> bool:
@@ -36,8 +36,8 @@ def _baseline_flags(result: dict, raw_text: str, number_values: set) -> bool:
 
 
 def run(testset: Path) -> dict:
-    from .ingest import intake
-    from .pdftext import read_pdf_text
+    from ..intake.ingest import intake
+    from ..page_text.pdftext import read_pdf_text
 
     manifest = json.loads((testset / "manifest.json").read_text(encoding="utf-8"))
     rows = []

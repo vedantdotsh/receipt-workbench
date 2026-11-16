@@ -34,7 +34,6 @@ def q2(x: Decimal) -> Decimal:
     return x.quantize(CENT, rounding=ROUND_HALF_UP)
 
 
-# ---------------------------------------------------------------- base invoices
 SELLERS = [
     dict(name="Nordlicht Bürotechnik GmbH", street="Hafenstraße 14", zip="20457", city="Hamburg", country="DE",
          vat_id="DE811907981", tax_number="00/000/00001", iban="DE89370400440532013000", bic="COBADEFFXXX", bank="Commerzbank"),
@@ -118,7 +117,6 @@ def totals(spec: dict) -> dict:
     return out
 
 
-# ---------------------------------------------------------------- XML
 def _el(parent, ns, tag, text=None, **attrs):
     e = etree.SubElement(parent, f"{{{ns}}}{tag}")
     if text is not None:
@@ -203,7 +201,6 @@ def build_xml(spec: dict) -> bytes:
     return etree.tostring(root, xml_declaration=True, encoding="UTF-8", pretty_print=True)
 
 
-# ---------------------------------------------------------------- page layouts
 MONTHS_DE = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
 MONTHS_EN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
@@ -340,7 +337,6 @@ def render_pdf(view: dict, layout: str) -> bytes:
             c.drawString(x, y - 12, v)
         y -= 14
 
-    # item table
     y -= 30
     cols = st["cols"]
     xs, x = [], left
@@ -383,7 +379,6 @@ def render_pdf(view: dict, layout: str) -> bytes:
         y -= 12 * len(rows) + 5
     c.line(left, y + 6, right, y + 6)
 
-    # totals
     y -= 12
     tx = right - 230
     rows = [(lab["net"], t["net"], False)]
@@ -421,7 +416,6 @@ def render_pdf(view: dict, layout: str) -> bytes:
     return buf.getvalue()
 
 
-# ---------------------------------------------------------------- mutations
 def _bump(d: Decimal, by="1") -> Decimal:
     return d + D(by)
 

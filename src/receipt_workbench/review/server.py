@@ -10,17 +10,19 @@ from pathlib import Path
 
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.responses import FileResponse, JSONResponse, Response
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from .check import check_file, needs_review
-from .ingest import MAX_FILE_BYTES, intake
-from .pdftext import render_page_png
+from ..intake.ingest import MAX_FILE_BYTES, intake
+from ..page_text.pdftext import render_page_png
+from ..pipeline.check import check_file, needs_review
 
 STATIC = Path(__file__).parent / "static"
 MAX_ITEMS = 200
 DECISIONS = {"reviewed", "needs_clarification"}
 
 app = FastAPI(title="Receipt Workbench", docs_url=None, redoc_url=None)
+app.mount("/static", StaticFiles(directory=STATIC), name="static")  # vendored scripts, served locally
 ITEMS: dict[str, dict] = {}  # id -> {"result", "pdf", "events", "pages"}
 
 
@@ -40,6 +42,8 @@ def _summary(item_id: str, item: dict) -> dict:
         "validation": {layer["name"]: layer["outcome"] for layer in r.get("validation", [])},
         "verdict": comp.get("verdict"), "comparison_reason": comp.get("reason"),
         "coverage": (comp.get("coverage") or {}).get("all"),
+        "mismatches": [{"key": f["key"], "line": f.get("line"), "cells": f.get("cells")}
+                       for f in comp.get("findings") or [] if f.get("status") == "mismatch"],
         "needs_review": needs_review(r), "sample": item.get("sample"),
         "decision": item["events"][-1]["decision"] if item["events"] else None,
     }
@@ -95,7 +99,7 @@ async def upload(files: list[UploadFile] = File(...)):
 @app.post("/api/samples")
 def load_samples():
     """Six synthetic invoices built on the spot: nothing here is a real company or account."""
-    from .synth import BASES, build_spec, build_xml, m_iban, m_line_amount, m_number, make_hybrid, totals
+    from ..testset.synth import BASES, build_spec, build_xml, m_iban, m_line_amount, m_number, make_hybrid, totals
 
     def pair(base_i, layout, mutate=None, side="pdf"):
         spec = build_spec(BASES[base_i])

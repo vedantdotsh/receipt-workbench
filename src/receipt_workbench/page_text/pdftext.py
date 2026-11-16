@@ -1,6 +1,6 @@
 """The visible layer: words with positions, grouped into rows, with typed tokens.
 
-Limit, stated once: this reads the PDF *text layer*. Text that is hidden, drawn
+Limit: this reads the PDF *text layer*. Text that is hidden, drawn
 as an image, or covered by another object is not what a person sees. The page
 image is rendered separately so a reviewer can look at the evidence.
 """
@@ -15,7 +15,7 @@ from decimal import Decimal
 
 import pdfplumber
 
-from .normalize import (
+from ..common.normalize import (
     DATE_RES,
     IBAN_RE,
     NUMBER_RE,

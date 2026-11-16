@@ -5,12 +5,12 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from importlib.metadata import version
 
-from . import __version__
-from .cii import parse_cii
-from .compare import compare, coverage
-from .ingest import IntakeError, intake, safe_parse_xml, xml_flavor
-from .pdftext import read_pdf_text
-from .validate import Layer, validate_rules, validate_schema
+from .. import __version__
+from ..comparison.compare import compare, coverage
+from ..intake.ingest import IntakeError, intake, safe_parse_xml, xml_flavor
+from ..invoice_data.cii import parse_cii
+from ..page_text.pdftext import read_pdf_text
+from ..validation.validate import Layer, validate_rules, validate_schema
 
 COMPARISON_METHOD = "pdf-text-layer/1"  # bump when extraction or matching rules change
 

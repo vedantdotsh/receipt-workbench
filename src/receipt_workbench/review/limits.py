@@ -43,6 +43,24 @@ class Settings:
     max_concurrent_checks: int = 1
     trust_proxy: bool = False
 
+    def hosting_notice(self) -> dict[str, str]:
+        if self.public:
+            expiry = (f"Removed after {self.idle_seconds} seconds of inactivity, on the next inbox request."
+                      if self.idle_seconds else "Idle expiry is disabled; files remain until cleared or the server restarts.")
+            ablauf = (f"Nach {self.idle_seconds} Sekunden ohne Aktivität bei der nächsten Postfachanfrage entfernt."
+                      if self.idle_seconds else "Inaktivitätsablauf ist aus; Dateien bleiben bis zum Leeren oder Serverneustart.")
+            defaults = {
+                "en": "Files are sent to this server and kept in memory only for this browser session. "
+                      f"{expiry} They are never written to disk.",
+                "de": "Dateien werden an diesen Server gesendet und nur für diese Browsersitzung im Arbeitsspeicher gehalten. "
+                      f"{ablauf} Sie werden nie auf die Festplatte geschrieben.",
+            }
+        else:
+            defaults = {"en": "Files are kept in memory on this computer and never leave it.",
+                        "de": "Dateien bleiben im Arbeitsspeicher auf diesem Rechner und verlassen ihn nicht."}
+        return {language: os.environ.get(f"RW_HOSTING_NOTICE_{language.upper()}", text)
+                for language, text in defaults.items()}
+
     def __post_init__(self) -> None:
         for setting in fields(self):
             value = getattr(self, setting.name)

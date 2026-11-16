@@ -21,7 +21,7 @@ def test_xrechnung_failure_needs_review(xrechnung_xml, monkeypatch):
 
     from receipt_workbench.validation.validate import Layer
 
-    monkeypatch.setattr("receipt_workbench.pipeline.check.validate_rules",
+    monkeypatch.setattr("receipt_workbench.validation.validate.validate_rules",
                         lambda *args: Layer("rules", "passed", "test"))
     root = etree.fromstring(xrechnung_xml)
     reference = root.find(".//ram:BuyerReference", synth.NSMAP)

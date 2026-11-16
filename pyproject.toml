@@ -24,6 +24,20 @@ dependencies = [
 [project.scripts]
 receipt-workbench = "receipt_workbench.cli:main"
 
+[project.entry-points."receipt_workbench.invoice_parsers"]
+cii = "receipt_workbench.invoice_data.cii:CiiParser"
+
+[project.entry-points."receipt_workbench.page_readers"]
+pdf_text = "receipt_workbench.page_text.pdftext:read_pdf_text"
+
+[project.entry-points."receipt_workbench.validators"]
+schema = "receipt_workbench.validation.validate:SchemaValidator"
+rules = "receipt_workbench.validation.validate:RulesValidator"
+xrechnung = "receipt_workbench.validation.validate:XRechnungValidator"
+
+[project.entry-points."receipt_workbench.exports"]
+json = "receipt_workbench.review.export:export_json"
+
 [build-system]
 requires = ["uv_build>=0.12.17,<0.13.0"]
 build-backend = "uv_build"

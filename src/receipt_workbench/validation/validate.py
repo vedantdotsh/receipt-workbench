@@ -59,6 +59,21 @@ class Layer:
         return asdict(self)
 
 
+class SchemaValidator:
+    def __call__(self, xml: bytes, flavor: str, profile: str, guideline: str) -> Layer:
+        return validate_schema(xml, flavor, profile)
+
+
+class RulesValidator:
+    def __call__(self, xml: bytes, flavor: str, profile: str, guideline: str) -> Layer:
+        return validate_rules(xml, flavor, profile, guideline)
+
+
+class XRechnungValidator:
+    def __call__(self, xml: bytes, flavor: str, profile: str, guideline: str) -> Layer:
+        return validate_xrechnung(xml, flavor, guideline)
+
+
 def _artefact_dir() -> str:
     import facturx
 

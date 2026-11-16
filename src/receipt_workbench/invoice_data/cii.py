@@ -40,6 +40,13 @@ PROFILES = [
 PROFILES_WITHOUT_LINES = {"MINIMUM", "BASIC WL"}
 
 
+class CiiParser:
+    flavors = ("cii", "zugferd1")
+
+    def __call__(self, root: etree._Element) -> Invoice:
+        return parse_cii(root)
+
+
 @dataclass
 class V:
     """One value from the XML with its provenance."""

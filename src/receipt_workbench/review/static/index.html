@@ -127,7 +127,7 @@ en: {
   loadSamples: "Load sample invoices", upload: "Check files", clear: "Clear",
   emptyTitle: "Does the invoice page say the same as its embedded data?",
   emptyBody: "A hybrid e-invoice (ZUGFeRD, Factur-X) is a PDF with a second, machine-readable copy inside. People approve the page; software books the data. Drop a whole batch here. Every file is checked, and the ones that need a person come first.",
-  drop: "Drop PDF or XML files anywhere on this page. They stay on this computer.",
+  drop: "Drop PDF or XML files anywhere on this page.",
   disclaimer: "Technical consistency check of the PDF text layer against the embedded XML. It is not tax advice, not a fraud check and not a payment approval. Use test data only.",
   headline: (n, k) => `${n} ${n === 1 ? "invoice" : "invoices"} checked. ${k ? (k === 1 ? "1 needs a look." : k + " need a look.") : "Nothing left to look at."}`,
   th: { invoice: "Invoice", from: "From", amount: "Amount", result: "Result" },
@@ -171,7 +171,7 @@ de: {
   loadSamples: "Beispielrechnungen laden", upload: "Dateien prüfen", clear: "Leeren",
   emptyTitle: "Steht auf der Rechnungsseite dasselbe wie in den eingebetteten Daten?",
   emptyBody: "Eine hybride E-Rechnung (ZUGFeRD, Factur-X) ist ein PDF mit einer zweiten, maschinenlesbaren Kopie. Menschen geben die Seite frei, Software verbucht die Daten. Legen Sie einen ganzen Stapel hier ab. Jede Datei wird geprüft, und die, die einen Menschen brauchen, stehen oben.",
-  drop: "PDF- oder XML-Dateien irgendwo auf dieser Seite ablegen. Sie bleiben auf diesem Rechner.",
+  drop: "PDF- oder XML-Dateien irgendwo auf dieser Seite ablegen.",
   disclaimer: "Technische Konsistenzprüfung der PDF-Textebene gegen das eingebettete XML. Keine Steuerberatung, keine Betrugsprüfung, keine Zahlungsfreigabe. Nur Testdaten verwenden.",
   headline: (n, k) => `${n} ${n === 1 ? "Rechnung" : "Rechnungen"} geprüft. ${k ? (k === 1 ? "1 ist anzusehen." : k + " sind anzusehen.") : "Nichts mehr offen."}`,
   th: { invoice: "Rechnung", from: "Von", amount: "Betrag", result: "Ergebnis" },
@@ -218,6 +218,10 @@ const $ = (s) => document.querySelector(s), t = () => T[lang];
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const STATUS_DOT = { match: "", present: "n", mismatch: "r", ambiguous: "a", not_found: "a", not_checked: "n" };
 const BAD = ["failed", "error"];
+let hostingNotice = {
+  en: $("main").dataset.hostingEn || "Files are kept in memory on this computer and never leave it.",
+  de: $("main").dataset.hostingDe || "Dateien bleiben im Arbeitsspeicher auf diesem Rechner und verlassen ihn nicht."
+};
 
 function fieldName(f) {
   const L = t().fields;
@@ -229,7 +233,7 @@ function fieldName(f) {
 // The dot is the only status colour in the list: red = a difference or invalid data, amber = could not decide.
 function dotClass(it) {
   if (it.status !== "checked") return "a";
-  if (it.verdict === "difference_found" || BAD.includes(it.validation.schema) || BAD.includes(it.validation.rules)) return "r";
+  if (it.verdict === "difference_found" || Object.values(it.validation).some((outcome) => BAD.includes(outcome))) return "r";
   if (it.needs_review) return "a";
   return it.verdict === "not_compared" ? "n" : "";
 }
@@ -239,7 +243,7 @@ function reason(it) {
   const m = it.mismatches || [];
   if (m.length === 1) return L.oneDiffers(fieldName(m[0]));
   if (m.length > 1) return L.manyDiffer(m.length);
-  for (const k of ["schema", "rules"]) if (BAD.includes(it.validation[k])) return `${L.checks[k]}: ${L.outcome[it.validation[k]]}`;
+  for (const [name, outcome] of Object.entries(it.validation)) if (BAD.includes(outcome)) return `${L.checks[name] || name}: ${L.outcome[outcome]}`;
   return L.verdict[it.verdict] || "";
 }
 const open_ = (it) => it.needs_review && !it.decision;
@@ -260,6 +264,7 @@ import("/static/vendor/torph.mjs").then((m) => {
 function applyStatic() {
   document.documentElement.lang = lang;
   document.querySelectorAll("[data-t]").forEach((el) => { el.textContent = t()[el.dataset.t] });
+  document.querySelectorAll('[data-t="drop"]').forEach((el) => { el.textContent += " " + hostingNotice[lang] });
   $("#lang-en").setAttribute("aria-pressed", lang === "en"); $("#lang-de").setAttribute("aria-pressed", lang === "de");
 }
 function render() {
@@ -453,6 +458,13 @@ $("#list").onkeydown = (e) => {
 ["dragleave", "drop"].forEach((n) => document.addEventListener(n, (e) => { e.preventDefault(); document.body.classList.remove("over") }));
 document.addEventListener("drop", (e) => upload([...e.dataTransfer.files]));
 applyStatic(); refresh();
+fetch("/api/harness").then((response) => {
+  if (!response.ok) throw new Error("Harness unavailable");
+  return response.json();
+}).then((harness) => {
+  for (const language of ["en", "de"]) if (typeof harness.hosting_notice?.[language] === "string") hostingNotice[language] = harness.hosting_notice[language];
+  applyStatic();
+}).catch(() => {});
 </script>
 </body>
 </html>

@@ -70,13 +70,114 @@ at 30 PDF pages, and the review screen can render only those pages. These bounds
 unchanged. The content policy permits same-origin requests and images, the exact inline
 script, and inline styles needed by the page and its vendored animation module.
 
-Use one server process: inboxes and limits are not shared across workers. The memory
-budget covers retained PDFs, results, page images, review events, and limiter state, not
-temporary multipart files, parsing allocations, or native-library memory. Deployment still
+Use one server process: inboxes and limits are not shared across workers. Uploads remain
+in memory, including multipart files; they do not spill to disk. The memory budget covers
+retained PDFs, results, page images, review events, and limiter state, not temporary upload
+buffers, parsing allocations, or native-library memory. Deployment still
 needs process resource limits and HTTPS. Only enable `RW_TRUST_PROXY` behind a single
 trusted proxy that cannot be bypassed: it trusts the last `X-Forwarded-For` address (the one
 that proxy appends) and `X-Forwarded-Proto` for Secure cookies. Without it, forwarded
 headers are ignored. Cookies are HttpOnly and SameSite=Lax, and Secure over HTTPS.
+
+The upload notice comes from `GET /api/harness`, using the actual mode and
+`RW_IDLE_SECONDS`. Set `RW_HOSTING_NOTICE_EN` and `RW_HOSTING_NOTICE_DE` to replace its
+English and German text. The notice also describes when idle expiry is disabled; closing
+a browser does not immediately erase its server inbox. Expiry is enforced on the next
+inbox request. A failed metadata request keeps the notice supplied with the page.
+
+## Connect your own parts
+
+The pipeline discovers installed Python entry points. The built-ins use the same mechanism
+as other packages; there is no separate fallback implementation in the registry.
+
+| Connection point / entry-point group | Input and output | Built-ins |
+|---|---|---|
+| `receipt_workbench.invoice_parsers` | Parsed XML root -> `Invoice`; declares supported `flavors` | `cii` (`cii`, `zugferd1`) |
+| `receipt_workbench.page_readers` | PDF bytes -> `PdfText`, including page positions | `pdf_text` |
+| `receipt_workbench.validators` | XML bytes, flavour, profile, guideline -> one `Layer` | `schema`, `rules`, `xrechnung`, in that order |
+| `receipt_workbench.exports` | Evidence result and review events -> `Export` (bytes, media type, filename) | `json` |
+
+Entry points may refer to a callable instance, function, or a class with no constructor
+arguments. Classes are instantiated once on discovery. Names contain letters, digits,
+underscores or hyphens and must be unique within their connection point. Built-ins come
+first, then other parts sorted by name. All are enabled by default. The first parser
+supporting the detected flavour and the first enabled page reader are used; their outputs
+are not merged. Every enabled validator runs. Exports run only when requested by name.
+
+A minimal validator package has these two files:
+
+`company-checks/pyproject.toml`:
+
+```toml
+[project]
+name = "company-checks"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = ["receipt-workbench>=0.1.0"]
+
+[project.entry-points."receipt_workbench.validators"]
+company_policy = "company_checks:CompanyPolicy"
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"
+```
+
+`company-checks/src/company_checks/__init__.py`:
+
+```python
+from receipt_workbench.validation.validate import Layer
+
+
+class CompanyPolicy:
+    def __call__(self, xml: bytes, flavor: str, profile: str, guideline: str) -> Layer:
+        return Layer("company_policy", "passed" if guideline else "failed", "company-policy/1",
+                     detail="Company policy requires a declared invoice guideline.")
+```
+
+Install it in the same environment with `uv pip install ./company-checks`, then run
+`uv run receipt-workbench parts`. The command lists names, source distributions, versions,
+enabled/disabled state, and load errors. `GET /api/harness` returns the same inventory and
+the hosting notice. A broken entry point is reported and skipped. A validator exception
+or invalid outcome becomes an `error` layer, never a pass. Its registered name is used in
+the result, so it cannot replace another layer by returning that layer's name.
+
+Set `RW_DISABLE_VALIDATORS=company_policy` to disable that validator, or
+`RW_VALIDATORS=schema,rules` to restrict validation to those names. The same pattern applies
+to `INVOICE_PARSERS`, `PAGE_READERS` and `EXPORTS`: `RW_<POINT>` restricts the list,
+`RW_DISABLE_<POINT>` removes names from it. An empty restriction enables none; disabling
+wins when both settings name a part. Restart the process after changing these settings.
+To replace the page reader, register one named `ocr` and set `RW_PAGE_READERS=ocr`.
+
+Library callers can register an instance without packaging it:
+
+```python
+from company_checks import CompanyPolicy
+from receipt_workbench.harness import Registry
+from receipt_workbench.pipeline.check import check_file
+
+registry = Registry()
+registry.register("validators", "company_policy", CompanyPolicy(),
+                  distribution="company-checks", version="0.1.0")
+result = check_file("invoice.pdf", pdf_bytes, registry=registry)
+```
+
+Pass that registry to `review.server.create_app(registry=registry)` when embedding the
+review API. Register on `harness.get_registry()` instead to use the process-wide registry.
+
+Record version 2 adds a `parts` mapping with each invoked part's name, distribution and
+version, including attempted readers and validators that fail. Each validation layer also
+has its own `part` provenance. Unused or disabled parts are not claimed as participants.
+The comparison method and its verdict remain independent of validation: a passing layer
+cannot clear a difference or make an inconclusive comparison pass. The existing
+`/api/items/{id}/evidence` JSON download is also available as `/api/items/{id}/exports/json`.
+Other exports use `/api/items/{id}/exports/{name}`. Downloads receive a separate result
+copy naming the exporter and the review events; they cannot edit the retained inbox.
+
+Installed parts are trusted Python code, not sandboxed extensions. Review them before
+installation, especially page readers and exporters that may send data elsewhere; update
+the hosting notice if their data handling differs. The default notices describe the
+built-ins. Comparison and bounded, in-memory inbox storage remain fixed parts of the tool.
 
 ## What the comparison does
 
@@ -148,7 +249,7 @@ is inconclusive instead of a pass.
 
 ## Limits
 
-- It reads the PDF **text layer**. Hidden text, text drawn as an image and overlays are not
+- The built-in page reader reads the PDF **text layer**. Hidden text, text drawn as an image and overlays are not
   what a person sees. The page image is shown next to every finding for that reason. Scans
   are reported as "not compared".
 - If both copies are changed the same way, they agree. Agreement does not prove an invoice
@@ -156,8 +257,8 @@ is inconclusive instead of a pass.
 - Label vocabulary is finite. A missing XML date with unexplained dates on the page makes
   the result "inconclusive", not a mismatch: those dates might describe orders or service
   periods. Extra dates alone do not block a clean verdict when the XML dates are located.
-- Only UN/CEFACT CII is parsed (ZUGFeRD 2.x, Factur-X, XRechnung in CII syntax; ZUGFeRD 1.0
-  best effort). UBL is reported as unsupported.
+- The built-in invoice parser reads UN/CEFACT CII (ZUGFeRD 2.x, Factur-X, XRechnung in CII
+  syntax; ZUGFeRD 1.0 best effort). UBL needs a separately installed parser.
 - Validation uses the Factur-X 1.0.x XSD shipped with the `factur-x` library. Schematron
   runs with Saxon-HE: invoices declaring XRechnung in BT-24 use bundled CEN EN 16931 CII
   1.3.16 rules plus KoSIT XRechnung CII 2.6.0 (XRechnung 3.0.2, BR-DE/BR-DEX). Other
@@ -173,6 +274,7 @@ is inconclusive instead of a pass.
 src/receipt_workbench/
   __init__.py             package version
   cli.py                  command-line entry point
+  harness/                connection-point protocols, entry-point registry and selection
   common/normalize.py     shared parsing and formatting helpers
   intake/ingest.py        hash, classify, extract the embedded XML, refuse DOCTYPE and ambiguous attachments
   invoice_data/cii.py     XML -> values with business term (BT) and XPath, Decimal amounts
@@ -186,6 +288,7 @@ src/receipt_workbench/
   testset/bench.py         scorer
   testset/third_party.py   pinned offline validator comparison
   review/server.py        local review screen
+  review/export.py        JSON evidence export
   review/static/          the screen and vendored scripts
 tests/
   conftest.py             shared synthetic invoice helpers and fixtures

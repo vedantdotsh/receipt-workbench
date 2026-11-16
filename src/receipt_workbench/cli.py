@@ -8,6 +8,7 @@ import sys
 from collections import Counter
 from pathlib import Path
 
+from .harness.registry import get_registry
 from .pipeline.check import check_file
 
 
@@ -65,11 +66,24 @@ def cmd_check(args) -> int:
     return 0
 
 
+def cmd_parts(args) -> int:
+    for point, parts in get_registry().describe().items():
+        print(point)
+        for part in parts:
+            state = "load error" if part["error"] else "active" if part["active"] else "disabled"
+            print(f"  {part['name']}  {part['distribution']}  {part['version']}  {state}"
+                  + (f": {part['error']}" if part["error"] else ""))
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     ap = argparse.ArgumentParser(prog="receipt-workbench")
     sub = ap.add_subparsers(dest="cmd", required=True)
+
+    parts = sub.add_parser("parts", help="list connected parts, selection and load errors")
+    parts.set_defaults(fn=cmd_parts)
 
     c = sub.add_parser("check", help="check PDF/XML files or folders")
     c.add_argument("paths", nargs="+")

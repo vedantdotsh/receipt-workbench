@@ -1,23 +1,26 @@
 from __future__ import annotations
 
+import asyncio
 import copy
-import json
 import time
 import uuid
 from collections.abc import Callable
+from contextlib import asynccontextmanager
 from datetime import datetime, timezone
+from html import escape
 from pathlib import Path
 from threading import Lock
+from urllib.parse import quote
 
 from fastapi import APIRouter, FastAPI, HTTPException, Request
-from fastapi.responses import FileResponse, JSONResponse, Response
+from fastapi.responses import HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from starlette.concurrency import run_in_threadpool
 from starlette.datastructures import UploadFile
-from starlette.exceptions import HTTPException as StarletteHTTPException
-from starlette.formparsers import MultiPartException
+from starlette.formparsers import MultiPartException, MultiPartParser
 
+from ..harness.registry import Registry, get_registry
 from ..intake.ingest import intake
 from ..page_text.pdftext import render_page_png
 from ..pipeline.check import check_file, needs_review
@@ -53,8 +56,8 @@ def _summary(item_id: str, item: dict) -> dict:
     }
 
 
-def _build_item(filename: str, data: bytes, sample: str | None = None) -> dict:
-    result = check_file(filename, data)
+def _build_item(filename: str, data: bytes, sample: str | None = None, registry: Registry | None = None) -> dict:
+    result = check_file(filename, data, registry=registry)
     pdf = None
     if result["status"] == "checked" or result.get("pages"):
         try:
@@ -72,13 +75,22 @@ def _get(request: Request, item_id: str) -> dict:
 
 
 @router.get("/")
-def index():
-    return FileResponse(STATIC / "index.html", headers={"Cache-Control": "no-store"})
+def index(request: Request):
+    notice = request.app.state.hosting_notice
+    html = (STATIC / "index.html").read_text(encoding="utf-8")
+    html = html.replace("<main>", f'<main data-hosting-en="{escape(notice["en"], quote=True)}" '
+                                f'data-hosting-de="{escape(notice["de"], quote=True)}">')
+    return HTMLResponse(html, headers={"Cache-Control": "no-store"})
 
 
 @router.get("/api/items")
 async def list_items(request: Request):
     return [_summary(i, it) for i, it in request.state.inbox.items.items()]
+
+
+@router.get("/api/harness")
+async def harness(request: Request):
+    return {"parts": request.app.state.harness.describe(), "hosting_notice": request.app.state.hosting_notice}
 
 
 @router.delete("/api/items")
@@ -91,12 +103,14 @@ async def clear_items(request: Request):
 async def upload(request: Request):
     store = request.app.state.inboxes
     settings = store.settings
+    if request.headers.get("content-type", "").split(";", 1)[0].strip().lower() != "multipart/form-data":
+        raise HTTPException(422, "Choose PDF or XML files to check.")
     try:
-        form = await request.form(max_files=settings.max_files, max_fields=0)
-    except StarletteHTTPException as error:
-        if isinstance(error.__context__, MultiPartException) and str(error.detail).startswith("Too many"):
-            raise HTTPException(413, "Too many files or form fields in this upload.") from error
-        raise
+        parser = MultiPartParser(request.headers, request.stream(), max_files=settings.max_files, max_fields=0)
+        parser.spool_max_size = settings.max_request_bytes
+        form = await parser.parse()
+    except MultiPartException as error:
+        raise HTTPException(413 if error.message.startswith("Too many") else 400, error.message) from error
     try:
         files = form.getlist("files")
         if not files or any(not isinstance(uploaded, UploadFile) for uploaded in files):
@@ -112,7 +126,8 @@ async def upload(request: Request):
             data = await uploaded.read(settings.max_file_bytes + 1)
             if len(data) > settings.max_file_bytes:
                 raise HTTPException(413, "File is too large. Please choose a smaller file.")
-            item = await run_in_threadpool(_build_item, Path(uploaded.filename or "upload").name, data)
+            item = await run_in_threadpool(_build_item, Path(uploaded.filename or "upload").name, data,
+                                          None, request.app.state.harness)
             item_id = uuid.uuid4().hex
             with store.lock:
                 if len(request.state.inbox.items) >= settings.max_items:
@@ -159,7 +174,7 @@ async def load_samples(request: Request):
     for name, data, tag in samples:
         if len(data) > store.settings.max_file_bytes:
             raise HTTPException(413, "File is too large. Please choose a smaller file.")
-        items[uuid.uuid4().hex] = await run_in_threadpool(_build_item, name, data, tag)
+        items[uuid.uuid4().hex] = await run_in_threadpool(_build_item, name, data, tag, request.app.state.harness)
     store.replace(request.state.inbox, items)
     return [_summary(item_id, item) for item_id, item in items.items()]
 
@@ -212,19 +227,45 @@ async def review(request: Request, item_id: str, body: Review):
 
 @router.get("/api/items/{item_id}/evidence")
 async def evidence(request: Request, item_id: str):
+    return await export_item(request, item_id, "json")
+
+
+@router.get("/api/items/{item_id}/exports/{name}")
+async def export_item(request: Request, item_id: str, name: str):
     item = _get(request, item_id)
-    bundle = {"kind": "receipt-workbench evidence record", "result": item["result"], "review_events": item["events"],
-              "disclaimer": "Technical consistency check of the PDF text layer against the embedded XML. "
-                            "Not tax advice, not a fraud check, not a payment approval."}
-    name = Path(item["result"]["file"]["name"]).stem + ".evidence.json"
-    return JSONResponse(json.loads(json.dumps(bundle, ensure_ascii=False)),
-                        headers={"Content-Disposition": f'attachment; filename="{name}"'})
+    part = next((part for part in request.app.state.harness.active("exports") if part.name == name), None)
+    if part is None:
+        raise HTTPException(404, "Unknown or disabled export")
+    result = copy.deepcopy(item["result"])
+    result["parts"]["exports"].append(part.provenance())
+    exported = await run_in_threadpool(part.implementation, result, copy.deepcopy(item["events"]))
+    filename = quote(exported.filename, safe="")
+    disposition = (f'attachment; filename="{filename}"' if filename == exported.filename
+                   else f"attachment; filename*=UTF-8''{filename}")
+    return Response(exported.data, media_type=exported.media_type, headers={"Content-Disposition": disposition})
 
 
-def create_app(settings: Settings | None = None, clock: Callable[[], float] = time.monotonic) -> FastAPI:
+def create_app(settings: Settings | None = None, clock: Callable[[], float] = time.monotonic,
+               registry: Registry | None = None) -> FastAPI:
     settings = settings or Settings.from_env()
-    application = FastAPI(title="Receipt Workbench", docs_url=None, redoc_url=None)
-    application.state.inboxes = Inboxes(settings, clock)
+    store = Inboxes(settings, clock)
+
+    @asynccontextmanager
+    async def lifespan(_: FastAPI):
+        async def sweep() -> None:  # expiry otherwise only runs when a request arrives
+            while True:
+                await asyncio.sleep(min(60, settings.idle_seconds))
+                store.expire()
+
+        task = asyncio.create_task(sweep()) if settings.idle_seconds else None
+        yield
+        if task:
+            task.cancel()
+
+    application = FastAPI(title="Receipt Workbench", docs_url=None, redoc_url=None, lifespan=lifespan)
+    application.state.inboxes = store
+    application.state.harness = registry or get_registry()
+    application.state.hosting_notice = settings.hosting_notice()
     headers = security_headers(STATIC / "index.html") if settings.public else {}
 
     @application.exception_handler(Exception)

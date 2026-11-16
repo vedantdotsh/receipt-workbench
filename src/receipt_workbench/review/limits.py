@@ -43,6 +43,26 @@ class Settings:
     max_concurrent_checks: int = 1
     trust_proxy: bool = False
 
+    def hosting_notice(self) -> dict[str, str]:
+        if self.public:
+            minutes = self.idle_seconds % 60 == 0
+            span = self.idle_seconds // 60 if minutes else self.idle_seconds
+            expiry = (f"They are removed after {span} {'minutes' if minutes else 'seconds'} without activity."
+                      if self.idle_seconds else "Idle expiry is disabled: they remain until cleared or the server restarts.")
+            ablauf = (f"Nach {span} {'Minuten' if minutes else 'Sekunden'} ohne Aktivität werden sie entfernt."
+                      if self.idle_seconds else "Inaktivitätsablauf ist aus: Sie bleiben bis zum Leeren oder Serverneustart.")
+            defaults = {
+                "en": "Files are sent to this server and kept in memory for this browser session only, "
+                      f"never written to disk. {expiry}",
+                "de": "Dateien werden an diesen Server gesendet und nur für diese Browsersitzung im Arbeitsspeicher "
+                      f"gehalten, nie auf die Festplatte geschrieben. {ablauf}",
+            }
+        else:
+            defaults = {"en": "Files are kept in memory on this computer and never leave it.",
+                        "de": "Dateien bleiben im Arbeitsspeicher auf diesem Rechner und verlassen ihn nicht."}
+        return {language: os.environ.get(f"RW_HOSTING_NOTICE_{language.upper()}", text)
+                for language, text in defaults.items()}
+
     def __post_init__(self) -> None:
         for setting in fields(self):
             value = getattr(self, setting.name)
@@ -111,6 +131,10 @@ class Inboxes:
     def memory_bytes(self) -> int:
         return (sum(VISITOR_OVERHEAD + inbox.size for inbox in self.visitors.values())
                 + _size(self.ip_checks, set()))
+
+    def expire(self) -> None:
+        with self.lock:
+            self._expire()
 
     def _expire(self) -> None:
         now = self.clock()

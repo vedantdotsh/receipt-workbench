@@ -7,29 +7,25 @@ from importlib.metadata import version
 
 from .. import __version__
 from ..comparison.compare import compare, coverage
+from ..harness.registry import POINTS, Registry, get_registry
 from ..intake.ingest import IntakeError, intake, safe_parse_xml, xml_flavor
-from ..invoice_data.cii import parse_cii
-from ..page_text.pdftext import read_pdf_text
-from ..validation.validate import (
-    Layer,
-    validate_rules,
-    validate_schema,
-    validate_xrechnung,
-)
+from ..validation.validate import Layer
 
 COMPARISON_METHOD = "pdf-text-layer/2"  # bump when extraction or matching rules change
 
 
-def check_file(filename: str, data: bytes, run_validation: bool = True) -> dict:
+def check_file(filename: str, data: bytes, run_validation: bool = True, *, registry: Registry | None = None) -> dict:
     """Never raises for bad input: a file we cannot check is a result, not a crash."""
     out: dict = {
         "tool": {"name": "receipt-workbench", "version": __version__, "comparison_method": COMPARISON_METHOD,
-                 "pdfplumber": version("pdfplumber"), "pypdf": version("pypdf")},
+                 "pdfplumber": version("pdfplumber"), "pypdf": version("pypdf"), "record_version": 2},
+        "parts": {point: [] for point in POINTS},
         "checked_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "file": {"name": filename, "size": len(data)},
         "status": "processing_failed",
         "intake": None, "invoice": None, "validation": [], "comparison": None, "pages": [],
     }
+    registry = registry or get_registry()
     try:
         it = intake(filename, data)
     except IntakeError as e:
@@ -46,7 +42,12 @@ def check_file(filename: str, data: bytes, run_validation: bool = True) -> dict:
     pdf_text = None
     if it.pdf is not None:
         try:
-            pdf_text = read_pdf_text(it.pdf)
+            readers = registry.active("page_readers")
+            if not readers:
+                raise ValueError("No active page reader")
+            reader = readers[0]
+            out["parts"]["page_readers"].append(reader.provenance())
+            pdf_text = reader.implementation(it.pdf)
             out["pages"] = [{"number": p.number, "width": p.width, "height": p.height, "chars": p.char_count}
                             for p in pdf_text.pages]
         except Exception as e:  # the XML can still be validated
@@ -66,15 +67,18 @@ def check_file(filename: str, data: bytes, run_validation: bool = True) -> dict:
         return out
 
     flavor = xml_flavor(root)
-    if flavor not in ("cii", "zugferd1"):
+    parser = next((part for part in registry.active("invoice_parsers")
+                   if flavor in part.implementation.flavors), None)
+    if parser is None:
         out["status"] = "unsupported"
         out["error"] = {"code": f"flavor_{flavor}",
-                        "message": "Only UN/CEFACT CII invoices (ZUGFeRD, Factur-X, XRechnung CII) are supported so far."
-                        if flavor.startswith("ubl") else "The XML is not a recognised invoice format."}
+                        "message": "The XML is not a recognised invoice format." if flavor == "unknown"
+                        else f"No connected invoice parser reads this format ({flavor})."}
         return out
 
     try:
-        inv = parse_cii(root)
+        out["parts"]["invoice_parsers"].append(parser.provenance())
+        inv = parser.implementation(root)
     except Exception as e:
         out["error"] = {"code": "xml_parse_failed", "message": str(e)[:300]}
         return out
@@ -93,9 +97,18 @@ def check_file(filename: str, data: bytes, run_validation: bool = True) -> dict:
     }
 
     if run_validation:
-        layers: list[Layer] = [validate_schema(it.xml, flavor, inv.profile), validate_rules(it.xml, flavor, inv.profile, inv.guideline),
-                              validate_xrechnung(it.xml, flavor, inv.guideline)]
-        out["validation"] = [layer.to_dict() for layer in layers]
+        for validator in registry.active("validators"):
+            source = validator.provenance()
+            out["parts"]["validators"].append(source)
+            try:
+                layer = validator.implementation(it.xml, flavor, inv.profile, inv.guideline)
+                if not isinstance(layer, Layer) or layer.outcome not in {"passed", "failed", "not_run", "error"}:
+                    raise ValueError("A validator must return a Layer with a known outcome")
+                evidence = layer.to_dict()
+            except Exception as error:  # noqa: BLE001 - extension failures must remain evidence
+                evidence = Layer(validator.name, "error", validator.name,
+                                 detail=f"{type(error).__name__}: {error}"[:600]).to_dict()
+            out["validation"].append({**evidence, "name": validator.name, "part": source})
 
     comp: dict = {"method": COMPARISON_METHOD, "applicable": True, "reason": None, "findings": [], "coverage": coverage([]),
                   "verdict": "not_compared"}

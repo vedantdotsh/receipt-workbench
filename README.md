@@ -117,11 +117,11 @@ can read, not how it performs on arbitrary invoices. Layout D is the closer esti
 unseen layout.
 
 **Other validators.** Mustangproject 2.26.0 accepts all 32 clean files and all 412 changed
-files: it flags none of the planted differences. It is a validity check and was never meant
-to compare page and data, so this is the expected boundary of that kind of tool, not a defect
-in it. veraPDF 1.30.4 rejects all 444 files, clean ones included, because the generated PDFs
-do not embed their fonts or declare an output intent; that is a shortcoming of the test
-files. Details are in [benchmark/RESULTS.md](benchmark/RESULTS.md).
+files, including its nested PDF check: it flags none of the planted differences. It was never
+meant to compare page and data, so this is the expected boundary of that kind of tool, not a defect
+in it. veraPDF 1.30.4 also accepts all 444 files as PDF/A-3b after embedding the fonts and
+adding an sRGB output intent. Neither validator flags page/data differences. Details are
+in [benchmark/RESULTS.md](benchmark/RESULTS.md).
 
 **Public sample invoices.** On the 97 comparable PDFs in the "correct" folders of the
 [ZUGFeRD corpus](https://github.com/ZUGFeRD/corpus) (Apache-2.0, many files are variants of

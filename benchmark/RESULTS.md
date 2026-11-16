@@ -5,6 +5,8 @@ Test set: 444 files from 8 base invoices x 4 layouts (32 clean, 412 with one pla
 - Clean-file field coverage: 571 of 716 fields confirmed at their label, 109 found on the page without a label, 36 not located.
 - 412 of 412 files with a planted difference still pass schema and rule validation.
 
+Regenerating with embedded fonts and an sRGB output intent leaves every per-file score unchanged.
+
 | Planted difference | Files | Detected | Other field | Inconclusive | Missed | Naive baseline |
 |---|---|---|---|---|---|---|
 | bic (pdf changed) | 32 | 32 | 0 | 0 | 0 | 0 |
@@ -38,20 +40,16 @@ synthetic and share an author with the checker.
 | Tool | Version | Clean accepted / 32 | Changed: flagged on the changed field / 412 | Changed: rejected for another reason | Changed: not flagged | Errors |
 |---|---|---|---|---|---|---|
 | Mustangproject | 2.26.0 | 32 (overall verdict) | 0 | 0 | 412 | 0 |
-| veraPDF (PDF/A-3b) | 1.30.4 | 0 | 0 | 412 | 0 | 0 |
+| veraPDF (PDF/A-3b) | 1.30.4 | 32 | 0 | 0 | 412 | 0 |
 
-**Clean files.** Mustangproject reports every file as valid overall and valid XML, with its
-nested PDF check invalid. veraPDF rejects every file, clean or changed, for the same two
-ISO 19005-3 rules:
-
-- clause 6.2.11.4.1: the Helvetica fonts are not embedded;
-- clause 6.2.4.3: DeviceGray is used without an output intent.
-
-These are shortcomings of the generated PDFs, not false alarms, and veraPDF's 412 rejections
-say nothing about the planted differences. Mustangproject runs veraPDF internally, so the two
-PDF verdicts are not independent. XMP metadata and the attachment relationship are accepted
-by both. Embedding the fonts and adding an ICC output intent in the generator should remove
-both failures; that has not been done or re-validated.
+**Clean files.** Both validators now accept all 32 clean and all 412 changed files.
+Mustangproject reports valid overall, XML and nested PDF verdicts throughout. The generated
+PDFs embed ReportLab's Bitstream Vera regular/bold fonts (Bitstream Vera licence) and declare
+the bundled `sRGB-v2-magic.icc` from [Compact ICC Profiles](https://github.com/saucecontrol/Compact-ICC-Profiles)
+(CC0-1.0); all drawing colours are RGB. This removes the previous unembedded-font and
+missing-output-intent failures. XMP metadata and the attachment relationship remain accepted.
+Mustangproject runs veraPDF internally, so the two PDF verdicts are not independent. Neither
+tool flags the planted page/data differences.
 
 **How a result is counted.** A changed file counts as flagged on the changed field only if
 the tool's overall verdict is invalid and it reports a blocking rule on the field that was
@@ -68,5 +66,6 @@ uv run receipt-workbench make-testset --out testset
 uv run receipt-workbench bench-third-party --dir testset --jobs 4
 ```
 
-The run took about 13 minutes with four parallel jobs. Per-file results are written to
-`benchmark/third-party-results.json`, which is not committed.
+The run took about 15 minutes with four parallel jobs. Per-file results are written to
+`benchmark/third-party-results.json`, which is not committed; raw reports go beside the output
+under `reports/`, leaving the tool cache read-only.

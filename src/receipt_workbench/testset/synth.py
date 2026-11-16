@@ -265,36 +265,55 @@ LAYOUTS = {
 
 def render_pdf(view: dict, layout: str) -> bytes:
     """Draw the visible invoice from `view`. Nothing here reads the XML."""
+    from pypdf import PdfWriter
+    from pypdf.generic import (
+        ArrayObject,
+        DecodedStreamObject,
+        DictionaryObject,
+        NameObject,
+        NumberObject,
+        TextStringObject,
+    )
     from reportlab.lib.pagesizes import A4
-    from reportlab.pdfbase.pdfmetrics import stringWidth
+    from reportlab.pdfbase.pdfmetrics import (
+        getRegisteredFontNames,
+        registerFont,
+        stringWidth,
+    )
+    from reportlab.pdfbase.ttfonts import TTFont
     from reportlab.pdfgen import canvas
 
+    for name, filename in (("Vera", "Vera.ttf"), ("Vera-Bold", "VeraBd.ttf")):
+        if name not in getRegisteredFontNames():
+            registerFont(TTFont(name, filename))
     st = LAYOUTS[layout]
     lab, lang = st["lab"], st["lang"]
     t = totals(view)
     W, H = A4
     buf = io.BytesIO()
-    c = canvas.Canvas(buf, pagesize=A4, pageCompression=1, invariant=1)
+    c = canvas.Canvas(buf, pagesize=A4, pageCompression=1, invariant=1, initialFontName="Vera")
+    c.setFillColorRGB(0, 0, 0)
+    c.setStrokeColorRGB(0, 0, 0)
     c.setTitle(f"{st['title'][view['type_code']]} {view['number']}")
     left, right = 55, W - 55
     money = lambda x: st["money"].format(fmt_num(x, st["num"]))  # noqa: E731
     seller, buyer = view["seller"], view["buyer"]
 
     def footer():
-        c.setFont("Helvetica", 7.5)
-        c.setFillGray(0.35)
+        c.setFont("Vera", 7.5)
+        c.setFillColorRGB(0.35, 0.35, 0.35)
         c.drawString(left, 62, f"{seller['name']} · {seller['street']} · {seller['zip']} {seller['city']}")
         c.drawString(left, 51, f"{lab['vat_id']} {seller['vat_id']}   {lab['tax_no']} {seller['tax_number']}")
         c.drawString(left, 40, f"{seller['bank']}   IBAN {fmt_iban(view['iban'], st['iban_grouped'])}   BIC {view['bic']}")
-        c.setFillGray(0)
+        c.setFillColorRGB(0, 0, 0)
 
     y = H - 60
-    c.setFont("Helvetica-Bold", 13)
+    c.setFont("Vera-Bold", 13)
     c.drawString(left, y, seller["name"])
-    c.setFont("Helvetica", 8.5)
+    c.setFont("Vera", 8.5)
     c.drawString(left, y - 13, f"{seller['street']}, {seller['zip']} {seller['city']}")
     y -= 62
-    c.setFont("Helvetica", 10)
+    c.setFont("Vera", 10)
     for i, line in enumerate([buyer["name"], buyer["street"], f"{buyer['zip']} {buyer['city']}"]):
         c.drawString(left, y - 13 * i, line)
 
@@ -308,32 +327,32 @@ def render_pdf(view: dict, layout: str) -> bytes:
 
     if st["header"] == "pairs":
         for i, (k, v) in enumerate(pairs):
-            c.setFont("Helvetica", 9)
+            c.setFont("Vera", 9)
             c.drawString(350, y - 13 * i, k)
             c.drawRightString(right, y - 13 * i, v)
         y -= 95
-        c.setFont("Helvetica-Bold", 15)
+        c.setFont("Vera-Bold", 15)
         c.drawString(left, y, title)
     elif st["header"] == "sentence":
         y -= 80
-        c.setFont("Helvetica-Bold", 13)
+        c.setFont("Vera-Bold", 13)
         c.drawString(left, y, f"{title} {lab['number']} {view['number']} {lab['date']} {fmt_date(view['issue_date'], st['date'])}")
-        c.setFont("Helvetica", 9)
+        c.setFont("Vera", 9)
         y -= 16
         c.drawString(left, y, f"{lab['delivery']} {fmt_date(view['delivery_date'], st['date'])}   {lab['order']} {view.get('order_ref') or '-'}")
     else:  # stacked boxes: label on one row, value on the row below
         y -= 70
-        c.setFont("Helvetica-Bold", 15)
+        c.setFont("Vera-Bold", 15)
         c.drawString(left, y, title)
         y -= 26
         boxw = (right - left) / len(pairs)
         for i, (k, v) in enumerate(pairs):
             x = left + i * boxw
-            c.setFont("Helvetica", 7.5)
-            c.setFillGray(0.4)
+            c.setFont("Vera", 7.5)
+            c.setFillColorRGB(0.4, 0.4, 0.4)
             c.drawString(x, y, k.upper())
-            c.setFillGray(0)
-            c.setFont("Helvetica", 9.5)
+            c.setFillColorRGB(0, 0, 0)
+            c.setFont("Vera", min(9.5, (boxw - 8) / stringWidth(v, "Vera", 1)))
             c.drawString(x, y - 12, v)
         y -= 14
 
@@ -343,7 +362,7 @@ def render_pdf(view: dict, layout: str) -> bytes:
     for _, _, w, _ in cols:
         xs.append(x)
         x += w
-    c.setFont("Helvetica-Bold", 8.5)
+    c.setFont("Vera-Bold", 8.5)
     for (key, head, w, align), x0 in zip(cols, xs):
         c.drawRightString(x0 + w, y, head) if align == "r" else c.drawString(x0, y, head)
     c.line(left, y - 4, right, y - 4)
@@ -354,7 +373,7 @@ def render_pdf(view: dict, layout: str) -> bytes:
         words, rows, cur = ln["name"].split(), [], ""
         for wd in words:
             trial = (cur + " " + wd).strip()
-            if stringWidth(trial, "Helvetica", 9) <= name_w:
+            if stringWidth(trial, "Vera", 9) <= name_w:
                 cur = trial
             else:
                 rows.append(cur)
@@ -363,11 +382,13 @@ def render_pdf(view: dict, layout: str) -> bytes:
         if y - 12 * len(rows) < 190:
             footer()
             c.showPage()
+            c.setFillColorRGB(0, 0, 0)
+            c.setStrokeColorRGB(0, 0, 0)
             y = H - 70
         cells = {"pos": ln["id"], "qty": f"{fmt_num(ln['qty'], st['num'], None)} {units[ln['unit']]}",
                  "price": fmt_num(ln["price"], st["num"], max(2, -ln["price"].as_tuple().exponent)),
                  "vat": f"{fmt_num(ln['vat'], st['num'], None)}%", "amount": money(amount)}
-        c.setFont("Helvetica", 9)
+        c.setFont("Vera", 9)
         for (key, _, w, align), x0 in zip(cols, xs):
             if key == "name":
                 for i, r in enumerate(rows):
@@ -390,17 +411,17 @@ def render_pdf(view: dict, layout: str) -> bytes:
     rows.append((lab["gross"], t["gross"], True))
     rows.append((lab["due_amount"], t["due"], True))
     for label, value, bold in rows:
-        c.setFont("Helvetica-Bold" if bold else "Helvetica", 9.5)
+        c.setFont("Vera-Bold" if bold else "Vera", 9.5)
         c.drawString(tx, y, label)
         c.drawRightString(right, y, money(value))
         y -= 14
     if st["vat_table"] and len(t["tax_rows"]) > 1:
         y -= 6
-        c.setFont("Helvetica-Bold", 8)
+        c.setFont("Vera-Bold", 8)
         heads = {"de": ("USt-Satz", "Netto", "USt-Betrag"), "en": ("VAT rate", "Net", "VAT amount")}[lang]
         for i, h in enumerate(heads):
             c.drawRightString(left + 60 + i * 90, y, h)
-        c.setFont("Helvetica", 8.5)
+        c.setFont("Vera", 8.5)
         for tr in t["tax_rows"]:
             y -= 12
             c.drawRightString(left + 60, y, f"{fmt_num(tr['rate'], st['num'], None)}%")
@@ -408,12 +429,26 @@ def render_pdf(view: dict, layout: str) -> bytes:
             c.drawRightString(left + 240, y, money(tr["amount"]))
     if st["header"] == "sentence" and view.get("due_date"):
         y -= 22
-        c.setFont("Helvetica", 9)
+        c.setFont("Vera", 9)
         c.drawString(left, y, f"{lab['due']} {fmt_date(view['due_date'], st['date'])}.")
     footer()
     c.showPage()
     c.save()
-    return buf.getvalue()
+    writer = PdfWriter(clone_from=buf)
+    profile = DecodedStreamObject()
+    profile.set_data(Path(__file__).with_name("sRGB-v2-magic.icc").read_bytes())
+    profile[NameObject("/N")] = NumberObject(3)
+    writer.root_object[NameObject("/OutputIntents")] = ArrayObject([DictionaryObject({
+        NameObject("/Type"): NameObject("/OutputIntent"),
+        NameObject("/S"): NameObject("/GTS_PDFA1"),
+        NameObject("/OutputConditionIdentifier"): TextStringObject("sRGB"),
+        NameObject("/RegistryName"): TextStringObject("http://www.color.org"),
+        NameObject("/Info"): TextStringObject("sRGB"),
+        NameObject("/DestOutputProfile"): writer._add_object(profile),
+    })])
+    output = io.BytesIO()
+    writer.write(output)
+    return output.getvalue()
 
 
 def _bump(d: Decimal, by="1") -> Decimal:

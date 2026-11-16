@@ -200,7 +200,7 @@ def provenance(cache: Path, java: Path, tools: list[str]) -> dict:
 
 
 def run(testset: Path, cache: Path, java: Path, tools: list[str], timeout: float, jobs: int,
-        clean_only: bool = False) -> dict:
+        clean_only: bool = False, reports: Path | None = None) -> dict:
     if timeout <= 0 or jobs < 1:
         raise ValueError("timeout and jobs must be positive")
     start = time.perf_counter()
@@ -222,7 +222,7 @@ def run(testset: Path, cache: Path, java: Path, tools: list[str], timeout: float
                           "error": "file missing, outside test set, or SHA-256 differs from manifest", "elapsed_seconds": 0}
             if (path.is_relative_to(testset.resolve()) and path.is_file()
                     and hashlib.sha256(path.read_bytes()).hexdigest() == case["sha256"]):
-                report_path = cache.resolve() / "reports" / tool / Path(case["file"]).with_suffix(".xml")
+                report_path = (reports or cache / "reports").resolve() / tool / Path(case["file"]).with_suffix(".xml")
                 result = invoke(command + [str(path)], tool, report_path, timeout)
             return dict(case, tool=TOOLS[tool]["name"], **result)
 
@@ -251,7 +251,8 @@ def run(testset: Path, cache: Path, java: Path, tools: list[str], timeout: float
 def cmd_third_party(args) -> int:
     cache = Path(args.cache)
     java = Path(args.java) if args.java else cache / "java/jdk-21.0.13+9-jre/bin/java.exe"
-    result = run(Path(args.dir), cache, java, args.tool or list(TOOLS), args.timeout, args.jobs, args.clean_only)
+    result = run(Path(args.dir), cache, java, args.tool or list(TOOLS), args.timeout, args.jobs, args.clean_only,
+                 Path(args.out).resolve().parent / "reports")
     Path(args.out).write_text(json.dumps(result, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     for tool in result["tools"]:
         print(f"{tool['name']} {tool['version']}: clean {tool['clean']}; changed {tool['changed']}; "

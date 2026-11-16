@@ -176,16 +176,17 @@ def test_runner_checks_clean_first_and_manifest_hashes(monkeypatch, tmp_path):
     seen = []
 
     def execute(command, tool, report_path, timeout):
+        assert report_path.is_relative_to(tmp_path / "reports")
         seen.append(report_path.name)
         return dict(parse_mustang(sample("mustang-valid.xml")), exit_status=0, elapsed_seconds=0.1)
 
     monkeypatch.setattr(third_party, "invoke", execute)
-    report = run(tmp_path, tmp_path / "cache", Path("java"), ["mustang"], 2, 1)
+    report = run(tmp_path, tmp_path / "cache", Path("java"), ["mustang"], 2, 1, reports=tmp_path / "reports")
     assert seen == ["clean.xml", "mutated.xml"]
     assert report["tools"][0]["clean"]["accepted"] == 1
     assert report["tools"][0]["changed"]["not_flagged"] == 1
     seen.clear()
     (tmp_path / "mutated.pdf").write_bytes(b"changed")
-    report = run(tmp_path, tmp_path / "cache", Path("java"), ["mustang"], 2, 1)
+    report = run(tmp_path, tmp_path / "cache", Path("java"), ["mustang"], 2, 1, reports=tmp_path / "reports")
     assert seen == ["clean.xml"]
     assert report["tools"][0]["changed"]["errors"] == 1

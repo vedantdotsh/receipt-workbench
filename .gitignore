@@ -5,6 +5,7 @@ __pycache__/
 .ruff_cache/
 .tools/
 benchmark/third-party-results.json
+benchmark/reports/
 data/external/
 /testset/
 *.evidence.json

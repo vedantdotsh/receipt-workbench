@@ -93,7 +93,7 @@ def check_file(filename: str, data: bytes, run_validation: bool = True) -> dict:
     }
 
     if run_validation:
-        layers: list[Layer] = [validate_schema(it.xml, flavor, inv.profile), validate_rules(it.xml, flavor, inv.profile),
+        layers: list[Layer] = [validate_schema(it.xml, flavor, inv.profile), validate_rules(it.xml, flavor, inv.profile, inv.guideline),
                               validate_xrechnung(it.xml, flavor, inv.guideline)]
         out["validation"] = [layer.to_dict() for layer in layers]
 

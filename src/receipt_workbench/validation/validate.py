@@ -2,8 +2,8 @@
 
 Three layers, reported separately:
   schema  XSD for the detected profile (factur-x library's bundled Factur-X 1.0.x XSDs)
-  rules   the Factur-X / EN 16931 Schematron, shipped by the same library as compiled
-          XSLT and executed here with Saxon-HE (saxonche)
+  rules   CEN EN 16931 CII Schematron for XRechnung, otherwise the library's
+          Factur-X Schematron, executed here with Saxon-HE (saxonche)
   xrechnung  KoSIT's CII Schematron for invoices declaring XRechnung in BT-24
 
 Outcomes are `passed`, `failed`, `not_run` (unsupported input) or `error` (the
@@ -34,6 +34,7 @@ SCHEMATRON_FILES = {
     "extended": "facturx-extended/FACTUR-X_EXTENDED.xslt",
 }
 XRECHNUNG_ARTEFACT = "xrechnung-3.0.2-schematron-2.6.0/XRechnung-CII-validation.xsl"
+EN16931_ARTEFACT = "en16931-cii-1.3.16/EN16931-CII-validation.xslt"
 
 
 @dataclass
@@ -156,9 +157,9 @@ class _SaxonThread:
 _SAXON_THREAD = _SaxonThread()
 
 
-def validate_rules(xml: bytes, flavor: str, profile: str) -> Layer:
+def validate_rules(xml: bytes, flavor: str, profile: str, guideline: str) -> Layer:
     try:
-        return _SAXON_THREAD.call(_rules_in_saxon_thread, xml, flavor, profile)
+        return _SAXON_THREAD.call(_rules_in_saxon_thread, xml, flavor, profile, guideline)
     except Exception as e:
         return Layer("rules", "error", "Saxon-HE via saxonche", detail=f"{type(e).__name__}: {e}"[:600])
 
@@ -175,7 +176,10 @@ def validate_xrechnung(xml: bytes, flavor: str, guideline: str) -> Layer:
                      detail=f"{type(error).__name__}: {error}"[:600])
 
 
-def _rules_in_saxon_thread(xml: bytes, flavor: str, profile: str) -> Layer:
+def _rules_in_saxon_thread(xml: bytes, flavor: str, profile: str, guideline: str) -> Layer:
+    if flavor == "cii" and "xrechnung" in guideline.lower():
+        path = os.path.join(os.path.dirname(__file__), *EN16931_ARTEFACT.split("/"))
+        return _schematron_in_saxon_thread(xml, "rules", path, EN16931_ARTEFACT)
     if flavor != "cii" or profile not in LEVELS:
         return Layer("rules", "not_run", "Saxon-HE",
                      detail=f"No Schematron configured for flavour '{flavor}', profile '{profile}'.")

@@ -87,6 +87,17 @@ def main(argv: list[str] | None = None) -> int:
     b.add_argument("--out", default=None)
     b.set_defaults(fn=lambda a: __import__("receipt_workbench.testset.bench", fromlist=["x"]).cmd_bench(a))
 
+    external = sub.add_parser("bench-third-party", help="run pinned offline validators on the seeded test set")
+    external.add_argument("--dir", default="testset")
+    external.add_argument("--cache", default=".tools")
+    external.add_argument("--java", default=None)
+    external.add_argument("--tool", choices=("mustang", "verapdf"), action="append")
+    external.add_argument("--timeout", type=float, default=60)
+    external.add_argument("--jobs", type=int, default=1)
+    external.add_argument("--clean-only", action="store_true")
+    external.add_argument("--out", default="benchmark/third-party-results.json")
+    external.set_defaults(fn=lambda args: __import__("receipt_workbench.testset.third_party", fromlist=["x"]).cmd_third_party(args))
+
     s = sub.add_parser("serve", help="run the review UI locally")
     s.add_argument("--port", type=int, default=8321)
     s.add_argument("--host", default="127.0.0.1")

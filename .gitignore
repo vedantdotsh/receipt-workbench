@@ -3,6 +3,8 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .ruff_cache/
+.tools/
+benchmark/third-party-results.json
 data/external/
 /testset/
 *.evidence.json

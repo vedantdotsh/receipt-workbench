@@ -27,3 +27,46 @@ Test set: 444 files from 8 base invoices x 4 layouts (32 clean, 412 with one pla
 | B | 103 | 103 | 0 | 0 | 0 |
 | C | 103 | 103 | 0 | 0 | 0 |
 | D | 103 | 72 | 0 | 31 | 0 |
+
+## Third-party validity checks (16 November 2026)
+
+The same 444 files were run through Mustangproject's hybrid-invoice validator and veraPDF's
+PDF/A-3b validator. Both check validity. Neither is meant to compare page and data, so a low
+count here describes a gap between kinds of checks, not a defect in either tool. The files are
+synthetic and share an author with the checker.
+
+| Tool | Version | Clean accepted / 32 | Changed: flagged on the changed field / 412 | Changed: rejected for another reason | Changed: not flagged | Errors |
+|---|---|---|---|---|---|---|
+| Mustangproject | 2.26.0 | 32 (overall verdict) | 0 | 0 | 412 | 0 |
+| veraPDF (PDF/A-3b) | 1.30.4 | 0 | 0 | 412 | 0 | 0 |
+
+**Clean files.** Mustangproject reports every file as valid overall and valid XML, with its
+nested PDF check invalid. veraPDF rejects every file, clean or changed, for the same two
+ISO 19005-3 rules:
+
+- clause 6.2.11.4.1: the Helvetica fonts are not embedded;
+- clause 6.2.4.3: DeviceGray is used without an output intent.
+
+These are shortcomings of the generated PDFs, not false alarms, and veraPDF's 412 rejections
+say nothing about the planted differences. Mustangproject runs veraPDF internally, so the two
+PDF verdicts are not independent. XMP metadata and the attachment relationship are accepted
+by both. Embedding the fonts and adding an ICC output intent in the generator should remove
+both failures; that has not been done or re-validated.
+
+**How a result is counted.** A changed file counts as flagged on the changed field only if
+the tool's overall verdict is invalid and it reports a blocking rule on the field that was
+changed, which its clean counterpart does not report. An invalid verdict for other reasons is
+"another reason". A timeout, crash or unreadable report is an error, never "not flagged".
+
+**Reproduce.** The tools are not part of the repository. Download URLs and SHA-256 checksums
+are in `DOWNLOADS` in `src/receipt_workbench/testset/third_party.py`: the Mustang CLI JAR
+(Apache-2.0), the veraPDF installer (GPL-3.0-or-later or MPL-2.0) and, if no Java is installed,
+a Temurin 21 JRE. Put them in `.tools/`, install the veraPDF CLI to `.tools/verapdf`, then:
+
+```
+uv run receipt-workbench make-testset --out testset
+uv run receipt-workbench bench-third-party --dir testset --jobs 4
+```
+
+The run took about 13 minutes with four parallel jobs. Per-file results are written to
+`benchmark/third-party-results.json`, which is not committed.

@@ -105,7 +105,8 @@ either the page or the data. `receipt-workbench bench` scores them. Full table:
 - Clean invoices: 0 false alarms out of 32.
 - Planted differences: 381 of 412 detected on the right field, 31 reported as inconclusive,
   0 missed (the tool said "no difference").
-- All 412 changed files still pass schema and rule validation, so a validator alone finds none of them.
+- All 412 changed files still pass the checker's schema and rule validation; those layers
+  find none of the planted differences.
 - A naive baseline ("is the invoice number, total and IBAN somewhere on the page?") finds 224 of 412.
 - Layouts A to C: 309 of 309. Layout D uses labels the tool was deliberately not written
   for: 72 detected, 31 inconclusive, 0 missed. The 7 changed due dates are inconclusive.
@@ -114,6 +115,13 @@ Read these numbers with care. The generator and the checker have the same author
 layouts A to C were used while developing the rules. They show the method works on text it
 can read, not how it performs on arbitrary invoices. Layout D is the closer estimate of an
 unseen layout.
+
+**Other validators.** Mustangproject 2.26.0 accepts all 32 clean files and all 412 changed
+files: it flags none of the planted differences. It is a validity check and was never meant
+to compare page and data, so this is the expected boundary of that kind of tool, not a defect
+in it. veraPDF 1.30.4 rejects all 444 files, clean ones included, because the generated PDFs
+do not embed their fonts or declare an output intent; that is a shortcoming of the test
+files. Details are in [benchmark/RESULTS.md](benchmark/RESULTS.md).
 
 **Public sample invoices.** On the 97 comparable PDFs in the "correct" folders of the
 [ZUGFeRD corpus](https://github.com/ZUGFeRD/corpus) (Apache-2.0, many files are variants of
@@ -158,8 +166,7 @@ is inconclusive instead of a pass.
   Older ZUGFeRD 2.0 samples often fail these newer rules; that has not been analysed.
 - Allowances and charges are not compared line by line. A page that prints a wrong total
   which happens to equal another amount of the same invoice is not flagged.
-- Not built yet from stage 1: the AWS deployment and the
-  comparison against other tools.
+- Not built yet from stage 1: the AWS deployment.
 
 ## Layout
 
@@ -178,6 +185,7 @@ src/receipt_workbench/
   pipeline/check.py       one file in, one evidence record out
   testset/synth.py         seeded test set generator
   testset/bench.py         scorer
+  testset/third_party.py   pinned offline validator comparison
   review/server.py        local review screen
   review/static/          the screen and vendored scripts
 tests/

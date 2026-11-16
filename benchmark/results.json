@@ -31,8 +31,8 @@
   "n": 412,
   "detected": 381,
   "wrong_field": 0,
-  "abstained": 24,
-  "missed": 7,
+  "abstained": 31,
+  "missed": 0,
   "baseline_detected": 224
  },
  "payment_critical": {
@@ -56,8 +56,8 @@
    "n": 28,
    "detected": 21,
    "wrong_field": 0,
-   "abstained": 0,
-   "missed": 7,
+   "abstained": 7,
+   "missed": 0,
    "baseline_detected": 0
   },
   "extra_line (pdf changed)": {
@@ -178,8 +178,8 @@
    "n": 103,
    "detected": 72,
    "wrong_field": 0,
-   "abstained": 24,
-   "missed": 7,
+   "abstained": 31,
+   "missed": 0,
    "baseline_detected": 56
   }
  },
@@ -200,7 +200,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -222,7 +231,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -244,7 +262,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -266,7 +293,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -288,7 +324,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -310,7 +355,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -332,7 +386,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -356,7 +419,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -379,7 +451,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -401,7 +482,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -431,7 +521,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 12,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -461,7 +560,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 13,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -489,7 +597,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 13,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -511,7 +628,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -529,7 +655,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 2,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -551,7 +686,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -573,7 +717,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -595,7 +748,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -617,7 +779,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -639,7 +810,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -661,7 +841,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -685,7 +874,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 16,
+    "present": 2,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -708,7 +906,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 16,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -730,7 +937,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -761,7 +977,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 12,
+    "present": 1,
+    "mismatch": 5,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -792,7 +1017,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 13,
+    "present": 1,
+    "mismatch": 5,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -821,7 +1055,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 13,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -843,7 +1086,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -861,7 +1113,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -883,7 +1144,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -905,7 +1175,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -927,7 +1206,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -949,7 +1237,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -971,7 +1268,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -993,7 +1299,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -1017,7 +1332,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -1040,7 +1364,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1062,7 +1395,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -1092,7 +1434,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 12,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -1122,7 +1473,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 13,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -1150,7 +1510,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 13,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -1172,7 +1541,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -1190,7 +1568,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 9,
+    "present": 10,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1212,7 +1599,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 8,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1234,7 +1630,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 8,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1256,7 +1661,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 8,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1276,7 +1690,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 9,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -1296,7 +1719,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 9,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 2
    }
   },
   {
@@ -1306,8 +1738,8 @@
    "kind": "mutated",
    "mutation": "due_date",
    "side": "pdf",
-   "outcome": "missed",
-   "verdict": "no_difference_in_checked_fields",
+   "outcome": "abstained",
+   "verdict": "inconclusive",
    "mismatch_fields": [],
    "expected": [
     "due_date"
@@ -1316,7 +1748,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 9,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 2
    }
   },
   {
@@ -1337,7 +1778,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 9,
+    "present": 8,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -1360,7 +1810,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 8,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -1382,7 +1841,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 8,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1410,7 +1878,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 7,
+    "present": 5,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -1438,7 +1915,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 8,
+    "present": 5,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -1464,7 +1950,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 8,
+    "present": 5,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -1486,7 +1981,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 8,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1504,7 +2008,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 20,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1526,7 +2039,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1548,7 +2070,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1570,7 +2101,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1592,7 +2132,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1614,7 +2163,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1636,7 +2194,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1660,7 +2227,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 18,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1683,7 +2259,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1705,7 +2290,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1735,7 +2329,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 14,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -1765,7 +2368,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 15,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -1793,7 +2405,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 15,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -1815,7 +2436,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -1833,7 +2463,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 20,
+    "present": 2,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -1855,7 +2494,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -1877,7 +2525,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -1899,7 +2556,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -1921,7 +2587,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -1943,7 +2618,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -1965,7 +2649,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -1989,7 +2682,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 18,
+    "present": 2,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2012,7 +2714,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -2034,7 +2745,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2064,7 +2784,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 14,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -2094,7 +2823,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 15,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -2122,7 +2860,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 15,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -2144,7 +2891,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2162,7 +2918,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 21,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2184,7 +2949,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2206,7 +2980,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2228,7 +3011,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2250,7 +3042,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2272,7 +3073,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2294,7 +3104,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2318,7 +3137,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2341,7 +3169,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -2363,7 +3200,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2392,7 +3238,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 14,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 5
    }
   },
   {
@@ -2421,7 +3276,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 15,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 5
    }
   },
   {
@@ -2448,7 +3312,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 15,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 5
    }
   },
   {
@@ -2470,7 +3343,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2488,7 +3370,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 11,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -2510,7 +3401,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 10,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -2532,7 +3432,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 10,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -2554,7 +3463,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 10,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -2574,7 +3492,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 11,
+    "present": 8,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -2594,7 +3521,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 11,
+    "present": 8,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 3
    }
   },
   {
@@ -2604,8 +3540,8 @@
    "kind": "mutated",
    "mutation": "due_date",
    "side": "pdf",
-   "outcome": "missed",
-   "verdict": "no_difference_in_checked_fields",
+   "outcome": "abstained",
+   "verdict": "inconclusive",
    "mismatch_fields": [],
    "expected": [
     "due_date"
@@ -2614,7 +3550,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 11,
+    "present": 8,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 3
    }
   },
   {
@@ -2635,7 +3580,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 11,
+    "present": 7,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 5
    }
   },
   {
@@ -2658,7 +3612,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 10,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -2680,7 +3643,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 10,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -2708,7 +3680,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 9,
+    "present": 5,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -2736,7 +3717,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 10,
+    "present": 5,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -2762,7 +3752,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 10,
+    "present": 5,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -2784,7 +3783,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 10,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -2802,7 +3810,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 25,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2824,7 +3841,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2846,7 +3872,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2868,7 +3903,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2890,7 +3934,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2912,7 +3965,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2934,7 +3996,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2958,7 +4029,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 23,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -2981,7 +4061,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 23,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -3003,7 +4092,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3033,7 +4131,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 18,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -3063,7 +4170,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 28,
+    "match": 19,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -3091,7 +4207,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 19,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -3113,7 +4238,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3131,7 +4265,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 2,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3153,7 +4296,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 23,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3175,7 +4327,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 23,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3197,7 +4358,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 23,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3219,7 +4389,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 23,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3241,7 +4420,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 23,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3263,7 +4451,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 23,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3287,7 +4484,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 22,
+    "present": 2,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3310,7 +4516,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 22,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -3332,7 +4547,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 23,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3363,7 +4587,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 18,
+    "present": 1,
+    "mismatch": 5,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -3394,7 +4627,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 28,
+    "match": 19,
+    "present": 1,
+    "mismatch": 5,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -3423,7 +4665,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 19,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -3445,7 +4696,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 23,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3463,7 +4723,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 25,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3485,7 +4754,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3507,7 +4785,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3529,7 +4816,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3551,7 +4847,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3573,7 +4878,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3595,7 +4909,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3619,7 +4942,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 23,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3642,7 +4974,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 23,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -3664,7 +5005,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3694,7 +5044,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 18,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -3724,7 +5083,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 28,
+    "match": 19,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -3752,7 +5120,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 19,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -3774,7 +5151,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 24,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -3792,7 +5178,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 15,
+    "present": 10,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -3814,7 +5209,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 14,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -3836,7 +5240,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 14,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -3858,7 +5271,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 14,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -3878,7 +5300,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 15,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -3898,7 +5329,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 15,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 2
    }
   },
   {
@@ -3908,8 +5348,8 @@
    "kind": "mutated",
    "mutation": "due_date",
    "side": "pdf",
-   "outcome": "missed",
-   "verdict": "no_difference_in_checked_fields",
+   "outcome": "abstained",
+   "verdict": "inconclusive",
    "mismatch_fields": [],
    "expected": [
     "due_date"
@@ -3918,7 +5358,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 15,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 2
    }
   },
   {
@@ -3939,7 +5388,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 15,
+    "present": 8,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -3962,7 +5420,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 14,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -3984,7 +5451,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 14,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -4012,7 +5488,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 13,
+    "present": 5,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -4040,7 +5525,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 28,
+    "match": 14,
+    "present": 5,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -4066,7 +5560,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 14,
+    "present": 5,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -4088,7 +5591,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 27,
+    "match": 14,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -4106,7 +5618,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 18,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4128,7 +5649,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4150,7 +5680,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4172,7 +5711,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4194,7 +5742,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4216,7 +5773,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4240,7 +5806,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 16,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4263,7 +5838,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 16,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -4285,7 +5869,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4315,7 +5908,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 11,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -4345,7 +5947,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 20,
+    "match": 12,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -4373,7 +5984,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 12,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -4395,7 +6015,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4413,7 +6042,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 2,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4435,7 +6073,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 16,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4457,7 +6104,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 16,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4479,7 +6135,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 16,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4501,7 +6166,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 16,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4523,7 +6197,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 16,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4547,7 +6230,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 15,
+    "present": 2,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4570,7 +6262,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 15,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -4592,7 +6293,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 16,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4623,7 +6333,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 11,
+    "present": 1,
+    "mismatch": 5,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -4654,7 +6373,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 20,
+    "match": 12,
+    "present": 1,
+    "mismatch": 5,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -4683,7 +6411,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 12,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -4705,7 +6442,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 16,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4723,7 +6469,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 18,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4745,7 +6500,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4767,7 +6531,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4789,7 +6562,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4811,7 +6593,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4833,7 +6624,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4857,7 +6657,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 16,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4880,7 +6689,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 16,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -4902,7 +6720,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -4932,7 +6759,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 11,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -4962,7 +6798,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 20,
+    "match": 12,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -4990,7 +6835,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 12,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -5012,7 +6866,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 17,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -5030,7 +6893,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 9,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5052,7 +6924,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 8,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5074,7 +6955,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 8,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5096,7 +6986,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 8,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5116,7 +7015,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 9,
+    "present": 8,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -5136,7 +7044,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 9,
+    "present": 8,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 1
    }
   },
   {
@@ -5157,7 +7074,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 9,
+    "present": 7,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -5180,7 +7106,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 8,
+    "present": 8,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -5202,7 +7137,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 8,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5230,7 +7174,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 7,
+    "present": 4,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 6
    }
   },
   {
@@ -5258,7 +7211,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 20,
+    "match": 8,
+    "present": 4,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 6
    }
   },
   {
@@ -5284,7 +7246,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 8,
+    "present": 4,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 6
    }
   },
   {
@@ -5306,7 +7277,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 19,
+    "match": 8,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5324,7 +7304,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 20,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5346,7 +7335,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5368,7 +7366,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5390,7 +7397,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5412,7 +7428,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5434,7 +7459,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5456,7 +7490,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5480,7 +7523,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5503,7 +7555,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -5525,7 +7586,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5555,7 +7625,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 13,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -5585,7 +7664,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 14,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -5613,7 +7701,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 14,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -5635,7 +7732,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5653,7 +7759,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 2,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5675,7 +7790,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5697,7 +7821,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5719,7 +7852,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5741,7 +7883,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5763,7 +7914,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5785,7 +7945,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5809,7 +7978,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 17,
+    "present": 2,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5832,7 +8010,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 17,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -5854,7 +8041,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5885,7 +8081,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 13,
+    "present": 1,
+    "mismatch": 5,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -5916,7 +8121,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 14,
+    "present": 1,
+    "mismatch": 5,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -5945,7 +8159,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 14,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -5967,7 +8190,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -5985,7 +8217,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 20,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -6007,7 +8248,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -6029,7 +8279,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -6051,7 +8310,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -6073,7 +8341,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -6095,7 +8372,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -6117,7 +8403,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -6141,7 +8436,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -6164,7 +8468,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -6186,7 +8499,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -6216,7 +8538,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 13,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -6246,7 +8577,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 14,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -6274,7 +8614,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 14,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -6296,7 +8645,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -6314,7 +8672,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 10,
+    "present": 10,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -6336,7 +8703,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -6358,7 +8734,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -6380,7 +8765,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -6400,7 +8794,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 10,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -6420,7 +8823,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 10,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 2
    }
   },
   {
@@ -6430,8 +8842,8 @@
    "kind": "mutated",
    "mutation": "due_date",
    "side": "pdf",
-   "outcome": "missed",
-   "verdict": "no_difference_in_checked_fields",
+   "outcome": "abstained",
+   "verdict": "inconclusive",
    "mismatch_fields": [],
    "expected": [
     "due_date"
@@ -6440,7 +8852,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 10,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 2
    }
   },
   {
@@ -6461,7 +8882,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 10,
+    "present": 8,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -6484,7 +8914,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -6506,7 +8945,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -6534,7 +8982,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 8,
+    "present": 5,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -6562,7 +9019,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 9,
+    "present": 5,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -6588,7 +9054,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 5,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -6610,7 +9085,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -6628,7 +9112,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 20,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -6650,7 +9143,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -6672,7 +9174,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -6694,7 +9205,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -6716,7 +9236,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -6738,7 +9267,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -6760,7 +9298,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -6784,7 +9331,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -6807,7 +9363,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -6829,7 +9394,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -6858,7 +9432,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 13,
+    "present": 2,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -6888,7 +9471,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 14,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -6916,7 +9508,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 14,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -6938,7 +9539,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -6956,7 +9566,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 2,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -6978,7 +9597,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7000,7 +9628,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7022,7 +9659,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7044,7 +9690,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7066,7 +9721,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7088,7 +9752,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7112,7 +9785,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 2,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7135,7 +9817,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 17,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -7157,7 +9848,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7187,7 +9887,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 13,
+    "present": 2,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -7218,7 +9927,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 14,
+    "present": 1,
+    "mismatch": 5,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -7247,7 +9965,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 14,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -7269,7 +9996,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7287,7 +10023,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 20,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7309,7 +10054,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7331,7 +10085,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7353,7 +10116,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7375,7 +10147,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7397,7 +10178,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7419,7 +10209,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7443,7 +10242,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7466,7 +10274,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -7488,7 +10305,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7517,7 +10343,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 13,
+    "present": 2,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -7547,7 +10382,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 14,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -7575,7 +10419,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 14,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -7597,7 +10450,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 0
    }
   },
   {
@@ -7615,7 +10477,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 10,
+    "present": 10,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -7637,7 +10508,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -7659,7 +10539,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -7681,7 +10570,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -7701,7 +10599,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 10,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -7721,7 +10628,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 10,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 1
    }
   },
   {
@@ -7731,8 +10647,8 @@
    "kind": "mutated",
    "mutation": "due_date",
    "side": "pdf",
-   "outcome": "missed",
-   "verdict": "no_difference_in_checked_fields",
+   "outcome": "abstained",
+   "verdict": "inconclusive",
    "mismatch_fields": [],
    "expected": [
     "due_date"
@@ -7741,7 +10657,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 10,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 1
    }
   },
   {
@@ -7762,7 +10687,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 10,
+    "present": 8,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -7785,7 +10719,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 9,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -7807,7 +10750,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -7834,7 +10786,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 8,
+    "present": 6,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 6
    }
   },
   {
@@ -7862,7 +10823,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 5,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 6
    }
   },
   {
@@ -7888,7 +10858,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 9,
+    "present": 5,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 6
    }
   },
   {
@@ -7910,7 +10889,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 21,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -7928,7 +10916,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 21,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -7950,7 +10947,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -7972,7 +10978,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -7994,7 +11009,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -8016,7 +11040,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -8038,7 +11071,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -8060,7 +11102,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -8084,7 +11135,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 19,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -8107,7 +11167,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -8129,7 +11198,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -8158,7 +11236,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 15,
+    "present": 2,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -8188,7 +11275,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 25,
+    "match": 16,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -8216,7 +11312,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 16,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -8238,7 +11343,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -8256,7 +11370,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 21,
+    "present": 2,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8278,7 +11401,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8300,7 +11432,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8322,7 +11463,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8344,7 +11494,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8366,7 +11525,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8388,7 +11556,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8412,7 +11589,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 19,
+    "present": 2,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8435,7 +11621,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 19,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -8457,7 +11652,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8485,7 +11689,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 15,
+    "present": 2,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 5
    }
   },
   {
@@ -8515,7 +11728,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 25,
+    "match": 16,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -8543,7 +11765,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 16,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -8565,7 +11796,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8583,7 +11823,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 22,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8605,7 +11854,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 21,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8627,7 +11885,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 21,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8649,7 +11916,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 21,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8671,7 +11947,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 21,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8693,7 +11978,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 21,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8715,7 +12009,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 21,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8739,7 +12042,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8762,7 +12074,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 20,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -8784,7 +12105,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 21,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8812,7 +12142,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 15,
+    "present": 2,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 5
    }
   },
   {
@@ -8841,7 +12180,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 25,
+    "match": 16,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 5
    }
   },
   {
@@ -8868,7 +12216,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 16,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 5
    }
   },
   {
@@ -8890,7 +12247,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 21,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -8908,7 +12274,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 12,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -8930,7 +12305,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 11,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -8952,7 +12336,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 11,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -8974,7 +12367,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 11,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -8994,7 +12396,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 12,
+    "present": 8,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -9014,7 +12425,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 12,
+    "present": 8,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 3
    }
   },
   {
@@ -9024,8 +12444,8 @@
    "kind": "mutated",
    "mutation": "due_date",
    "side": "pdf",
-   "outcome": "missed",
-   "verdict": "no_difference_in_checked_fields",
+   "outcome": "abstained",
+   "verdict": "inconclusive",
    "mismatch_fields": [],
    "expected": [
     "due_date"
@@ -9034,7 +12454,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 12,
+    "present": 8,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 3
    }
   },
   {
@@ -9055,7 +12484,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 12,
+    "present": 7,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 5
    }
   },
   {
@@ -9078,7 +12516,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 11,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -9100,7 +12547,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 11,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -9127,7 +12583,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 10,
+    "present": 6,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -9155,7 +12620,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 25,
+    "match": 11,
+    "present": 5,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -9181,7 +12655,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 11,
+    "present": 5,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -9203,7 +12686,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 24,
+    "match": 11,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -9221,7 +12713,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 20,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9243,7 +12744,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9265,7 +12775,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9287,7 +12806,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9309,7 +12837,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9331,7 +12868,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9353,7 +12899,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9377,7 +12932,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9400,7 +12964,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -9422,7 +12995,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9452,7 +13034,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 13,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -9482,7 +13073,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 14,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -9510,7 +13110,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 14,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -9532,7 +13141,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9550,7 +13168,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 2,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9572,7 +13199,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9594,7 +13230,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9616,7 +13261,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9638,7 +13292,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9660,7 +13323,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9682,7 +13354,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9706,7 +13387,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 17,
+    "present": 2,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9729,7 +13419,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 17,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -9751,7 +13450,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9782,7 +13490,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 13,
+    "present": 1,
+    "mismatch": 5,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -9813,7 +13530,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 14,
+    "present": 1,
+    "mismatch": 5,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -9842,7 +13568,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 14,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -9864,7 +13599,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 2,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9882,7 +13626,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 20,
+    "present": 1,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9904,7 +13657,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9926,7 +13688,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9948,7 +13719,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9970,7 +13750,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -9992,7 +13781,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -10014,7 +13812,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -10038,7 +13845,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 1,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -10061,7 +13877,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 18,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -10083,7 +13908,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -10113,7 +13947,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 13,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -10143,7 +13986,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 14,
+    "present": 1,
+    "mismatch": 4,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -10171,7 +14023,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 14,
+    "present": 1,
+    "mismatch": 3,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -10193,7 +14054,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 19,
+    "present": 1,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 1
    }
   },
   {
@@ -10211,7 +14081,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 10,
+    "present": 10,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -10233,7 +14112,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -10255,7 +14143,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -10277,7 +14174,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -10297,7 +14203,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 10,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -10317,7 +14232,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 10,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 2
    }
   },
   {
@@ -10327,8 +14251,8 @@
    "kind": "mutated",
    "mutation": "due_date",
    "side": "pdf",
-   "outcome": "missed",
-   "verdict": "no_difference_in_checked_fields",
+   "outcome": "abstained",
+   "verdict": "inconclusive",
    "mismatch_fields": [],
    "expected": [
     "due_date"
@@ -10337,7 +14261,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 10,
+    "present": 9,
+    "mismatch": 0,
+    "ambiguous": 1,
+    "not_found": 2
    }
   },
   {
@@ -10358,7 +14291,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 10,
+    "present": 8,
+    "mismatch": 0,
+    "ambiguous": 0,
+    "not_found": 4
    }
   },
   {
@@ -10381,7 +14323,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 9,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 3
    }
   },
   {
@@ -10403,7 +14354,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   },
   {
@@ -10431,7 +14391,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 8,
+    "present": 5,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -10459,7 +14428,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 23,
+    "match": 9,
+    "present": 5,
+    "mismatch": 2,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -10485,7 +14463,16 @@
    "payment_critical": true,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 5,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 7
    }
   },
   {
@@ -10507,7 +14494,16 @@
    "payment_critical": false,
    "validation": {
     "schema": "passed",
-    "rules": "passed"
+    "rules": "passed",
+    "xrechnung": "not_run"
+   },
+   "coverage": {
+    "applicable": 22,
+    "match": 9,
+    "present": 10,
+    "mismatch": 1,
+    "ambiguous": 0,
+    "not_found": 2
    }
   }
  ]

@@ -103,12 +103,12 @@ either the page or the data. `receipt-workbench bench` scores them. Full table:
 [benchmark/RESULTS.md](benchmark/RESULTS.md).
 
 - Clean invoices: 0 false alarms out of 32.
-- Planted differences: 381 of 412 detected on the right field, 24 reported as inconclusive,
-  7 missed (the tool said "no difference").
+- Planted differences: 381 of 412 detected on the right field, 31 reported as inconclusive,
+  0 missed (the tool said "no difference").
 - All 412 changed files still pass schema and rule validation, so a validator alone finds none of them.
 - A naive baseline ("is the invoice number, total and IBAN somewhere on the page?") finds 224 of 412.
 - Layouts A to C: 309 of 309. Layout D uses labels the tool was deliberately not written
-  for: 72 detected, 24 inconclusive, 7 missed. The 7 misses are all changed due dates.
+  for: 72 detected, 31 inconclusive, 0 missed. The 7 changed due dates are inconclusive.
 
 Read these numbers with care. The generator and the checker have the same author, and
 layouts A to C were used while developing the rules. They show the method works on text it
@@ -117,7 +117,7 @@ unseen layout.
 
 **Public sample invoices.** On the 97 comparable PDFs in the "correct" folders of the
 [ZUGFeRD corpus](https://github.com/ZUGFeRD/corpus) (Apache-2.0, many files are variants of
-the same invoice), the tool reports 81 with no difference, 8 inconclusive and 8 with a
+the same invoice), the tool reports 80 with no difference, 9 inconclusive and 8 with a
 difference. I read the page text and XML of all 8, and each is a real disagreement between
 page and data:
 
@@ -134,6 +134,11 @@ page and data:
 These are demonstration files, so this says nothing about how often real invoices disagree.
 It does show the check finds differences nobody planted for it.
 
+The date-coverage rule moves `ZUGFeRD_1p0_COMFORT_SEPA_Prenotification.pdf` from no
+difference to inconclusive: its XML delivery date is 5 March 2013, but the page prints
+5 March 2014 as the delivery date and also contains an order date of 1 March 2014.
+The tool does not assign that order date to the missing field or report a new mismatch.
+
 ## Limits
 
 - It reads the PDF **text layer**. Hidden text, text drawn as an image and overlays are not
@@ -141,7 +146,9 @@ It does show the check finds differences nobody planted for it.
   are reported as "not compared".
 - If both copies are changed the same way, they agree. Agreement does not prove an invoice
   is genuine.
-- Label vocabulary is finite. On an unknown layout the honest result is "inconclusive".
+- Label vocabulary is finite. A missing XML date with unexplained dates on the page makes
+  the result "inconclusive", not a mismatch: those dates might describe orders or service
+  periods. Extra dates alone do not block a clean verdict when the XML dates are located.
 - Only UN/CEFACT CII is parsed (ZUGFeRD 2.x, Factur-X, XRechnung in CII syntax; ZUGFeRD 1.0
   best effort). UBL is reported as unsupported.
 - Validation uses the Factur-X 1.0.x XSD and Schematron shipped with the `factur-x`

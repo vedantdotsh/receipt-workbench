@@ -1,0 +1,84 @@
+name: receipt-workbench
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    image: receipt-workbench:demo
+    environment:
+      RW_PUBLIC: "1"
+      RW_TRUST_PROXY: "1"
+      WEB_CONCURRENCY: "1"
+      RW_MAX_REQUEST_BYTES: ${RW_MAX_REQUEST_BYTES:-20971520}
+      RW_MAX_FILE_BYTES: ${RW_MAX_FILE_BYTES:-5242880}
+      RW_MAX_FILES: ${RW_MAX_FILES:-5}
+      RW_MAX_ITEMS: ${RW_MAX_ITEMS:-20}
+      RW_MAX_VISITORS: ${RW_MAX_VISITORS:-100}
+      RW_MAX_MEMORY_BYTES: ${RW_MAX_MEMORY_BYTES:-134217728}
+      RW_IDLE_SECONDS: ${RW_IDLE_SECONDS:-1800}
+      RW_VISITOR_RATE: ${RW_VISITOR_RATE:-10}
+      RW_IP_RATE: ${RW_IP_RATE:-30}
+      RW_RATE_WINDOW_SECONDS: ${RW_RATE_WINDOW_SECONDS:-60}
+      RW_MAX_CONCURRENT_CHECKS: "1"
+    deploy:
+      replicas: 1
+    mem_limit: 1536m
+    memswap_limit: 1536m
+    cpus: 1.0
+    pids_limit: 128
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=64m,mode=1777
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped
+    networks: [backend]
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+  caddy:
+    image: caddy:2.11.9-alpine
+    environment:
+      DOMAIN: ${DOMAIN:?Set DOMAIN in deploy/.env}
+      ACME_EMAIL: ${ACME_EMAIL:?Set ACME_EMAIL in deploy/.env}
+      RW_MAX_REQUEST_BYTES: ${RW_MAX_REQUEST_BYTES:-20971520}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      app:
+        condition: service_healthy
+    mem_limit: 256m
+    memswap_limit: 256m
+    cpus: 0.5
+    pids_limit: 128
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,nodev,size=16m
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE]
+    security_opt: [no-new-privileges:true]
+    restart: unless-stopped
+    networks: [edge, backend]
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"
+
+networks:
+  edge:
+  backend:
+    internal: true
+
+volumes:
+  caddy_data:
+  caddy_config:

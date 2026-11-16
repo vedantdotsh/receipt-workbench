@@ -32,6 +32,22 @@ def refusal(response, status):
         assert int(response.headers["Retry-After"]) > 0
 
 
+@pytest.mark.parametrize("prefilled", [False, True])
+def test_static_health_check_does_not_create_visitors(prefilled):
+    application = server.create_app(replace(Settings.from_env(public=True), max_visitors=1))
+    client = TestClient(application)
+    if prefilled:
+        client.get("/")
+        client.cookies.clear()
+    sessions = tuple(application.state.inboxes.visitors)
+    for _ in range(110):
+        response = client.head("/static/index.html")
+        assert response.status_code == 200
+        assert response.content == b""
+        assert "set-cookie" not in response.headers
+    assert tuple(application.state.inboxes.visitors) == sessions
+
+
 def test_settings_defaults_and_environment(monkeypatch):
     local = Settings.from_env()
     public = Settings.from_env(public=True)

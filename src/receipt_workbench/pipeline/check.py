@@ -17,7 +17,7 @@ from ..validation.validate import (
     validate_xrechnung,
 )
 
-COMPARISON_METHOD = "pdf-text-layer/1"  # bump when extraction or matching rules change
+COMPARISON_METHOD = "pdf-text-layer/2"  # bump when extraction or matching rules change
 
 
 def check_file(filename: str, data: bytes, run_validation: bool = True) -> dict:

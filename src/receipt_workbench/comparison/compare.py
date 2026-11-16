@@ -489,12 +489,16 @@ class Comparer:
 
     def dates(self) -> None:
         known = {v.value for k, v in self.inv.fields.items() if k in DATE_FIELDS}
+        unexplained = [t for t in self.pdf.tokens("date") if not t.values & known]
         for key, (strong, weak, guard) in DATE_FIELDS.items():
             v = self.inv.fields.get(key)
             if v is None:
                 continue
             f = self._base(key, "header", v, v.value.isoformat())
             self._typed(f, "date", strong, weak, guard, lambda t, vv=v.value: vv in t.values, known - {v.value})
+            if f.status == "not_found" and unexplained:
+                f.status, f.note = "ambiguous", "unexplained_dates_on_page"
+                f.evidence += [_ev(t, "other") for t in unexplained[:3]]
             self._add(f)
 
     def _find_sequence(self, value: str):
@@ -778,7 +782,8 @@ def verdict(findings: list[Finding], cov: dict) -> str:
     crit_ok = all(f.status in ("match", "present") for f in crit) and any(f.key == "invoice_number" for f in crit)
     total = cov["all"]["applicable"]
     located = cov["all"]["match"] + cov["all"]["present"]
-    if not crit_ok or total == 0 or located / total < 0.5 or any(f.status == "ambiguous" and f.critical for f in findings):
+    if not crit_ok or total == 0 or located / total < 0.5 or any(
+            f.status == "ambiguous" and (f.critical or f.key in DATE_FIELDS) for f in findings):
         return "inconclusive"
     return "no_difference_in_checked_fields"
 

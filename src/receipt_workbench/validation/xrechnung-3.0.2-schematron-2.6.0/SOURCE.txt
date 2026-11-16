@@ -1,0 +1,14 @@
+KoSIT XRechnung Schematron v2.6.0, compatible with XRechnung 3.0.
+Release: https://github.com/itplr-kosit/xrechnung-schematron/releases/tag/v2.6.0
+Archive: https://github.com/itplr-kosit/xrechnung-schematron/releases/download/v2.6.0/xrechnung-3.0.2-schematron-2.6.0.zip
+Archive SHA-256: ca5e07afd04e72cd283d581590ffff3a15f4aac9d2f40c993345d78e67ea22b4
+
+Unmodified release files:
+  schematron/cii/XRechnung-CII-validation.xsl
+    SHA-256: 30e64d8bddf0bebded89e2bedab0b4856f0c4f1e852bd303e1957a7d627c0e6c
+  LICENSE
+    SHA-256: 57e93bb611b8aeb93ff0f23b271a23291217b0016f6e66297dfd5e9467538a5f
+
+The compiled CII stylesheet includes BR-DE, BR-DEX, Peppol and temporary rules,
+with its code lists embedded. No external rule files or runtime downloads are needed.
+Licence: Apache-2.0 with the upstream EN 16931/CEN/DIN notice retained in LICENSE.

@@ -46,6 +46,8 @@ def cmd_check(args) -> int:
                     if args.verbose > 1 or f["status"] not in ("match",):
                         print(f"    {f['status']:<10} {f['key']:<18} xml={f['xml_value']!r} pdf={f['pdf_values']} {f['note'] or ''}")
                 for layer in r["validation"]:
+                    if layer["detail"]:
+                        print(f"    {layer['name']}: {layer['detail']}")
                     for res in layer["results"][:8]:
                         print(f"    {layer['name']}: {res['severity']} {res['rule_id']} {res['message'][:140]}")
     if args.json:

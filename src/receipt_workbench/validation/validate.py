@@ -1,13 +1,13 @@
 """Run published validation artefacts against the XML. This module writes no rules.
 
-Two layers, reported separately:
+Three layers, reported separately:
   schema  XSD for the detected profile (factur-x library's bundled Factur-X 1.0.x XSDs)
   rules   the Factur-X / EN 16931 Schematron, shipped by the same library as compiled
           XSLT and executed here with Saxon-HE (saxonche)
+  xrechnung  KoSIT's CII Schematron for invoices declaring XRechnung in BT-24
 
 Outcomes are `passed`, `failed`, `not_run` (unsupported input) or `error` (the
 validator itself broke). `not_run` and `error` are never shown as a pass.
-The XRechnung CIUS (BR-DE rules, KoSIT) is not included yet.
 """
 
 from __future__ import annotations
@@ -33,6 +33,7 @@ SCHEMATRON_FILES = {
     "en16931": "facturx-en16931/FACTUR-X_EN16931.xslt",
     "extended": "facturx-extended/FACTUR-X_EXTENDED.xslt",
 }
+XRECHNUNG_ARTEFACT = "xrechnung-3.0.2-schematron-2.6.0/XRechnung-CII-validation.xsl"
 
 
 @dataclass
@@ -162,12 +163,28 @@ def validate_rules(xml: bytes, flavor: str, profile: str) -> Layer:
         return Layer("rules", "error", "Saxon-HE via saxonche", detail=f"{type(e).__name__}: {e}"[:600])
 
 
+def validate_xrechnung(xml: bytes, flavor: str, guideline: str) -> Layer:
+    engine = "Saxon-HE via saxonche"
+    if flavor != "cii" or "xrechnung" not in guideline.lower():
+        return Layer("xrechnung", "not_run", engine, detail="Not run: not an XRechnung CII invoice (BT-24).")
+    path = os.path.join(os.path.dirname(__file__), *XRECHNUNG_ARTEFACT.split("/"))
+    try:
+        return _SAXON_THREAD.call(_schematron_in_saxon_thread, xml, "xrechnung", path, XRECHNUNG_ARTEFACT)
+    except Exception as error:  # noqa: BLE001 - validator failures must remain evidence, not crash the check
+        return Layer("xrechnung", "error", engine, artefact=XRECHNUNG_ARTEFACT,
+                     detail=f"{type(error).__name__}: {error}"[:600])
+
+
 def _rules_in_saxon_thread(xml: bytes, flavor: str, profile: str) -> Layer:
     if flavor != "cii" or profile not in LEVELS:
         return Layer("rules", "not_run", "Saxon-HE",
                      detail=f"No Schematron configured for flavour '{flavor}', profile '{profile}'.")
     rel = SCHEMATRON_FILES[LEVELS[profile]]
     path = os.path.join(_artefact_dir(), *rel.split("/"))
+    return _schematron_in_saxon_thread(xml, "rules", path, rel)
+
+
+def _schematron_in_saxon_thread(xml: bytes, name: str, path: str, artefact: str) -> Layer:
     try:
         engine = f"{_saxon().version} via saxonche"
         exe = _compiled(path)
@@ -175,7 +192,7 @@ def _rules_in_saxon_thread(xml: bytes, flavor: str, profile: str) -> Layer:
         svrl = exe.transform_to_string(xdm_node=node)
         root = etree.fromstring(svrl.encode("utf-8"))
     except Exception as e:
-        return Layer("rules", "error", "Saxon-HE via saxonche", artefact=rel, detail=str(e)[:600])
+        return Layer(name, "error", "Saxon-HE via saxonche", artefact=artefact, detail=str(e)[:600])
     results = []
     for el in root.iter(SVRL + "failed-assert", SVRL + "successful-report"):
         text = " ".join(" ".join("".join(t.itertext()).split()) for t in el.iter(SVRL + "text"))
@@ -185,6 +202,5 @@ def _rules_in_saxon_thread(xml: bytes, flavor: str, profile: str) -> Layer:
             rid = text[1:text.find("]")]
         results.append(RuleResult(rid or "rule", "warning" if flag.startswith("warn") else "error", text[:800], el.get("location")))
     failed = any(r.severity == "error" for r in results)
-    note = "XRechnung CIUS rules (BR-DE) are not part of this run." if profile == "XRECHNUNG" else None
-    return Layer("rules", "failed" if failed else "passed", engine, artefact=rel, artefact_sha256=_sha(path),
-                 detail=note, results=results)
+    return Layer(name, "failed" if failed else "passed", engine, artefact=artefact, artefact_sha256=_sha(path),
+                 results=results)

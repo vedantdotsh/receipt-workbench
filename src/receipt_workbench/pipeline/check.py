@@ -10,7 +10,12 @@ from ..comparison.compare import compare, coverage
 from ..intake.ingest import IntakeError, intake, safe_parse_xml, xml_flavor
 from ..invoice_data.cii import parse_cii
 from ..page_text.pdftext import read_pdf_text
-from ..validation.validate import Layer, validate_rules, validate_schema
+from ..validation.validate import (
+    Layer,
+    validate_rules,
+    validate_schema,
+    validate_xrechnung,
+)
 
 COMPARISON_METHOD = "pdf-text-layer/1"  # bump when extraction or matching rules change
 
@@ -88,7 +93,8 @@ def check_file(filename: str, data: bytes, run_validation: bool = True) -> dict:
     }
 
     if run_validation:
-        layers: list[Layer] = [validate_schema(it.xml, flavor, inv.profile), validate_rules(it.xml, flavor, inv.profile)]
+        layers: list[Layer] = [validate_schema(it.xml, flavor, inv.profile), validate_rules(it.xml, flavor, inv.profile),
+                              validate_xrechnung(it.xml, flavor, inv.guideline)]
         out["validation"] = [layer.to_dict() for layer in layers]
 
     comp: dict = {"method": COMPARISON_METHOD, "applicable": True, "reason": None, "findings": [], "coverage": coverage([]),

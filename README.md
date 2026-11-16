@@ -100,7 +100,9 @@ It does show the check finds differences nobody planted for it.
 - Only UN/CEFACT CII is parsed (ZUGFeRD 2.x, Factur-X, XRechnung in CII syntax; ZUGFeRD 1.0
   best effort). UBL is reported as unsupported.
 - Validation uses the Factur-X 1.0.x XSD and Schematron shipped with the `factur-x`
-  library, run with Saxon-HE. The XRechnung rules from KoSIT (BR-DE) are not included yet.
+  library, run with Saxon-HE. Invoices declaring XRechnung in BT-24 additionally run the
+  bundled KoSIT XRechnung CII Schematron 2.6.0 (XRechnung 3.0.2, BR-DE/BR-DEX); other
+  invoices report this layer as not run.
   Older ZUGFeRD 2.0 samples often fail these newer rules; that has not been analysed.
 - Allowances and charges are not compared line by line. A page that prints a wrong total
   which happens to equal another amount of the same invoice is not flagged.
@@ -119,6 +121,7 @@ src/receipt_workbench/
   page_text/pdftext.py    words with positions -> rows -> typed tokens (numbers, dates, IBANs, VAT IDs)
   comparison/compare.py   the field, line and VAT comparison, coverage and verdict
   validation/validate.py  XSD and Schematron runs with engine and artefact versions
+  validation/xrechnung-3.0.2-schematron-2.6.0/  pinned KoSIT CII XSLT, upstream licence and source checksums
   pipeline/check.py       one file in, one evidence record out
   testset/synth.py         seeded test set generator
   testset/bench.py         scorer

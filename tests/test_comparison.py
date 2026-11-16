@@ -13,7 +13,7 @@ def test_changed_bank_account_is_reported_with_evidence(hybrid, findings):
     assert f["evidence"][0]["page"] == 1 and len(f["evidence"][0]["bbox"]) == 4
     assert f["xml_path"].endswith("IBANID")
     # the XML is untouched and still valid: validation alone would not have caught this
-    assert all(layer["outcome"] == "passed" for layer in r["validation"])
+    assert [layer["outcome"] for layer in r["validation"]] == ["passed", "passed", "not_run"]
 
 
 def test_line_amount_and_totals_differences(hybrid, findings):

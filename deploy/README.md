@@ -50,6 +50,49 @@ here. The account certificate from `tunnel login` never needs to reach the serve
 Cloudflare appends the visitor address to `X-Forwarded-For`, which is the entry
 the app reads. The app sends its own security headers in public mode.
 
+## Server settings
+
+The CLI's `--public` option or `RW_PUBLIC=1` enables public-mode limits,
+separate visitor inboxes and security headers. It does not change the bind
+address or configure HTTPS. Settings use environment variables; byte limits
+are decimal integers, not unit strings. Restart the process after changes.
+
+| Variable | Local default | Public default |
+|---|---|---|
+| `RW_MAX_FILE_BYTES` | 15728640 (15 MiB) | 5242880 (5 MiB) |
+| `RW_MAX_FILES` | 25 per upload | 5 per upload |
+| `RW_MAX_ITEMS` | 200 per visitor | 20 per visitor |
+| `RW_MAX_REQUEST_BYTES` | 394264576 (376 MiB) | 20971520 (20 MiB) |
+| `RW_MAX_VISITORS` | 1000 | 100 |
+| `RW_MAX_MEMORY_BYTES` | 1073741824 (1 GiB) | 134217728 (128 MiB) |
+| `RW_IDLE_SECONDS` | 0 (off) | 1800 (30 minutes) |
+| `RW_VISITOR_RATE` | 0 (off) | 10 checks per window |
+| `RW_IP_RATE` | 0 (off) | 30 checks per window |
+| `RW_RATE_WINDOW_SECONDS` | 60 | 60 |
+| `RW_MAX_CONCURRENT_CHECKS` | 1 | 1 |
+| `RW_TRUST_PROXY` | false | false |
+
+The Compose configurations enable public mode and proxy trust, fix concurrency
+at one, and expose the overrides listed in `deploy/.env.example`. Only enable
+proxy trust behind a trusted proxy that cannot be bypassed. The app uses the
+last `X-Forwarded-For` address and `X-Forwarded-Proto` from that proxy; otherwise
+it ignores forwarded headers. Cookies are HttpOnly and SameSite=Lax, and Secure
+over HTTPS.
+
+The file limit cannot exceed the 15 MiB intake ceiling; XML is limited to 5 MiB.
+Excess uploads return 413, full inboxes and rate limits return 429, and unavailable
+check slots or memory return 503. Checks are not queued. Both checking endpoints
+share the rate window; temporary capacity refusals include `Retry-After`.
+The oldest idle visitor is evicted first when visitor or memory capacity is
+needed. Idle expiry runs on inbox requests and a periodic sweep, at intervals
+of at most 60 seconds. Closing the browser does not immediately erase its inbox.
+
+The upload notice is served by `GET /api/harness` from the actual mode and idle
+timeout. The application also reads `RW_HOSTING_NOTICE_EN` and
+`RW_HOSTING_NOTICE_DE` for custom notices; pass these into the app container if
+needed. `RW_MAX_MEMORY_BYTES` covers retained PDFs, results, page images, review
+events and limiter state, not temporary buffers or native-library allocations.
+
 ## Maintenance
 
 Update, inspect, and stop from the same repository root:
@@ -67,7 +110,8 @@ docker compose --env-file deploy/.env -f deploy/compose.yaml down
 
 The app runs as UID/GID 10001 with a read-only root filesystem, no Linux
 capabilities, and no privilege escalation. Writable application scratch uses a
-64 MiB `/tmp` tmpfs: multipart uploads spool there after their in-memory threshold.
+64 MiB `/tmp` tmpfs. Accepted multipart uploads stay in memory; the parser's
+spooling threshold equals the enforced request limit.
 The final image contains the installed package and production dependencies,
 not uv, compilers, source checkout, or development dependencies. Python avoids
 writing bytecode. The health check makes a HEAD request to
@@ -93,7 +137,7 @@ An out-of-memory kill restarts the demo and discards all inboxes. Docker marks
 failed health checks unhealthy but does not automatically restart a live,
 unhealthy process; investigate logs and restart it if necessary.
 
-`RW_*` overrides in `.env.example` use the main README's units and meanings.
+`RW_*` overrides in `.env.example` use the units and meanings listed above.
 `RW_MAX_REQUEST_BYTES` defaults to 20971520 (20 MiB), including multipart framing,
 and is passed to both Caddy and the app. `/api/check` also enforces the 5 MiB
 per-file ceiling. The app is on an internal Docker network without a published

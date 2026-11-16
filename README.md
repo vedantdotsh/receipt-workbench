@@ -1,298 +1,180 @@
 # Receipt Workbench
 
-A German hybrid e-invoice (ZUGFeRD, Factur-X) is a PDF with a second, machine-readable
-copy of the invoice inside it. A person approves the page. The accounting system books the
-embedded XML. Nothing forces the two to agree.
+A hybrid e-invoice contains a readable PDF page and machine-readable invoice XML.
+Schema and business-rule validation can establish whether the XML follows a
+published format, but a valid XML invoice can still disagree with the page.
+Receipt Workbench is a Python web app and CLI that runs those validation layers
+and compares the PDF text layer with the embedded data. It reports differences,
+uncertainty and field coverage, with page positions and XML paths for review.
 
-Receipt Workbench checks one file at a time and answers four separate questions:
+Live demo: <DEMO_URL>
 
-1. **Is the embedded data valid?** It runs the published XSD and Schematron rules.
-2. **Does the page say the same as the data?** Field by field, including invoice lines and
-   the VAT breakdown.
-3. **Where is the evidence?** Every finding points at the place on the page and the XPath in
-   the data.
-4. **How much was actually checked?** Fields that could not be located are listed, and the
-   verdict becomes "inconclusive" instead of a pass.
+## What it checks
 
-It is a portfolio prototype and a working name. It is a technical consistency check, not tax
-advice, not a fraud check and not a payment approval.
+The built-in parser reads UN/CEFACT CII: ZUGFeRD 2.x, Factur-X and XRechnung
+in CII syntax. ZUGFeRD 1.0 parsing is best effort. Standalone XML can be
+validated, but has no PDF page to compare. UBL needs a separate parser.
 
-## Try it
-
-```
-uv sync
-uv run receipt-workbench serve          # review screen on http://127.0.0.1:8321
-uv run receipt-workbench check FILE...  # command line, add -v for findings, --json for the record
-uv run pytest
-```
-
-In the review screen, "Load sample invoices" builds six synthetic invoices on the spot: a
-clean one, a changed bank account, a changed line amount, a credit note with two VAT rates,
-an unfamiliar layout the tool cannot read confidently, and an XML with a rule error. Click
-a row in the field table to see the spot on the page. The screen is in English and German.
-
-Inbox contents are kept in the review server's memory, not a database. Local mode processes
-files on your computer; public mode uploads them to the server and sends results and page
-images back to your browser. No external processing service is used.
-
-## Public mode
-
-Run `uv run receipt-workbench serve --public`, or set `RW_PUBLIC=1`, for stricter
-defaults, separate visitor inboxes, and security headers. This does not change the bind
-address or deploy anything. Use HTTPS when exposing the server and test invoices only.
-All settings come from environment variables; byte limits are integers, not unit strings.
-
-| Variable | Local default | Public default |
+| Layer | Rules and publisher | When it runs |
 |---|---|---|
-| `RW_PUBLIC` | `false` | `true` with `--public` |
-| `RW_MAX_FILE_BYTES` | 15728640 (15 MiB) | 5242880 (5 MiB) |
-| `RW_MAX_FILES` | 25 per upload | 5 per upload |
-| `RW_MAX_ITEMS` | 200 per visitor | 20 per visitor |
-| `RW_MAX_REQUEST_BYTES` | 394264576 (376 MiB) | 20971520 (20 MiB) |
-| `RW_MAX_VISITORS` | 1000 | 100 |
-| `RW_MAX_MEMORY_BYTES` | 1073741824 (1 GiB) | 134217728 (128 MiB) |
-| `RW_IDLE_SECONDS` | 0 (off) | 1800 (30 minutes) |
-| `RW_VISITOR_RATE` | 0 (off) | 10 checks per window |
-| `RW_IP_RATE` | 0 (off) | 30 checks per window |
-| `RW_RATE_WINDOW_SECONDS` | 60 | 60 |
-| `RW_MAX_CONCURRENT_CHECKS` | 1 | 1 |
-| `RW_TRUST_PROXY` | `false` | `false` |
+| `schema` | Profile-specific Factur-X XSD, published by FNFE-MPE and FeRD and distributed by `factur-x`; legacy ZUGFeRD XSD for 1.0 | Recognised profiles |
+| `rules` | Factur-X Schematron from the same library; CEN/TC 434 EN 16931 CII artefacts 1.3.16 for XRechnung | Supported CII profiles; the guideline in BT-24 selects the XRechnung route |
+| `xrechnung` | KoSIT XRechnung CII Schematron 2.6.0 for XRechnung 3.0.2, including BR-DE and BR-DEX | CII invoices declaring XRechnung in BT-24 |
 
-Both checking endpoints share the rate window. Excess uploads return 413, full inboxes
-and rate limits return 429, and unavailable check slots or memory return 503. Checks are
-not queued; temporary refusals include `Retry-After`. The oldest idle visitor is evicted
-first when visitor or memory capacity is needed; idle expiry is enforced on the next
-inbox request. Clearing an inbox affects only its visitor. Nothing survives a restart.
+XRechnung runs the CEN rules before the KoSIT rules. Other profiles use the
+library's Factur-X rules and report the XRechnung layer as `not_run`.
+Schematron runs through SaxonC-HE; results identify its rules and engine. Each layer reports
+`passed`, `failed`, `not_run` or `error`. Skips and engine errors are not passes.
 
-The existing intake ceiling is 15 MiB per file, with 5 MiB XML and DOCTYPE/entity/network
-protections; the configurable file limit cannot exceed it. Text comparison already stops
-at 30 PDF pages, and the review screen can render only those pages. These bounds are
-unchanged. The content policy permits same-origin requests and images, the exact inline
-script, and inline styles needed by the page and its vendored animation module.
+The comparison covers invoice identifiers and dates, party and payment details,
+totals, invoice lines and VAT breakdowns. It uses typed values and nearby labels,
+and distinguishes a value confirmed at a label from one merely found on the page.
+Findings retain the XML business term and XPath, plus available page evidence.
+The review screen shows rendered pages and exports evidence and review decisions as JSON.
 
-Use one server process: inboxes and limits are not shared across workers. Uploads remain
-in memory, including multipart files; they do not spill to disk. The memory budget covers
-retained PDFs, results, page images, review events, and limiter state, not temporary upload
-buffers, parsing allocations, or native-library memory. Deployment still
-needs process resource limits and HTTPS. Only enable `RW_TRUST_PROXY` behind a single
-trusted proxy that cannot be bypassed: it trusts the last `X-Forwarded-For` address (the one
-that proxy appends) and `X-Forwarded-Proto` for Secure cookies. Without it, forwarded
-headers are ignored. Cookies are HttpOnly and SameSite=Lax, and Secure over HTTPS.
+| Comparison verdict | Meaning |
+|---|---|
+| `difference_found` | At least one field has evidence of a difference. |
+| `no_difference_in_checked_fields` | No difference was found and coverage requirements were met; some fields may remain unlocated. |
+| `inconclusive` | Evidence or coverage is insufficient for the no-difference verdict. |
+| `not_compared` | No usable PDF text layer is available, or the input is XML only. |
 
-The upload notice comes from `GET /api/harness`, using the actual mode and
-`RW_IDLE_SECONDS`. Set `RW_HOSTING_NOTICE_EN` and `RW_HOSTING_NOTICE_DE` to replace its
-English and German text. The notice also describes when idle expiry is disabled; closing
-a browser does not immediately erase its server inbox. Expiry is enforced on the next
-inbox request. A failed metadata request keeps the notice supplied with the page.
+Validation and comparison are separate results. A valid XML document can have a
+page difference, and agreement with the page does not establish XML validity.
+
+## Benchmark
+
+The recorded results in [benchmark/RESULTS.md](benchmark/RESULTS.md), dated
+16 November 2026, use 444 synthetic hybrid invoices: eight base invoices in
+four layouts, with 32 clean files and 412 files containing one planted difference.
+
+- Clean files: 0 false alarms and 0 inconclusive results out of 32.
+- Changed files: 381 of 412 differences detected on the intended field,
+  31 inconclusive, 0 flagged on another field and 0 given a no-difference verdict.
+- A baseline checking whether invoice number, total and IBAN occur anywhere on
+  the page detects 224 of 412 differences.
+- Layouts A to C: 309 of 309 detected. Layout D, with unfamiliar labels:
+  72 of 103 detected and 31 inconclusive, including seven changed due dates.
+- All 412 changed files still pass schema and rule validation.
+
+In the recorded runs, Mustangproject 2.26.0 and veraPDF 1.30.4 accept all
+444 files and flag none of the planted differences. Mustangproject also runs
+veraPDF internally, so their PDF verdicts are not independent. These results
+describe the tested configurations and files, not every capability of either tool.
+
+The generator and checker share an author, and layouts A to C were used during
+development. Layout D exercises unfamiliar labels, but these measurements do
+not estimate accuracy on arbitrary invoices. Inconclusive cases are abstentions, not
+detections. The linked results include scoring and reproduction details.
+
+## Quick start
+
+Install Python 3.13 and [uv](https://docs.astral.sh/uv/getting-started/installation/).
+From the repository root, install the package and development dependencies:
+
+```sh
+uv sync
+```
+
+Start the server, then open `http://localhost:8321`:
+
+```sh
+uv run receipt-workbench serve
+```
+
+The English and German screen accepts uploads. **Load sample invoices** creates six
+examples with agreement, differences, an unfamiliar layout and a validation error.
+Stop the server with Ctrl+C.
+
+For a CLI example, generate the test set and check one clean invoice:
+
+```sh
+uv run receipt-workbench make-testset --out testset
+uv run receipt-workbench check testset/clean/b01-simple_A_clean.pdf
+```
+
+Replace that path with your own PDF or XML. The CLI also accepts folders;
+`-v` includes findings and `--json` prints the evidence record. The generated
+files under `testset/` are ignored by Git. Run the tests with:
+
+```sh
+uv run pytest -q
+```
 
 ## Connect your own parts
 
-The pipeline discovers installed Python entry points. The built-ins use the same mechanism
-as other packages; there is no separate fallback implementation in the registry.
+Install a package declaring entry points in one of these groups in the same environment.
+The built-ins use the same registry.
 
-| Connection point / entry-point group | Input and output | Built-ins |
+| Entry-point group | Contract | Built-ins |
 |---|---|---|
-| `receipt_workbench.invoice_parsers` | Parsed XML root -> `Invoice`; declares supported `flavors` | `cii` (`cii`, `zugferd1`) |
-| `receipt_workbench.page_readers` | PDF bytes -> `PdfText`, including page positions | `pdf_text` |
-| `receipt_workbench.validators` | XML bytes, flavour, profile, guideline -> one `Layer` | `schema`, `rules`, `xrechnung`, in that order |
-| `receipt_workbench.exports` | Evidence result and review events -> `Export` (bytes, media type, filename) | `json` |
+| `receipt_workbench.invoice_parsers` | XML root to `Invoice`; declares supported `flavors` | `cii` |
+| `receipt_workbench.page_readers` | PDF bytes to `PdfText` with positions | `pdf_text` |
+| `receipt_workbench.validators` | XML, flavour, profile and guideline to `Layer` | `schema`, `rules`, `xrechnung` |
+| `receipt_workbench.exports` | Evidence and review events to `Export` | `json` |
 
-Entry points may refer to a callable instance, function, or a class with no constructor
-arguments. Classes are instantiated once on discovery. Names contain letters, digits,
-underscores or hyphens and must be unique within their connection point. Built-ins come
-first, then other parts sorted by name. All are enabled by default. The first parser
-supporting the detected flavour and the first enabled page reader are used; their outputs
-are not merged. Every enabled validator runs. Exports run only when requested by name.
+See [harness/protocols.py](src/receipt_workbench/harness/protocols.py) for contracts.
+An entry point exposes a callable or a class with no constructor arguments;
+names must be unique within a group. Built-ins run first. The first compatible
+parser and first active page reader are used; every active validator runs.
+Exports are selected by name. List installed parts and load errors with:
 
-A minimal validator package has these two files:
-
-`company-checks/pyproject.toml`:
-
-```toml
-[project]
-name = "company-checks"
-version = "0.1.0"
-requires-python = ">=3.13"
-dependencies = ["receipt-workbench>=0.1.0"]
-
-[project.entry-points."receipt_workbench.validators"]
-company_policy = "company_checks:CompanyPolicy"
-
-[build-system]
-requires = ["uv_build>=0.12.17,<0.13.0"]
-build-backend = "uv_build"
+```sh
+uv run receipt-workbench parts
 ```
 
-`company-checks/src/company_checks/__init__.py`:
+`RW_INVOICE_PARSERS`, `RW_PAGE_READERS`, `RW_VALIDATORS` and `RW_EXPORTS` restrict
+each group to comma-separated names. `RW_DISABLE_INVOICE_PARSERS`,
+`RW_DISABLE_PAGE_READERS`, `RW_DISABLE_VALIDATORS` and `RW_DISABLE_EXPORTS` remove
+names; disabling wins. An empty restriction enables none. Restart after changes.
+For example, `RW_VALIDATORS=schema,rules` selects two built-in validation layers.
 
-```python
-from receipt_workbench.validation.validate import Layer
+## Project layout
 
+Feature folders below are relative to `src/receipt_workbench/`.
 
-class CompanyPolicy:
-    def __call__(self, xml: bytes, flavor: str, profile: str, guideline: str) -> Layer:
-        return Layer("company_policy", "passed" if guideline else "failed", "company-policy/1",
-                     detail="Company policy requires a declared invoice guideline.")
-```
+- `cli.py`: command-line entry point.
+- `common/`: shared value parsing and formatting.
+- `harness/`: extension contracts, discovery and selection.
+- `intake/`: classification, attachment extraction and XML intake checks.
+- `invoice_data/`: CII parsing with business terms and XML paths.
+- `page_text/`: PDF text, positions, rows and typed tokens.
+- `comparison/`: field, line and VAT comparison, coverage and verdicts.
+- `validation/`: schema and Schematron runners, pinned CEN and KoSIT artefacts.
+- `pipeline/`: one file to one evidence record.
+- `review/`: web interface, visitor inboxes, limits and JSON export.
+- `testset/`: synthetic invoice generation and benchmark runners.
 
-Install it in the same environment with `uv pip install ./company-checks`, then run
-`uv run receipt-workbench parts`. The command lists names, source distributions, versions,
-enabled/disabled state, and load errors. `GET /api/harness` returns the same inventory and
-the hosting notice. A broken entry point is reported and skipped. A validator exception
-or invalid outcome becomes an `error` layer, never a pass. Its registered name is used in
-the result, so it cannot replace another layer by returning that layer's name.
+At the root: `tests/` holds tests and fixtures; `benchmark/` measurements; `deploy/` container configuration.
 
-Set `RW_DISABLE_VALIDATORS=company_policy` to disable that validator, or
-`RW_VALIDATORS=schema,rules` to restrict validation to those names. The same pattern applies
-to `INVOICE_PARSERS`, `PAGE_READERS` and `EXPORTS`: `RW_<POINT>` restricts the list,
-`RW_DISABLE_<POINT>` removes names from it. An empty restriction enables none; disabling
-wins when both settings name a part. Restart the process after changing these settings.
-To replace the page reader, register one named `ocr` and set `RW_PAGE_READERS=ocr`.
+## Limits and non-goals
 
-Library callers can register an instance without packaging it:
+- The page reader uses the PDF text layer, without OCR. Hidden text, overlays
+  and image content can differ from extracted text. Scans are not compared;
+  text comparison and page rendering stop at 30 pages.
+- Label vocabulary is finite. Missing dates and conflicting evidence can make
+  a result inconclusive. Allowances and charges are not compared line by line;
+  a wrong value equal to another invoice value can escape detection.
+- Comparison rules are this project's own, not official validation rules.
+  Agreement does not prove authenticity or authorise payment. There is no
+  supplier matching, purchase-order matching or tax-advice function.
+- Use one server process. Inboxes, review events and limits are in memory and
+  disappear on restart. Public mode uploads documents to the hosting server.
+- Plug-ins are trusted Python code loaded into that process, without a sandbox.
 
-```python
-from company_checks import CompanyPolicy
-from receipt_workbench.harness import Registry
-from receipt_workbench.pipeline.check import check_file
+## Deployment
 
-registry = Registry()
-registry.register("validators", "company_policy", CompanyPolicy(),
-                  distribution="company-checks", version="0.1.0")
-result = check_file("invoice.pdf", pdf_bytes, registry=registry)
-```
+[deploy/README.md](deploy/README.md) describes the single-server Docker setup,
+HTTPS through Caddy or Cloudflare Tunnel, public-mode limits and maintenance.
+Use test invoices for a public demo.
 
-Pass that registry to `review.server.create_app(registry=registry)` when embedding the
-review API. Register on `harness.get_registry()` instead to use the process-wide registry.
+## Bundled third-party artefacts
 
-Record version 2 adds a `parts` mapping with each invoked part's name, distribution and
-version, including attempted readers and validators that fail. Each validation layer also
-has its own `part` provenance. Unused or disabled parts are not claimed as participants.
-The comparison method and its verdict remain independent of validation: a passing layer
-cannot clear a difference or make an inconclusive comparison pass. The existing
-`/api/items/{id}/evidence` JSON download is also available as `/api/items/{id}/exports/json`.
-Other exports use `/api/items/{id}/exports/{name}`. Downloads receive a separate result
-copy naming the exporter and the review events; they cannot edit the retained inbox.
+- CEN EN 16931 CII rules: EUPL-1.2; [licence and source](src/receipt_workbench/validation/en16931-cii-1.3.16/).
+- KoSIT XRechnung CII rules: Apache-2.0, with the upstream CEN/DIN notice; [licence and source](src/receipt_workbench/validation/xrechnung-3.0.2-schematron-2.6.0/).
+- Compact ICC Profiles `sRGB-v2-magic.icc`: CC0-1.0; [licence](src/receipt_workbench/testset/icc-LICENSE.txt).
+- Vendored Torph animation module: MIT; [licence](src/receipt_workbench/review/static/vendor/torph.LICENSE.txt).
 
-Installed parts are trusted Python code, not sandboxed extensions. Review them before
-installation, especially page readers and exporters that may send data elsewhere; update
-the hosting notice if their data handling differs. The default notices describe the
-built-ins. Comparison and bounded, in-memory inbox storage remain fixed parts of the tool.
-
-## What the comparison does
-
-For each value in the XML it looks for the place where that field is printed, using labels
-in German, English and some French, and reads the number, date or identifier next to it.
-
-| Result | Meaning |
-|---|---|
-| Matches | The XML value is printed at that field's label (or is a checksum-typed value such as an IBAN). |
-| On page, unlabelled | The value is on the page, but not tied to a label the tool knows. |
-| Differs | The label shows another value, that value is not any other value of this invoice, and the XML value is nowhere on the page. |
-| Unclear | Conflicting evidence. |
-| Not located | Neither the value nor a labelled place for it was found. |
-
-A value that merely appears somewhere on the page is never enough to confirm an amount, a
-date or an invoice number. "No difference in the checked fields" requires the invoice
-number, invoice date, totals and IBAN to be located; otherwise the verdict is "Inconclusive".
-
-## Results so far (16 November 2026)
-
-**Seeded test set.** `receipt-workbench make-testset` generates 444 hybrid invoices from 8
-invented base invoices in 4 page layouts: 32 clean and 412 with one planted difference on
-either the page or the data. `receipt-workbench bench` scores them. Full table:
-[benchmark/RESULTS.md](benchmark/RESULTS.md).
-
-- Clean invoices: 0 false alarms out of 32.
-- Planted differences: 381 of 412 detected on the right field, 31 reported as inconclusive,
-  0 missed (the tool said "no difference").
-- All 412 changed files still pass the checker's schema and rule validation; those layers
-  find none of the planted differences.
-- A naive baseline ("is the invoice number, total and IBAN somewhere on the page?") finds 224 of 412.
-- Layouts A to C: 309 of 309. Layout D uses labels the tool was deliberately not written
-  for: 72 detected, 31 inconclusive, 0 missed. The 7 changed due dates are inconclusive.
-
-Read these numbers with care. The generator and the checker have the same author, and
-layouts A to C were used while developing the rules. They show the method works on text it
-can read, not how it performs on arbitrary invoices. Layout D is the closer estimate of an
-unseen layout.
-
-**Other validators.** Mustangproject 2.26.0 accepts all 32 clean files and all 412 changed
-files, including its nested PDF check: it flags none of the planted differences. It was never
-meant to compare page and data, so this is the expected boundary of that kind of tool, not a defect
-in it. veraPDF 1.30.4 accepts all 444 files as PDF/A-3b and likewise flags none of them. Details are
-in [benchmark/RESULTS.md](benchmark/RESULTS.md).
-
-**Public sample invoices.** On the 97 comparable PDFs in the "correct" folders of the
-[ZUGFeRD corpus](https://github.com/ZUGFeRD/corpus) (Apache-2.0, many files are variants of
-the same invoice), the tool reports 80 with no difference, 9 inconclusive and 8 with a
-difference. I read the page text and XML of all 8, and each is a real disagreement between
-page and data:
-
-| File | Page | Embedded data |
-|---|---|---|
-| `MustangGnuaccountingBeispielRE-20201121_508_withBOM.pdf` | invoice RE-20190610/507 | invoice RE-20201121/508 |
-| `sample_inofficial_20190125_atgp_factur-x_v_1_0.pdf` | a German invoice, 571,04 € | a different French invoice, 671.15 |
-| `acme_invoice-42_ZUGFeRD.pdf` | invoice 42, 1.589,80 € | a different invoice, 119 |
-| `MustangGnuaccountingBeispielRE-20150613_503.pdf` | total 406,82 € | total 571.04 |
-| `MustangGnuaccountingBeispielRE-20151008_504.pdf`, `…_504new.pdf` | dates in 2015 | dates in 2014 |
-| `MustangGnuaccountingBeispielRE-20140703_502.pdf` | BIC COBADEFFXXX, net line amounts | BIC COBADEFXXX, gross line amounts |
-| `zugferd_2p1_BASIC-WL_Einfach.pdf` | IBAN starting DE20 | IBAN starting FR20 |
-
-These are demonstration files, so this says nothing about how often real invoices disagree.
-It does show the check finds differences nobody planted for it.
-
-One of the 9 inconclusive files, `ZUGFeRD_1p0_COMFORT_SEPA_Prenotification.pdf`, is a ninth
-disagreement the tool does not claim: the XML delivery date is 5 March 2013 and the page
-prints 5 March 2014. The XML date is not on the page and other dates are, so the verdict
-is inconclusive instead of a pass.
-
-## Limits
-
-- The built-in page reader reads the PDF **text layer**. Hidden text, text drawn as an image and overlays are not
-  what a person sees. The page image is shown next to every finding for that reason. Scans
-  are reported as "not compared".
-- If both copies are changed the same way, they agree. Agreement does not prove an invoice
-  is genuine.
-- Label vocabulary is finite. A missing XML date with unexplained dates on the page makes
-  the result "inconclusive", not a mismatch: those dates might describe orders or service
-  periods. Extra dates alone do not block a clean verdict when the XML dates are located.
-- The built-in invoice parser reads UN/CEFACT CII (ZUGFeRD 2.x, Factur-X, XRechnung in CII
-  syntax; ZUGFeRD 1.0 best effort). UBL needs a separately installed parser.
-- Validation uses the Factur-X 1.0.x XSD shipped with the `factur-x` library. Schematron
-  runs with Saxon-HE: invoices declaring XRechnung in BT-24 use bundled CEN EN 16931 CII
-  1.3.16 rules plus KoSIT XRechnung CII 2.6.0 (XRechnung 3.0.2, BR-DE/BR-DEX). Other
-  invoices keep the library's Factur-X rules and report the XRechnung layer as not run.
-  Older ZUGFeRD 2.0 samples often fail these newer rules; that has not been analysed.
-- Allowances and charges are not compared line by line. A page that prints a wrong total
-  which happens to equal another amount of the same invoice is not flagged.
-- Single-VPS public demo packaging: [deploy/README.md](deploy/README.md); deployment is not automated.
-
-## Layout
-
-```
-src/receipt_workbench/
-  __init__.py             package version
-  cli.py                  command-line entry point
-  harness/                connection-point protocols, entry-point registry and selection
-  common/normalize.py     shared parsing and formatting helpers
-  intake/ingest.py        hash, classify, extract the embedded XML, refuse DOCTYPE and ambiguous attachments
-  invoice_data/cii.py     XML -> values with business term (BT) and XPath, Decimal amounts
-  page_text/pdftext.py    words with positions -> rows -> typed tokens (numbers, dates, IBANs, VAT IDs)
-  comparison/compare.py   the field, line and VAT comparison, coverage and verdict
-  validation/validate.py  XSD and Schematron runs with engine and artefact versions
-  validation/en16931-cii-1.3.16/  pinned CEN CII XSLT, upstream licence and source checksums
-  validation/xrechnung-3.0.2-schematron-2.6.0/  pinned KoSIT CII XSLT, upstream licence and source checksums
-  pipeline/check.py       one file in, one evidence record out
-  testset/synth.py         seeded test set generator
-  testset/bench.py         scorer
-  testset/third_party.py   pinned offline validator comparison
-  review/server.py        local review screen
-  review/export.py        JSON evidence export
-  review/static/          the screen and vendored scripts
-tests/
-  conftest.py             shared synthetic invoice helpers and fixtures
-  test_<feature>.py       one test file per feature folder
-```
-
-All sample parties, bank accounts and tax numbers in the generated invoices are invented.
+Python dependencies carry their own licences. Generated PDFs embed ReportLab's
+Bitstream Vera fonts under the Bitstream Vera licence; the fonts come from the
+dependency. No licence for the project's own code has been selected yet.

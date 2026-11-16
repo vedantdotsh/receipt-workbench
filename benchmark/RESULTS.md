@@ -31,9 +31,9 @@ Test set: 444 files from 8 base invoices x 4 layouts (32 clean, 412 with one pla
 ## Third-party validity checks (16 November 2026)
 
 The same 444 files were run through Mustangproject's hybrid-invoice validator and veraPDF's
-PDF/A-3b validator. Both check validity. Neither is meant to compare page and data, so a low
-count here describes a gap between kinds of checks, not a defect in either tool. The files are
-synthetic and share an author with the checker.
+PDF/A-3b validator. These runs measure whether the tested configurations flag the planted
+differences, not every page/data check either tool may support. The files are synthetic
+and share an author with the checker.
 
 | Tool | Version | Clean accepted / 32 | Changed: flagged on the changed field / 412 | Changed: rejected for another reason | Changed: not flagged | Errors |
 |---|---|---|---|---|---|---|

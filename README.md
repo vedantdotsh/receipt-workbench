@@ -31,7 +31,52 @@ clean one, a changed bank account, a changed line amount, a credit note with two
 an unfamiliar layout the tool cannot read confidently, and an XML with a rule error. Click
 a row in the field table to see the spot on the page. The screen is in English and German.
 
-Files are kept in memory and never leave the machine.
+Inbox contents are kept in the review server's memory, not a database. Local mode processes
+files on your computer; public mode uploads them to the server and sends results and page
+images back to your browser. No external processing service is used.
+
+## Public mode
+
+Run `uv run receipt-workbench serve --public`, or set `RW_PUBLIC=1`, for stricter
+defaults, separate visitor inboxes, and security headers. This does not change the bind
+address or deploy anything. Use HTTPS when exposing the server and test invoices only.
+All settings come from environment variables; byte limits are integers, not unit strings.
+
+| Variable | Local default | Public default |
+|---|---|---|
+| `RW_PUBLIC` | `false` | `true` with `--public` |
+| `RW_MAX_FILE_BYTES` | 15728640 (15 MiB) | 5242880 (5 MiB) |
+| `RW_MAX_FILES` | 25 per upload | 5 per upload |
+| `RW_MAX_ITEMS` | 200 per visitor | 20 per visitor |
+| `RW_MAX_REQUEST_BYTES` | 394264576 (376 MiB) | 20971520 (20 MiB) |
+| `RW_MAX_VISITORS` | 1000 | 100 |
+| `RW_MAX_MEMORY_BYTES` | 1073741824 (1 GiB) | 134217728 (128 MiB) |
+| `RW_IDLE_SECONDS` | 0 (off) | 1800 (30 minutes) |
+| `RW_VISITOR_RATE` | 0 (off) | 10 checks per window |
+| `RW_IP_RATE` | 0 (off) | 30 checks per window |
+| `RW_RATE_WINDOW_SECONDS` | 60 | 60 |
+| `RW_MAX_CONCURRENT_CHECKS` | 1 | 1 |
+| `RW_TRUST_PROXY` | `false` | `false` |
+
+Both checking endpoints share the rate window. Excess uploads return 413, full inboxes
+and rate limits return 429, and unavailable check slots or memory return 503. Checks are
+not queued; temporary refusals include `Retry-After`. The oldest idle visitor is evicted
+first when visitor or memory capacity is needed; idle expiry is enforced on the next
+inbox request. Clearing an inbox affects only its visitor. Nothing survives a restart.
+
+The existing intake ceiling is 15 MiB per file, with 5 MiB XML and DOCTYPE/entity/network
+protections; the configurable file limit cannot exceed it. Text comparison already stops
+at 30 PDF pages, and the review screen can render only those pages. These bounds are
+unchanged. The content policy permits same-origin requests and images, the exact inline
+script, and inline styles needed by the page and its vendored animation module.
+
+Use one server process: inboxes and limits are not shared across workers. The memory
+budget covers retained PDFs, results, page images, review events, and limiter state, not
+temporary multipart files, parsing allocations, or native-library memory. Deployment still
+needs process resource limits and HTTPS. Only enable `RW_TRUST_PROXY` behind a single
+trusted proxy that cannot be bypassed: it trusts the last `X-Forwarded-For` address (the one
+that proxy appends) and `X-Forwarded-Proto` for Secure cookies. Without it, forwarded
+headers are ignored. Cookies are HttpOnly and SameSite=Lax, and Secure over HTTPS.
 
 ## What the comparison does
 
@@ -106,7 +151,7 @@ It does show the check finds differences nobody planted for it.
   Older ZUGFeRD 2.0 samples often fail these newer rules; that has not been analysed.
 - Allowances and charges are not compared line by line. A page that prints a wrong total
   which happens to equal another amount of the same invoice is not flagged.
-- Not built yet from stage 1: the AWS deployment, batch upload limits for public use, the
+- Not built yet from stage 1: the AWS deployment and the
   comparison against other tools.
 
 ## Layout

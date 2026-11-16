@@ -90,6 +90,7 @@ def main(argv: list[str] | None = None) -> int:
     s = sub.add_parser("serve", help="run the review UI locally")
     s.add_argument("--port", type=int, default=8321)
     s.add_argument("--host", default="127.0.0.1")
+    s.add_argument("--public", action="store_true", default=None, help="use public demo limits and security headers")
     s.set_defaults(fn=lambda a: __import__("receipt_workbench.review.server", fromlist=["x"]).cmd_serve(a))
 
     args = ap.parse_args(argv)

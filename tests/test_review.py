@@ -1,13 +1,17 @@
 """Local review screen and API integration tests."""
 
+import pytest
 from fastapi.testclient import TestClient
 
+from receipt_workbench.review.limits import Settings
 
-def test_server_flow():
-    from receipt_workbench.review.server import ITEMS, app
 
-    ITEMS.clear()
-    c = TestClient(app)
+@pytest.mark.parametrize("public", [False, True])
+def test_server_flow(public):
+    from receipt_workbench.review.server import create_app
+
+    application = create_app(Settings.from_env(public=public))
+    c = TestClient(application)
     assert c.get("/").status_code == 200
     assert "XRechnung rules (KoSIT)" in c.get("/").text
     assert "XRechnung-Regeln (KoSIT)" in c.get("/").text
@@ -33,3 +37,17 @@ def test_server_flow():
     assert bundle["result"]["validation"][2]["outcome"] == "not_run"
     up = c.post("/api/check", files=[("files", ("n.txt", b"x", "text/plain"))]).json()
     assert up[0]["status"] == "unsupported"
+    other = TestClient(application)
+    assert other.get("/api/items").json() == []
+    for suffix in ("", "/page/1.png", "/evidence"):
+        response = other.get(f"/api/items/{item}{suffix}")
+        assert response.status_code == 404
+        assert response.json() == {"detail": "Unknown item"}
+    response = other.post(f"/api/items/{item}/review", json={"decision": "reviewed"})
+    assert response.status_code == 404 and response.json() == {"detail": "Unknown item"}
+    assert other.post("/api/samples").status_code == 200
+    assert {entry["id"] for entry in other.get("/api/items").json()}.isdisjoint(
+        entry["id"] for entry in c.get("/api/items").json())
+    assert other.delete("/api/items").status_code == 200
+    assert len(c.get("/api/items").json()) == 7
+    assert c.get(f"/api/items/{item}").status_code == 200

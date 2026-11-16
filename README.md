@@ -266,7 +266,7 @@ is inconclusive instead of a pass.
   Older ZUGFeRD 2.0 samples often fail these newer rules; that has not been analysed.
 - Allowances and charges are not compared line by line. A page that prints a wrong total
   which happens to equal another amount of the same invoice is not flagged.
-- Not built yet from stage 1: the AWS deployment.
+- Single-VPS public demo packaging: [deploy/README.md](deploy/README.md); deployment is not automated.
 
 ## Layout
 

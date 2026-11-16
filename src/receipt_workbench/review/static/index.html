@@ -108,6 +108,7 @@ table.ft { width: 100%; table-layout: fixed; border-collapse: collapse; font-siz
   <input type="file" id="file" multiple accept=".pdf,.xml,application/pdf,text/xml" hidden>
 </header>
 <main>
+  <p id="api-error" class="rule" role="alert" hidden><span class="dot r"></span> <span id="api-error-message"></span></p>
   <section id="empty">
     <h2 data-t="emptyTitle"></h2>
     <p data-t="emptyBody"></p>
@@ -367,7 +368,31 @@ function clarifyText() {
   return L.msg(s.invoice_number || s.file, fs.find((f) => f.key === "issue_date")?.xml_value, lines.map((x) => "- " + x).join("\n"));
 }
 
-async function api(path, opts) { const r = await fetch(path, opts); if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.statusText); return r.json() }
+function showApiError(message) {
+  $("#api-error").hidden = false;
+  $("#api-error-message").textContent = lang === "de" ? ({
+    "Request is too large. Please upload fewer or smaller files.": "Die Anfrage ist zu groß. Bitte weniger oder kleinere Dateien hochladen.",
+    "Too many files or form fields in this upload.": "Zu viele Dateien oder Formularfelder. Bitte weniger Dateien hochladen.",
+    "File is too large. Please choose a smaller file.": "Die Datei ist zu groß. Bitte eine kleinere Datei auswählen.",
+    "Inbox is full. Clear it first.": "Der Posteingang ist voll. Bitte zuerst leeren.",
+    "Inbox is too small for the six sample invoices.": "Der Posteingang ist zu klein für die sechs Beispielrechnungen.",
+    "Too many checks. Please try again later.": "Zu viele Prüfungen. Bitte später erneut versuchen.",
+    "Server memory is full. Please try again shortly.": "Der Serverspeicher ist voll. Bitte in Kürze erneut versuchen.",
+    "Server is busy. Please try again shortly.": "Der Server ist ausgelastet. Bitte in Kürze erneut versuchen.",
+    "All check slots are busy. Please try again shortly.": "Alle Prüfplätze sind belegt. Bitte in Kürze erneut versuchen."
+  }[message] || "Die Anfrage ist fehlgeschlagen. Bitte erneut versuchen.") : message;
+}
+async function api(path, opts) {
+  $("#api-error").hidden = true;
+  try {
+    const response = await fetch(path, opts);
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({}));
+      throw new Error(typeof body.detail === "string" ? body.detail : response.statusText);
+    }
+    return await response.json();
+  } catch (error) { showApiError(error.message); throw error }
+}
 async function refresh(selectId) {
   items = await api("/api/items");
   const id = selectId || (items.find(open_) || {}).id;

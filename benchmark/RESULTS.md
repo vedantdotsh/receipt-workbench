@@ -28,6 +28,23 @@ Test set: 444 files from 8 base invoices x 4 layouts (32 clean, 412 with one pla
 | C | 103 | 103 | 0 | 0 | 0 |
 | D | 103 | 72 | 0 | 31 | 0 |
 
+## Identifier safety rerun (17 November 2026)
+
+Regenerated all 444 invoices with deliberately checksum-invalid German VAT IDs
+(ISO 7064 MOD 11,10) and domestic tax numbers with an impossible all-zero
+tax-office prefix. The checker and its schema/Schematron rules do not validate
+German VAT check digits. All per-file scores and validation outcomes in
+`results.json` are identical to the previous run; the regenerated JSON is unchanged.
+
+```sh
+uv run receipt-workbench make-testset --out testset
+uv run receipt-workbench bench --dir testset --out benchmark/results.json
+```
+
+The third-party results below remain the historical 16 November run, before the
+identifier replacements. Mustangproject and veraPDF were not rerun on the new
+files; their recorded results do not certify these regenerated files.
+
 ## Third-party validity checks (16 November 2026)
 
 The same 444 files were run through Mustangproject's hybrid-invoice validator and veraPDF's

@@ -1,8 +1,9 @@
 """Seeded mismatch test set: hybrid invoices whose page and data are built from two
 separately controlled copies of the same invoice, so one side can be changed on purpose.
 
-All parties, bank accounts and tax numbers are invented. Each file gets a label saying
-what was changed, on which side, and which fields a checker should report.
+Parties are fictional; tax identifiers are deliberately invalid. Bank details are
+example data, not payment instructions. Each file gets a label saying what was
+changed, on which side, and which fields a checker should report.
 
 Known weakness, stated up front: the generator and the checker have the same author, so
 agreement on these files is weaker evidence than results on third-party invoices. Layout
@@ -34,6 +35,8 @@ def q2(x: Decimal) -> Decimal:
     return x.quantize(CENT, rounding=ROUND_HALF_UP)
 
 
+# All VAT IDs (including ALT_VAT) deliberately fail ISO 7064 MOD 11,10.
+# Domestic tax numbers use an impossible all-zero tax-office prefix.
 SELLERS = [
     dict(name="Nordlicht Bürotechnik GmbH", street="Hafenstraße 14", zip="20457", city="Hamburg", country="DE",
          vat_id="DE811907981", tax_number="00/000/00001", iban="DE89370400440532013000", bic="COBADEFFXXX", bank="Commerzbank"),
@@ -568,7 +571,8 @@ def generate(out_dir: Path) -> dict:
                                   sha256=hashlib.sha256(data).hexdigest()))
     manifest = dict(
         name="receipt-workbench seeded PDF/XML mismatch set", version=1,
-        note="Synthetic. All parties, bank accounts and tax numbers are invented. "
+        note="Synthetic. Parties are fictional; tax identifiers are deliberately invalid. "
+             "Bank details are example data, not payment instructions. "
              "side=xml means the embedded data was changed and the page shows the original; side=pdf the reverse.",
         bases=len(BASES), layouts=list(LAYOUTS), cases=cases,
     )

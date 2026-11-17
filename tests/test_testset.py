@@ -2,12 +2,25 @@
 
 import io
 import json
+import re
 
 import pytest
 from pypdf import PdfReader
 
 from receipt_workbench.pipeline.check import check_file
 from receipt_workbench.testset import synth
+
+
+def test_synthetic_vat_ids_cannot_be_issued():
+    ids = [p["vat_id"] for p in synth.SELLERS + synth.BUYERS if p["vat_id"]] + synth.ALT_VAT
+    for vat_id in ids:
+        assert re.fullmatch(r"DE[0-9]{9}", vat_id)
+        # German USt-IdNr: ISO 7064 MOD 11,10 over the first eight digits.
+        product = 10
+        for digit in vat_id[2:-1]:
+            product = (((int(digit) + product) % 10 or 10) * 2) % 11
+        check_digit = (11 - product) % 10
+        assert int(vat_id[-1]) != check_digit, vat_id
 
 
 def test_data_side_change_keeps_xml_valid_but_is_found(hybrid):

@@ -9,3 +9,9 @@ benchmark/reports/
 data/external/
 /testset/
 *.evidence.json
+.env
+.env.*
+!.env.example
+.claude/
+CLAUDE.md
+AGENTS.md

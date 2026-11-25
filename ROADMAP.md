@@ -1,6 +1,6 @@
 # Roadmap
 
-Receipt Workbench is under active development. This page says what is released,
+Receipt Workbench is under active development. This page says what is released
 and what is still missing. Order and scope can change.
 
 Last updated: 25 November 2026.
@@ -12,8 +12,7 @@ Hosted app: <https://receipt-workbench.madebyved.com> (sign-in required)
 - **This repository** holds the checking engine, the CLI and a local review
   screen for one user. It keeps its state in memory.
 - **The hosted app** is the team version built on the same engine. It adds
-  accounts, workspaces and stored invoices. Its code is not part of this
-  repository, so the team features below cannot be run from here.
+  accounts, workspaces and stored invoices.
 
 ## Released in this repository
 

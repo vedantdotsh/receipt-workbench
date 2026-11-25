@@ -5,7 +5,12 @@ Valid XML can still disagree with the page.
 Receipt Workbench is a Python web app and CLI that validates the XML and compares
 it with the PDF text layer, reporting differences, uncertainty and field coverage.
 
-Live demo: <https://receipt-workbench.madebyved.com>
+Hosted app: <https://receipt-workbench.madebyved.com> (sign-in required)
+
+The hosted app is the team version: accounts, workspaces with roles, stored
+invoices, team rules and an optional assistant, in English and German. This
+repository holds the checking engine, the CLI and a local review screen for one
+user. See the [roadmap](ROADMAP.md) for what is live where.
 
 ## What it checks
 
@@ -65,7 +70,8 @@ See [CLI usage and test-set commands](docs/details.md#quick-start).
 - No OCR: scans are not compared, and extracted text can differ from page content.
 - Agreement is not proof of authenticity or payment approval.
 - CII only; UBL needs a separate parser.
-- In-memory state in one server process; inboxes disappear on restart.
+- The local server in this repository keeps its state in memory in one
+  process; inboxes disappear on restart. The hosted app stores invoices.
 
 See [full limits, project layout and deployment](docs/details.md#limits-and-non-goals)
 and [plug-ins and environment variables](docs/extending.md).

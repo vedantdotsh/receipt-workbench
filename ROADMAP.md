@@ -1,12 +1,21 @@
 # Roadmap
 
 Receipt Workbench is under active development. This page says what is released,
-what is being built and what is planned. It is a plan, not a promise: order and
-scope can change.
+and what is still missing. Order and scope can change.
 
-Live demo: <https://receipt-workbench.madebyved.com>
+Last updated: 25 November 2026.
 
-## Released (public demo)
+Hosted app: <https://receipt-workbench.madebyved.com> (sign-in required)
+
+## Two parts
+
+- **This repository** holds the checking engine, the CLI and a local review
+  screen for one user. It keeps its state in memory.
+- **The hosted app** is the team version built on the same engine. It adds
+  accounts, workspaces and stored invoices. Its code is not part of this
+  repository, so the team features below cannot be run from here.
+
+## Released in this repository
 
 - Checking engine for hybrid e-invoices (ZUGFeRD 2.x, Factur-X, XRechnung in
   CII syntax): XSD and Schematron validation, and comparison of the embedded
@@ -21,28 +30,30 @@ Stack: Python 3.13, FastAPI, Uvicorn, lxml, Saxon (saxonche) for Schematron,
 factur-x, pdfplumber, pypdf, pypdfium2, ReportLab, pytest, Ruff, uv, Docker,
 Caddy.
 
-## In progress (team foundation)
+## Released in the hosted app
 
-The demo keeps everything in memory for one anonymous visitor. The next step is
-a version a small team can use together.
+These were listed as in progress or planned in the first version of this page.
+They are now live.
 
-- Database layer with SQLAlchemy 2, Alembic migrations and SQLite in WAL mode.
-- Workspaces, memberships with Admin, Member and Viewer roles, and invites.
-- Request security for a hosted mode: signed sessions, CSRF and Origin checks,
-  body limits and authentication required by default on every API route.
-- New front end in React, TypeScript and Vite with React Router, tested with
-  Vitest and Testing Library.
+- **Accounts.** Google sign-in and one-time email links.
+- **Workspaces.** Admin, Member and Viewer roles, with invites.
+- **Stored invoices.** Invoices and check results are kept per workspace and
+  survive a restart. Each checked field is highlighted on the invoice page.
+- **Workspace overview.** One screen for the invoices that still need
+  attention, grouped by kind of problem.
+- **Team rules.** A team writes its own checking rules in a shared draft. A
+  preview shows which invoices the draft would flag. An Admin publishes it as a
+  numbered version, and an earlier version can be restored.
+- **Storage limits.** Each account has a storage limit across its workspaces,
+  with a usage screen and a warning before the limit is reached.
+- **Assistant.** Optional. Finds invoices or proposes a rule change from a
+  question in plain words, using Mistral to interpret the question. It is off
+  until a workspace Admin turns it on, each user has a daily allowance, and a
+  rule change is only applied after the user confirms it.
+- **Languages.** English and German interface.
 
-## Planned
-
-- **Accounts.** Google sign-in and one-time email links (Resend).
-- **Stored invoices.** Invoices and check results kept per workspace instead of
-  in memory, so they survive a restart.
-- **Storage limits.** Per-workspace and per-instance quotas with a notification
-  before the limit is reached.
-- **Team rules.** Checking rules a team can set for its own workspace.
-- **Assistant.** Optional help with reading a result, through OpenRouter. Off
-  by default for every workspace, with a monthly spend cap.
+Additional stack in the hosted app: SQLAlchemy 2, Alembic, SQLite, React,
+TypeScript, Vite, React Router, Vitest, Resend for sign-in email.
 
 ## Known gaps, not scheduled yet
 
